@@ -1,12 +1,37 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import SocialProof from "@/components/SocialProof";
+import ProblemSection from "@/components/ProblemSection";
+import VelaraProtocol from "@/components/VelaraProtocol";
+import HealthCalculator from "@/components/HealthCalculator";
+import ServicesGrid from "@/components/ServicesGrid";
+import Testimonials from "@/components/Testimonials";
+import ShopPreview from "@/components/ShopPreview";
+import MeetTeam from "@/components/MeetTeam";
+import BlogPreview from "@/components/BlogPreview";
+import AssessmentCTA from "@/components/AssessmentCTA";
+import FAQ from "@/components/FAQ";
+import DreamLifeClose from "@/components/DreamLifeClose";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <Hero />
+      <SocialProof />
+      <ProblemSection />
+      <VelaraProtocol />
+      <HealthCalculator />
+      <ServicesGrid />
+      <Testimonials />
+      <ShopPreview />
+      <MeetTeam />
+      <BlogPreview />
+      <AssessmentCTA />
+      <FAQ />
+      <DreamLifeClose />
+      <Footer />
     </div>
   );
 };
