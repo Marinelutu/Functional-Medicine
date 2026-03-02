@@ -1,9 +1,9 @@
 import ImagePlaceholder from "./ImagePlaceholder";
 
 const teamMembers = [
-  { name: "Dr. Elena Vasquez", role: "Lead Practitioner" },
-  { name: "Dr. Marcus Chen", role: "Hormones & Longevity" },
-  { name: "Dr. Amara Okafor", role: "Gut Health Specialist" },
+  { name: "Dr. Elena Vasquez", role: "Lead Practitioner", image: "/images/team_dr_elena_1772491726653.png" },
+  { name: "Dr. Marcus Chen", role: "Hormones & Longevity", image: "/images/team_dr_marcus_1772491740108.png" },
+  { name: "Dr. Amara Okafor", role: "Gut Health Specialist", image: "/images/team_dr_amara_1772491753632.png" },
 ];
 
 const MeetTeam = () => {
@@ -15,6 +15,7 @@ const MeetTeam = () => {
             label="[IMAGE: Team — Lead practitioner portrait, warm editorial]"
             aspectRatio="portrait"
             className="w-full max-w-md mx-auto lg:mx-0 rounded-2xl"
+            src="/images/about_hero_1772491814312.png"
           />
           <div className="space-y-6">
             <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent">Meet Your Team</p>
@@ -53,6 +54,7 @@ const MeetTeam = () => {
                 label={`[IMAGE: Team member photo — ${m.name}]`}
                 aspectRatio="portrait"
                 className="w-full max-w-[280px] mx-auto rounded-2xl mb-4"
+                src={m.image}
               />
               <h3 className="font-display text-lg font-semibold text-foreground">{m.name}</h3>
               <p className="text-sm text-muted-foreground font-mono">{m.role}</p>

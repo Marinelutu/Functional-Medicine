@@ -1,9 +1,9 @@
 import ImagePlaceholder from "./ImagePlaceholder";
 
 const posts = [
-  { title: "The Hidden Connection Between Gut Health and Anxiety", category: "Gut Health", excerpt: "New research reveals how your microbiome directly influences your mental health — and what to do about it.", readTime: "6 min" },
-  { title: "Why Your Thyroid Labs Are 'Normal' But You Still Feel Terrible", category: "Hormones", excerpt: "Conventional ranges miss up to 60% of thyroid dysfunction. Here's what functional medicine looks for instead.", readTime: "8 min" },
-  { title: "5 Biomarkers Your Doctor Isn't Testing (But Should Be)", category: "Longevity", excerpt: "These overlooked markers could be the key to understanding your fatigue, weight gain, and brain fog.", readTime: "5 min" },
+  { title: "The Hidden Connection Between Gut Health and Anxiety", category: "Gut Health", excerpt: "New research reveals how your microbiome directly influences your mental health — and what to do about it.", readTime: "6 min", image: "/images/blog_cover_03_1772491935444.png" },
+  { title: "Why Your Thyroid Labs Are 'Normal' But You Still Feel Terrible", category: "Hormones", excerpt: "Conventional ranges miss up to 60% of thyroid dysfunction. Here's what functional medicine looks for instead.", readTime: "8 min", image: "/images/blog_cover_01_1772491909451.png" },
+  { title: "5 Biomarkers Your Doctor Isn't Testing (But Should Be)", category: "Longevity", excerpt: "These overlooked markers could be the key to understanding your fatigue, weight gain, and brain fog.", readTime: "5 min", image: "/images/blog_cover_04_1772491948035.png" },
 ];
 
 const BlogPreview = () => {
@@ -29,6 +29,7 @@ const BlogPreview = () => {
               label="[IMAGE: Blog — Article cover photo]"
               aspectRatio="landscape"
               className="w-full rounded-2xl mb-4 group-hover:shadow-lg transition-shadow"
+              src={posts[0].image}
             />
             <span className="inline-block font-mono text-xs tracking-wider uppercase text-accent mb-2">
               {posts[0].category}
@@ -48,6 +49,7 @@ const BlogPreview = () => {
                   label="[IMAGE: Blog — Article cover]"
                   aspectRatio="square"
                   className="w-32 h-32 flex-shrink-0 rounded-xl text-[10px]"
+                  src={p.image}
                 />
                 <div className="space-y-2">
                   <span className="font-mono text-xs tracking-wider uppercase text-accent">{p.category}</span>

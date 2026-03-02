@@ -49,11 +49,10 @@ const Hero = () => {
                   <button
                     key={g.label}
                     onClick={() => toggleGoal(g.label)}
-                    className={`flex items-center gap-2 px-4 py-3 rounded-lg border text-sm font-medium transition-all ${
-                      selectedGoals.includes(g.label)
+                    className={`flex items-center gap-2 px-4 py-3 rounded-lg border text-sm font-medium transition-all ${selectedGoals.includes(g.label)
                         ? "bg-primary text-primary-foreground border-primary"
                         : "bg-card border-border hover:border-primary/40"
-                    }`}
+                      }`}
                   >
                     <span>{g.emoji}</span>
                     <span>{g.label}</span>
@@ -106,6 +105,7 @@ const Hero = () => {
               label="[IMAGE: Hero — Real person, relatable, everyday]"
               aspectRatio="hero"
               className="w-full rounded-2xl"
+              src="/images/hero_image_1772491701279.png"
             />
           </div>
         </div>

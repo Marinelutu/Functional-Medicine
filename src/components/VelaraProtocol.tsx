@@ -6,24 +6,28 @@ const steps = [
     title: "Assess",
     description:
       "Complete our comprehensive health assessment and advanced lab panel — going far beyond standard blood work to uncover root causes.",
+    image: "/images/protocol_step_01_assess_1772491828260.png"
   },
   {
     number: "02",
     title: "Diagnose",
     description:
       "Our clinical team analyzes 80+ biomarkers using functional ranges, not just conventional ones, to identify what's actually driving your symptoms.",
+    image: "/images/protocol_step_02_diagnose_1772491844275.png"
   },
   {
     number: "03",
     title: "Protocol",
     description:
       "Receive your personalized Velara Protocol™ — a tailored plan combining targeted supplements, nutrition, and lifestyle shifts.",
+    image: "/images/protocol_step_03_protocol_1772491856872.png"
   },
   {
     number: "04",
     title: "Transform",
     description:
       "Experience measurable change within 90 days with ongoing practitioner support, progress tracking, and protocol adjustments.",
+    image: "/images/protocol_step_04_transform_1772491876304.png"
   },
 ];
 
@@ -45,11 +49,12 @@ const VelaraProtocol = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, i) => (
-            <div key={step.number} className="text-center space-y-4">
+            <div key={step.number} className="text-center space-y-4 relative">
               <ImagePlaceholder
                 label={`[ICON: ${step.title}]`}
                 aspectRatio="icon"
                 className="mx-auto text-[10px]"
+                src={step.image}
               />
               <span className="font-mono text-xs tracking-wider text-accent">{step.number}</span>
               <h3 className="text-2xl font-display font-semibold text-foreground">{step.title}</h3>

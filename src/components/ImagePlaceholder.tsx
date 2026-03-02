@@ -1,9 +1,11 @@
+import React from "react";
 import { cn } from "@/lib/utils";
 
 interface ImagePlaceholderProps {
   label: string;
   className?: string;
   aspectRatio?: "hero" | "square" | "portrait" | "landscape" | "wide" | "icon";
+  src?: string;
 }
 
 const aspectClasses = {
@@ -15,7 +17,20 @@ const aspectClasses = {
   icon: "w-20 h-20",
 };
 
-const ImagePlaceholder = ({ label, className, aspectRatio = "landscape" }: ImagePlaceholderProps) => {
+const ImagePlaceholder = ({ label, className, aspectRatio = "landscape", src }: ImagePlaceholderProps) => {
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={label}
+        className={cn(
+          "object-cover block w-full h-full",
+          aspectClasses[aspectRatio],
+          className
+        )}
+      />
+    );
+  }
   return (
     <div
       className={cn(
