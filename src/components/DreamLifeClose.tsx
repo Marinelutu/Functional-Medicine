@@ -10,7 +10,7 @@ const DreamLifeClose = () => {
           aspectRatio="hero"
           className="w-full h-full rounded-none"
         />
-        <div className="absolute inset-0 bg-foreground/70" />
+        <div className="absolute inset-0 bg-foreground/95" />
       </div>
 
       <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
