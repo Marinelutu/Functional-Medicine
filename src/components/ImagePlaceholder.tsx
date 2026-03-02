@@ -12,7 +12,7 @@ const aspectClasses = {
   portrait: "aspect-[3/4]",
   landscape: "aspect-[16/9]",
   wide: "aspect-[21/9]",
-  icon: "w-16 h-16",
+  icon: "w-20 h-20",
 };
 
 const ImagePlaceholder = ({ label, className, aspectRatio = "landscape" }: ImagePlaceholderProps) => {

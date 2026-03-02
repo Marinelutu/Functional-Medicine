@@ -47,9 +47,9 @@ const VelaraProtocol = () => {
           {steps.map((step, i) => (
             <div key={step.number} className="text-center space-y-4">
               <ImagePlaceholder
-                label={`[IMAGE: Protocol Step icon — ${step.title}]`}
+                label={`[ICON: ${step.title}]`}
                 aspectRatio="icon"
-                className="mx-auto"
+                className="mx-auto text-[10px]"
               />
               <span className="font-mono text-xs tracking-wider text-accent">{step.number}</span>
               <h3 className="text-2xl font-display font-semibold text-foreground">{step.title}</h3>
