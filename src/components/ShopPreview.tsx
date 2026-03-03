@@ -1,4 +1,5 @@
 import ImagePlaceholder from "./ImagePlaceholder";
+import AddToCartButton from "./AddToCartButton";
 
 const products = [
   { name: "Neuro-Clarity Complex", benefit: "Sharpen focus & mental stamina", price: "$64", image: "/images/product_individual_01_1772542326626.png" },
@@ -38,9 +39,11 @@ const ShopPreview = () => {
               <p className="text-sm text-muted-foreground mt-1 mb-3">{p.benefit}</p>
               <div className="flex items-center justify-between">
                 <span className="font-mono text-sm font-semibold text-foreground">{p.price}</span>
-                <button className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity">
-                  Add to Cart
-                </button>
+                <AddToCartButton
+                  productName={p.name}
+                  productPrice={p.price}
+                  productBenefit={p.benefit}
+                />
               </div>
             </div>
           ))}

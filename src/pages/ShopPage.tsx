@@ -2,7 +2,7 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
-import { useCart } from "@/contexts/CartContext";
+import AddToCartButton from "@/components/AddToCartButton";
 
 const categories = ["All", "Energy", "Hormones", "Gut", "Clarity", "Longevity", "Bundles"];
 
@@ -34,7 +34,6 @@ const parsePrice = (p: string) => parseFloat(p.replace("$", ""));
 const ShopPage = () => {
   const [filter, setFilter] = useState("All");
   const [sort, setSort] = useState<SortOption>("bestselling");
-  const { addToCart } = useCart();
 
   let filtered = filter === "All" || filter === "Bundles" ? products : products.filter((p) => p.category === filter);
 
@@ -97,12 +96,11 @@ const ShopPage = () => {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-sm font-semibold text-foreground">{p.price}</span>
-                    <button
-                      onClick={() => addToCart(p.name, p.price)}
-                      className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
-                    >
-                      Add to Cart
-                    </button>
+                    <AddToCartButton
+                      productName={p.name}
+                      productPrice={p.price}
+                      productBenefit={p.benefit}
+                    />
                   </div>
                 </div>
               ))}
@@ -130,12 +128,12 @@ const ShopPage = () => {
                         <span className="font-mono text-sm font-semibold text-foreground">{b.price}</span>
                         <span className="text-xs text-accent ml-2 font-semibold">Save {b.savings}</span>
                       </div>
-                      <button
-                        onClick={() => addToCart(b.name, b.price)}
-                        className="px-4 py-2 rounded-full bg-accent text-accent-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
-                      >
-                        Add Bundle
-                      </button>
+                      <AddToCartButton
+                        productName={b.name}
+                        productPrice={b.price}
+                        productBenefit={b.items}
+                        variant="bundle"
+                      />
                     </div>
                   </div>
                 ))}

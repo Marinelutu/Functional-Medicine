@@ -2,15 +2,20 @@ const logos = ["Healthline", "Forbes", "Mindbodygreen", "Well+Good", "Vogue", "E
 
 const SocialProof = () => {
   return (
-    <section className="py-12 border-y border-border/50">
+    <section className="py-14 border-y border-border/50 overflow-hidden">
       <div className="container mx-auto px-6">
-        {/* Logos */}
-        <div className="flex items-center justify-center gap-8 lg:gap-14 flex-wrap mb-8 opacity-40">
-          {logos.map((name) => (
-            <span key={name} className="font-display text-lg lg:text-xl italic text-foreground tracking-wide">
-              {name}
-            </span>
-          ))}
+        {/* Marquee partner logos */}
+        <div className="relative mb-10">
+          <div className="flex animate-marquee-left whitespace-nowrap">
+            {[...logos, ...logos, ...logos, ...logos].map((name, i) => (
+              <span
+                key={i}
+                className="font-display text-xl lg:text-2xl italic text-foreground tracking-wide mx-8 lg:mx-14 opacity-40 flex-shrink-0"
+              >
+                {name}
+              </span>
+            ))}
+          </div>
         </div>
         {/* Stats */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-12">

@@ -1,12 +1,16 @@
+import { useState } from "react";
 import ImagePlaceholder from "./ImagePlaceholder";
-
-const posts = [
-  { title: "The Hidden Connection Between Gut Health and Anxiety", category: "Gut Health", excerpt: "New research reveals how your microbiome directly influences your mental health — and what to do about it.", readTime: "6 min", image: "/images/blog_cover_03_1772491935444.png" },
-  { title: "Why Your Thyroid Labs Are 'Normal' But You Still Feel Terrible", category: "Hormones", excerpt: "Conventional ranges miss up to 60% of thyroid dysfunction. Here's what functional medicine looks for instead.", readTime: "8 min", image: "/images/blog_cover_01_1772491909451.png" },
-  { title: "5 Biomarkers Your Doctor Isn't Testing (But Should Be)", category: "Longevity", excerpt: "These overlooked markers could be the key to understanding your fatigue, weight gain, and brain fog.", readTime: "5 min", image: "/images/blog_cover_04_1772491948035.png" },
-];
+import BlogModal from "./BlogModal";
+import { homepageArticles } from "@/data/blogArticles";
+import type { BlogArticle } from "@/data/blogArticles";
 
 const BlogPreview = () => {
+  const [activeArticle, setActiveArticle] = useState<BlogArticle | null>(null);
+
+  const openArticle = (article: BlogArticle) => {
+    setActiveArticle(article);
+  };
+
   return (
     <section className="py-24 lg:py-32">
       <div className="container mx-auto px-6">
@@ -24,33 +28,50 @@ const BlogPreview = () => {
 
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Featured */}
-          <div className="group">
-            <ImagePlaceholder
-              label="[IMAGE: Blog — Article cover photo]"
-              aspectRatio="landscape"
-              className="w-full rounded-2xl mb-4 group-hover:shadow-lg transition-shadow"
-              src={posts[0].image}
-            />
+          <div
+            className="blog-card-clickable group"
+            onClick={() => openArticle(homepageArticles[0])}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === "Enter" && openArticle(homepageArticles[0])}
+          >
+            <div className="blog-card-image-wrapper">
+              <ImagePlaceholder
+                label="Blog cover"
+                aspectRatio="landscape"
+                className="w-full rounded-2xl mb-4 blog-card-image"
+                src={homepageArticles[0].image}
+              />
+            </div>
             <span className="inline-block font-mono text-xs tracking-wider uppercase text-accent mb-2">
-              {posts[0].category}
+              {homepageArticles[0].category}
             </span>
             <h3 className="font-display text-2xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-              {posts[0].title}
+              {homepageArticles[0].title}
             </h3>
-            <p className="text-sm text-muted-foreground mb-2">{posts[0].excerpt}</p>
-            <span className="font-mono text-xs text-muted-foreground">{posts[0].readTime} read</span>
+            <p className="text-sm text-muted-foreground mb-2">{homepageArticles[0].excerpt}</p>
+            <span className="font-mono text-xs text-muted-foreground">{homepageArticles[0].readTime} read</span>
           </div>
 
           {/* Secondary */}
           <div className="space-y-6">
-            {posts.slice(1).map((p) => (
-              <div key={p.title} className="flex gap-4 group">
-                <ImagePlaceholder
-                  label="[IMAGE: Blog — Article cover]"
-                  aspectRatio="square"
-                  className="w-32 h-32 flex-shrink-0 rounded-xl text-[10px]"
-                  src={p.image}
-                />
+            {homepageArticles.slice(1).map((p) => (
+              <div
+                key={p.title}
+                className="flex gap-4 blog-card-clickable group"
+                onClick={() => openArticle(p)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === "Enter" && openArticle(p)}
+              >
+                <div className="blog-card-image-wrapper w-32 h-32 flex-shrink-0 rounded-xl overflow-hidden">
+                  <ImagePlaceholder
+                    label="Blog cover"
+                    aspectRatio="square"
+                    className="w-32 h-32 flex-shrink-0 rounded-xl text-[10px] blog-card-image"
+                    src={p.image}
+                  />
+                </div>
                 <div className="space-y-2">
                   <span className="font-mono text-xs tracking-wider uppercase text-accent">{p.category}</span>
                   <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
@@ -64,6 +85,8 @@ const BlogPreview = () => {
           </div>
         </div>
       </div>
+
+      <BlogModal article={activeArticle} onClose={() => setActiveArticle(null)} />
     </section>
   );
 };

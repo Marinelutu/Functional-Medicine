@@ -31,7 +31,7 @@ const Hero = () => {
               </p>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold leading-[1.1] text-foreground">
                 You've tried everything.{" "}
-                <span className="italic text-primary">You still don't feel like yourself.</span>
+                <span className="italic text-primary">You still don't feel like yourself?</span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg">
                 VELARA combines advanced diagnostics with personalized protocols to help you reclaim
@@ -50,8 +50,8 @@ const Hero = () => {
                     key={g.label}
                     onClick={() => toggleGoal(g.label)}
                     className={`flex items-center gap-2 px-4 py-3 rounded-lg border text-sm font-medium transition-all ${selectedGoals.includes(g.label)
-                        ? "bg-primary text-primary-foreground border-primary"
-                        : "bg-card border-border hover:border-primary/40"
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-card border-border hover:border-primary/40"
                       }`}
                   >
                     <span>{g.emoji}</span>

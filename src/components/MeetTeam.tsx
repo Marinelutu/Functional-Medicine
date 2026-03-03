@@ -17,7 +17,7 @@ const MeetTeam = () => {
             className="w-full max-w-md mx-auto lg:mx-0 rounded-2xl"
             src="/images/about_hero_1772491814312.png"
           />
-          <div className="space-y-6">
+          <div className="meet-team-text-panel space-y-6">
             <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent">Meet Your Team</p>
             <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground">
               We don't just treat symptoms.
@@ -28,6 +28,9 @@ const MeetTeam = () => {
               Our team of board-certified functional medicine practitioners has collectively helped over 4,200 patients
               reclaim their health. We combine cutting-edge diagnostics with deep clinical intuition — because your body
               deserves more than a 15-minute appointment and a prescription.
+            </p>
+            <p className="meet-team-pull-quote">
+              "We spend 90 minutes with every patient. The average doctor spends 7."
             </p>
             <div className="flex gap-6">
               <div>

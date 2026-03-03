@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
-import { useCart } from "@/contexts/CartContext";
+import AddToCartButton from "@/components/AddToCartButton";
 
 const ingredients = [
   { name: "Vitex (Chaste Tree Berry)", amount: "400 mg", purpose: "Supports progesterone production and ovulation regularity" },
@@ -33,11 +33,11 @@ const relatedProducts = [
 ];
 
 const ratingBreakdown = [
-  { stars: 5, count: 142 },
-  { stars: 4, count: 28 },
-  { stars: 3, count: 3 },
-  { stars: 2, count: 0 },
-  { stars: 1, count: 0 },
+  { stars: 5, count: 142, widthClass: "w-[82%]" },
+  { stars: 4, count: 28, widthClass: "w-[16%]" },
+  { stars: 3, count: 3, widthClass: "w-[2%]" },
+  { stars: 2, count: 0, widthClass: "w-0" },
+  { stars: 1, count: 0, widthClass: "w-0" },
 ];
 const totalReviews = ratingBreakdown.reduce((s, r) => s + r.count, 0);
 const avgRating = (ratingBreakdown.reduce((s, r) => s + r.stars * r.count, 0) / totalReviews).toFixed(1);
@@ -47,7 +47,7 @@ const ProductPage = () => {
   const [tab, setTab] = useState<"overview" | "ingredients" | "usage" | "reviews">("overview");
   const [starFilter, setStarFilter] = useState<number | null>(null);
   const [mainImg, setMainImg] = useState(0);
-  const { addToCart } = useCart();
+
 
   const filteredReviews = starFilter ? reviews.filter((r) => r.stars === starFilter) : reviews;
 
@@ -95,16 +95,17 @@ const ProductPage = () => {
               </ul>
               <div className="flex items-center gap-4">
                 <div className="flex items-center border border-border rounded-lg">
-                  <button onClick={() => setQty(Math.max(1, qty - 1))} className="px-3 py-2 text-foreground hover:bg-card">−</button>
+                  <button onClick={() => setQty(Math.max(1, qty - 1))} className="px-3 py-2 text-foreground hover:bg-card" aria-label="Decrease quantity">−</button>
                   <span className="px-4 py-2 font-mono text-sm">{qty}</span>
-                  <button onClick={() => setQty(qty + 1)} className="px-3 py-2 text-foreground hover:bg-card">+</button>
+                  <button onClick={() => setQty(qty + 1)} className="px-3 py-2 text-foreground hover:bg-card" aria-label="Increase quantity">+</button>
                 </div>
-                <button
-                  onClick={() => { for (let i = 0; i < qty; i++) addToCart("Hormone Balance Blend", "$58"); }}
-                  className="flex-1 px-6 py-3 rounded-full bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
-                >
-                  Add to Cart
-                </button>
+                <AddToCartButton
+                  productName="Hormone Balance Blend"
+                  productPrice="$58"
+                  productBenefit="Estrogen, progesterone & thyroid support"
+                  variant="large"
+                  qty={qty}
+                />
               </div>
               <button className="w-full px-6 py-3 rounded-full border-2 border-accent text-accent font-semibold hover:bg-accent hover:text-accent-foreground transition-colors">
                 Add to Protocol
@@ -122,9 +123,8 @@ const ProductPage = () => {
               <button
                 key={t}
                 onClick={() => setTab(t)}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium capitalize whitespace-nowrap transition-all ${
-                  tab === t ? "bg-primary text-primary-foreground" : "bg-card text-foreground hover:bg-border"
-                }`}
+                className={`px-5 py-2.5 rounded-full text-sm font-medium capitalize whitespace-nowrap transition-all ${tab === t ? "bg-primary text-primary-foreground" : "bg-card text-foreground hover:bg-border"
+                  }`}
               >
                 {t}
               </button>
@@ -194,7 +194,7 @@ const ProductPage = () => {
                     <button key={r.stars} onClick={() => setStarFilter(starFilter === r.stars ? null : r.stars)} className="flex items-center gap-3 w-full group">
                       <span className="text-sm text-muted-foreground w-8">{r.stars}★</span>
                       <div className="flex-1 h-2 bg-border rounded-full overflow-hidden">
-                        <div className="h-full bg-accent rounded-full" style={{ width: `${(r.count / totalReviews) * 100}%` }} />
+                        <div className={`h-full bg-accent rounded-full ${r.widthClass}`} />
                       </div>
                       <span className="text-sm text-muted-foreground w-8">{r.count}</span>
                     </button>
@@ -234,12 +234,11 @@ const ProductPage = () => {
                 <p className="text-sm text-muted-foreground mt-1 mb-3">{p.benefit}</p>
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-sm font-semibold text-foreground">{p.price}</span>
-                  <button
-                    onClick={() => addToCart(p.name, p.price)}
-                    className="px-4 py-2 rounded-full bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 transition-opacity"
-                  >
-                    Add to Cart
-                  </button>
+                  <AddToCartButton
+                    productName={p.name}
+                    productPrice={p.price}
+                    productBenefit={p.benefit}
+                  />
                 </div>
               </div>
             ))}
