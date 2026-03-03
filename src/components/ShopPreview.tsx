@@ -4,7 +4,7 @@ const products = [
   { name: "Neuro-Clarity Complex", benefit: "Sharpen focus & mental stamina", price: "$64", image: "/images/product_individual_01_1772542326626.png" },
   { name: "Gut Restore Probiotic", benefit: "Heal your microbiome from the inside out", price: "$52", image: "/images/product_individual_02_1772542342077.png" },
   { name: "Adrenal Support Formula", benefit: "Rebuild resilience to stress naturally", price: "$48", image: "/images/product_individual_03_1772542356241.png" },
-  { name: "Hormone Balance Blend", benefit: "Estrogen, progesterone & thyroid support", price: "$58" },
+  { name: "Hormone Balance Blend", benefit: "Estrogen, progesterone & thyroid support", price: "$58", image: "/images/product_individual_04.png" },
 ];
 
 const ShopPreview = () => {
