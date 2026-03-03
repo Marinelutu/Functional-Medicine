@@ -7,9 +7,9 @@ import { useCart } from "@/contexts/CartContext";
 const categories = ["All", "Energy", "Hormones", "Gut", "Clarity", "Longevity", "Bundles"];
 
 const products = [
-  { name: "Neuro-Clarity Complex", benefit: "Sharpen focus & mental stamina", price: "$64", rating: 4.8, reviews: 142, category: "Clarity" },
-  { name: "Gut Restore Probiotic", benefit: "Heal your microbiome from the inside out", price: "$52", rating: 4.9, reviews: 218, category: "Gut" },
-  { name: "Adrenal Support Formula", benefit: "Rebuild resilience to stress naturally", price: "$48", rating: 4.7, reviews: 96, category: "Energy" },
+  { name: "Neuro-Clarity Complex", benefit: "Sharpen focus & mental stamina", price: "$64", rating: 4.8, reviews: 142, category: "Clarity", image: "/images/product_individual_01_1772542326626.png" },
+  { name: "Gut Restore Probiotic", benefit: "Heal your microbiome from the inside out", price: "$52", rating: 4.9, reviews: 218, category: "Gut", image: "/images/product_individual_02_1772542342077.png" },
+  { name: "Adrenal Support Formula", benefit: "Rebuild resilience to stress naturally", price: "$48", rating: 4.7, reviews: 96, category: "Energy", image: "/images/product_individual_03_1772542356241.png" },
   { name: "Hormone Balance Blend", benefit: "Estrogen, progesterone & thyroid support", price: "$58", rating: 4.8, reviews: 173, category: "Hormones" },
   { name: "Mitochondrial Energy Complex", benefit: "Fuel your cells for all-day energy", price: "$72", rating: 4.9, reviews: 164, category: "Energy" },
   { name: "Thyroid Optimizer", benefit: "Comprehensive thyroid nutrient support", price: "$54", rating: 4.8, reviews: 131, category: "Hormones" },
@@ -22,9 +22,9 @@ const products = [
 ];
 
 const bundles = [
-  { name: "The Energy Protocol Bundle", items: "Mitochondrial Energy + Adrenal Support + Magnesium", price: "$144", savings: "$12", rating: 4.9 },
-  { name: "The Hormone Reset Bundle", items: "Hormone Balance + Thyroid Optimizer + Vitamin D3+K2", price: "$132", savings: "$12", rating: 4.8 },
-  { name: "The Gut Health Bundle", items: "Gut Restore + Digestive Enzymes + Omega-3 Ultra", price: "$134", savings: "$12", rating: 4.9 },
+  { name: "The Energy Protocol Bundle", items: "Mitochondrial Energy + Adrenal Support + Magnesium", price: "$144", savings: "$12", rating: 4.9, image: "/images/product_bundle_01_1772542278762.png" },
+  { name: "The Hormone Reset Bundle", items: "Hormone Balance + Thyroid Optimizer + Vitamin D3+K2", price: "$132", savings: "$12", rating: 4.8, image: "/images/product_bundle_02_1772542293329.png" },
+  { name: "The Gut Health Bundle", items: "Gut Restore + Digestive Enzymes + Omega-3 Ultra", price: "$134", savings: "$12", rating: 4.9, image: "/images/product_bundle_03_1772542310069.png" },
 ];
 
 type SortOption = "bestselling" | "price-asc" | "price-desc";
@@ -65,9 +65,8 @@ const ShopPage = () => {
                 <button
                   key={c}
                   onClick={() => setFilter(c)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    filter === c ? "bg-primary text-primary-foreground" : "bg-card text-foreground hover:bg-border"
-                  }`}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === c ? "bg-primary text-primary-foreground" : "bg-card text-foreground hover:bg-border"
+                    }`}
                 >
                   {c}
                 </button>
@@ -76,6 +75,7 @@ const ShopPage = () => {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortOption)}
+              aria-label="Sort products"
               className="px-4 py-2 rounded-lg bg-card border border-border text-sm text-foreground"
             >
               <option value="bestselling">Bestselling</option>
@@ -88,7 +88,7 @@ const ShopPage = () => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
               {filtered.map((p) => (
                 <div key={p.name} className="bg-card rounded-2xl p-5 border border-border hover:shadow-lg transition-shadow">
-                  <ImagePlaceholder label={`[IMAGE: Product — ${p.name}]`} aspectRatio="portrait" className="rounded-xl mb-4" />
+                  <ImagePlaceholder label={`[IMAGE: Product — ${p.name}]`} aspectRatio="portrait" className="rounded-xl mb-4" src={p.image} />
                   <h3 className="font-display text-lg font-semibold text-foreground">{p.name}</h3>
                   <p className="text-sm text-muted-foreground mt-1 mb-2">{p.benefit}</p>
                   <div className="flex items-center gap-2 mb-3">
@@ -118,7 +118,7 @@ const ShopPage = () => {
               <div className="grid md:grid-cols-3 gap-6">
                 {bundles.map((b) => (
                   <div key={b.name} className="bg-card rounded-2xl p-6 border-2 border-accent/30 hover:border-accent transition-colors">
-                    <ImagePlaceholder label={`[IMAGE: Bundle — ${b.name}]`} aspectRatio="landscape" className="rounded-xl mb-4" />
+                    <ImagePlaceholder label={`[IMAGE: Bundle — ${b.name}]`} aspectRatio="landscape" className="rounded-xl mb-4" src={b.image} />
                     <h3 className="font-display text-lg font-semibold text-foreground mb-1">{b.name}</h3>
                     <p className="text-sm text-muted-foreground mb-2">{b.items}</p>
                     <div className="flex items-center gap-2 mb-3">
