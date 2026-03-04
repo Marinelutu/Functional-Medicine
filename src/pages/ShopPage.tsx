@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ImagePlaceholder from "@/components/ImagePlaceholder";
-import AddToCartButton from "@/components/AddToCartButton";
+import { useCart } from "@/contexts/CartContext";
 
 const categories = ["All", "Energy", "Hormones", "Gut", "Clarity", "Longevity", "Bundles"];
 
@@ -31,6 +30,62 @@ type SortOption = "bestselling" | "price-asc" | "price-desc";
 
 const parsePrice = (p: string) => parseFloat(p.replace("$", ""));
 
+// ── Inline Add-to-Cart button for product cards (full-width, flat bottom) ──
+type BtnState = "idle" | "loading" | "confirmed";
+interface ShopAtcProps {
+  productName: string;
+  productPrice: string;
+  productBenefit?: string;
+  variant?: "product" | "bundle";
+}
+
+const ShopAtcButton = ({ productName, productPrice, productBenefit, variant = "product" }: ShopAtcProps) => {
+  const [state, setState] = useState<BtnState>("idle");
+  const { addToCart } = useCart();
+
+  const handleClick = useCallback(() => {
+    if (state !== "idle") return;
+    setState("loading");
+    setTimeout(() => {
+      addToCart(productName, productPrice, productBenefit);
+      setState("confirmed");
+      setTimeout(() => setState("idle"), 2000);
+    }, 400);
+  }, [state, addToCart, productName, productPrice, productBenefit]);
+
+  const isBundle = variant === "bundle";
+
+  const label =
+    state === "confirmed" ? "✓ Added" :
+      state === "loading" ? "" :
+        isBundle ? "Add Bundle" : "Add to Cart";
+
+  return (
+    <button
+      onClick={handleClick}
+      disabled={state !== "idle"}
+      aria-label={`Add ${productName} to cart`}
+      className={
+        isBundle
+          ? `shop-bundle-atc-btn${state === "confirmed" ? " shop-atc-confirmed" : state === "loading" ? " shop-atc-loading" : ""}`
+          : `shop-product-atc-btn${state === "confirmed" ? " shop-atc-confirmed" : state === "loading" ? " shop-atc-loading" : ""}`
+      }
+    >
+      {state === "loading" ? <span className="atc-spinner" aria-label="Adding to cart" /> : label}
+    </button>
+  );
+};
+
+// ── Star row renderer ──
+const StarRow = ({ rating, reviews }: { rating: number; reviews: number }) => (
+  <div className="shop-card-stars">
+    {Array.from({ length: 5 }).map((_, i) => (
+      <span key={i} className="shop-star">★</span>
+    ))}
+    <span className="shop-card-rating">{rating} ({reviews})</span>
+  </div>
+);
+
 const ShopPage = () => {
   const [filter, setFilter] = useState("All");
   const [sort, setSort] = useState<SortOption>("bestselling");
@@ -44,6 +99,8 @@ const ShopPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+
+      {/* ── Hero Header ── */}
       <section className="pt-32 pb-8">
         <div className="container mx-auto px-6 text-center">
           <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">The Velara Dispensary</p>
@@ -58,14 +115,15 @@ const ShopPage = () => {
 
       <section className="py-12 lg:py-16">
         <div className="container mx-auto px-6">
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
-            <div className="flex flex-wrap gap-2">
+
+          {/* ── Filter Tabs + Sort ── */}
+          <div className="shop-controls">
+            <div className="shop-filter-tabs">
               {categories.map((c) => (
                 <button
                   key={c}
                   onClick={() => setFilter(c)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === c ? "bg-primary text-primary-foreground" : "bg-card text-foreground hover:bg-border"
-                    }`}
+                  className={`shop-filter-tab${filter === c ? " shop-filter-tab--active" : ""}`}
                 >
                   {c}
                 </button>
@@ -75,7 +133,7 @@ const ShopPage = () => {
               value={sort}
               onChange={(e) => setSort(e.target.value as SortOption)}
               aria-label="Sort products"
-              className="px-4 py-2 rounded-lg bg-card border border-border text-sm text-foreground"
+              className="shop-sort-select"
             >
               <option value="bestselling">Bestselling</option>
               <option value="price-asc">Price: Low → High</option>
@@ -83,63 +141,92 @@ const ShopPage = () => {
             </select>
           </div>
 
+          {/* ── Product Grid ── */}
           {filter !== "Bundles" && (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+            <div className="shop-product-grid">
               {filtered.map((p) => (
-                <div key={p.name} className="bg-card rounded-2xl p-5 border border-border hover:shadow-lg transition-shadow">
-                  <ImagePlaceholder label={`[IMAGE: Product — ${p.name}]`} aspectRatio="portrait" className="rounded-xl mb-4" src={p.image} />
-                  <h3 className="font-display text-lg font-semibold text-foreground">{p.name}</h3>
-                  <p className="text-sm text-muted-foreground mt-1 mb-2">{p.benefit}</p>
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="flex">{Array.from({ length: 5 }).map((_, i) => <span key={i} className="text-accent text-sm">★</span>)}</div>
-                    <span className="text-xs text-muted-foreground">{p.rating} ({p.reviews})</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-sm font-semibold text-foreground">{p.price}</span>
-                    <AddToCartButton
-                      productName={p.name}
-                      productPrice={p.price}
-                      productBenefit={p.benefit}
+                <div key={p.name} className="shop-product-card">
+                  {/* 1. Image area */}
+                  <div className="shop-card-image-area">
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      className="shop-card-img"
                     />
                   </div>
+
+                  {/* 2. Card body */}
+                  <div className="shop-card-body">
+                    {/* 2a. Product name */}
+                    <h3 className="shop-card-name">{p.name}</h3>
+
+                    {/* 2b. One-line benefit */}
+                    <p className="shop-card-benefit">{p.benefit}</p>
+
+                    {/* 2c. Star rating row */}
+                    <StarRow rating={p.rating} reviews={p.reviews} />
+
+                    {/* 2d. Price */}
+                    <p className="shop-card-price">{p.price}</p>
+                  </div>
+
+                  {/* 3. Add to Cart — full-width, flat bottom */}
+                  <ShopAtcButton
+                    productName={p.name}
+                    productPrice={p.price}
+                    productBenefit={p.benefit}
+                    variant="product"
+                  />
                 </div>
               ))}
             </div>
           )}
 
-          {/* Bundles */}
+          {/* ── Bundle Section ── */}
           {(filter === "All" || filter === "Bundles") && (
-            <div>
-              <h2 className="text-2xl md:text-3xl font-display font-semibold text-foreground mb-8">
-                Protocol Bundles — Save More
-              </h2>
-              <div className="grid md:grid-cols-3 gap-6">
+            <div className="shop-bundle-section">
+              <h2 className="shop-bundle-heading">Protocol Bundles — Save More</h2>
+              <div className="shop-bundle-grid">
                 {bundles.map((b) => (
-                  <div key={b.name} className="bg-card rounded-2xl p-6 border-2 border-accent/30 hover:border-accent transition-colors">
-                    <ImagePlaceholder label={`[IMAGE: Bundle — ${b.name}]`} aspectRatio="landscape" className="rounded-xl mb-4" src={b.image} />
-                    <h3 className="font-display text-lg font-semibold text-foreground mb-1">{b.name}</h3>
-                    <p className="text-sm text-muted-foreground mb-2">{b.items}</p>
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="flex">{Array.from({ length: 5 }).map((_, i) => <span key={i} className="text-accent text-sm">★</span>)}</div>
-                      <span className="text-xs text-muted-foreground">{b.rating}</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <span className="font-mono text-sm font-semibold text-foreground">{b.price}</span>
-                        <span className="text-xs text-accent ml-2 font-semibold">Save {b.savings}</span>
-                      </div>
-                      <AddToCartButton
-                        productName={b.name}
-                        productPrice={b.price}
-                        productBenefit={b.items}
-                        variant="bundle"
+                  <div key={b.name} className="shop-bundle-card">
+                    {/* Bundle image */}
+                    <div className="shop-bundle-image-area">
+                      <img
+                        src={b.image}
+                        alt={b.name}
+                        className="shop-bundle-img"
                       />
                     </div>
+
+                    {/* Bundle body */}
+                    <div className="shop-card-body">
+                      <h3 className="shop-bundle-name">{b.name}</h3>
+                      <p className="shop-bundle-contents">{b.items}</p>
+                      <div className="shop-card-stars">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <span key={i} className="shop-star">★</span>
+                        ))}
+                        <span className="shop-card-rating">{b.rating}</span>
+                      </div>
+                      <div className="shop-bundle-price-row">
+                        <span className="shop-bundle-price">{b.price}</span>
+                        <span className="shop-bundle-save">Save {b.savings}</span>
+                      </div>
+                    </div>
+
+                    {/* Add Bundle button */}
+                    <ShopAtcButton
+                      productName={b.name}
+                      productPrice={b.price}
+                      productBenefit={b.items}
+                      variant="bundle"
+                    />
                   </div>
                 ))}
               </div>
             </div>
           )}
+
         </div>
       </section>
 

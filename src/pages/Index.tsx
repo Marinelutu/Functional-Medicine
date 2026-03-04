@@ -21,6 +21,8 @@ const Index = () => {
       <Hero />
       <SocialProof />
       <ProblemSection />
+      {/* Gradient transition strip: dark sage → linen */}
+      <div className="section-transition-strip" aria-hidden="true" />
       <VelaraProtocol />
       <HealthCalculator />
       <ServicesGrid />

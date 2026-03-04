@@ -68,7 +68,8 @@ const VelaraProtocol = () => {
 
   return (
     <section
-      className="py-24 lg:py-32 bg-velara-protocol"
+      id="velara-protocol-section"
+      className="py-24 lg:py-32 bg-protocol-linen"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -78,34 +79,34 @@ const VelaraProtocol = () => {
           <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">
             Our Method
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-white">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold protocol-heading">
             The Velara Protocol™
           </h2>
-          <p className="mt-4 text-lg text-white/60 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg protocol-subtext max-w-2xl mx-auto">
             A proven 4-step system that identifies root causes and delivers lasting results.
           </p>
         </div>
 
         {/* Interactive Panel */}
-        <div className="grid lg:grid-cols-[340px_1fr] gap-0 rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm max-w-5xl mx-auto min-h-[480px]">
+        <div className="grid lg:grid-cols-[340px_1fr] gap-0 rounded-2xl overflow-hidden protocol-panel max-w-5xl mx-auto min-h-[480px]">
           {/* Left: Step list */}
-          <div className="flex flex-col border-b lg:border-b-0 lg:border-r border-white/10">
+          <div className="flex flex-col border-b lg:border-b-0 lg:border-r protocol-panel-divider">
             {steps.map((step, i) => (
               <button
                 key={step.number}
                 onClick={() => goToStep(i)}
-                className={`relative text-left px-8 py-7 transition-all duration-300 group flex-1 ${i < steps.length - 1 ? "border-b border-white/10" : ""
-                  } ${activeStep === i ? "bg-white/10" : "hover:bg-white/5"}`}
+                className={`relative text-left px-8 py-7 transition-all duration-300 group flex-1 ${i < steps.length - 1 ? "border-b protocol-panel-divider" : ""
+                  } ${activeStep === i ? "protocol-step-active" : "protocol-step-idle"}`}
               >
                 <div className="flex items-center gap-4">
                   <span
-                    className={`font-mono text-xs tracking-wider transition-colors duration-300 ${activeStep === i ? "text-accent" : "text-white/40"
+                    className={`font-mono text-xs tracking-wider transition-colors duration-300 ${activeStep === i ? "text-accent" : "protocol-step-num-inactive"
                       }`}
                   >
                     {step.number}
                   </span>
                   <span
-                    className={`font-display text-xl font-semibold transition-colors duration-300 ${activeStep === i ? "text-white" : "text-white/60"
+                    className={`font-display text-xl font-semibold transition-colors duration-300 ${activeStep === i ? "protocol-step-title-active" : "protocol-step-title-inactive"
                       }`}
                   >
                     {step.title}
@@ -145,11 +146,11 @@ const VelaraProtocol = () => {
                 <span className="font-mono text-xs tracking-wider text-accent">
                   Step {current.number}
                 </span>
-                <h3 className="text-3xl font-display font-semibold text-white mt-1">
+                <h3 className="text-3xl font-display font-semibold protocol-content-heading mt-1">
                   {current.title}
                 </h3>
               </div>
-              <p className="text-base text-white/70 leading-relaxed">
+              <p className="text-base protocol-content-body leading-relaxed">
                 {current.description}
               </p>
               <div className="flex items-center gap-3 pt-2">

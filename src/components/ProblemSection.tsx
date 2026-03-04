@@ -83,6 +83,20 @@ const ProblemSection = () => {
           <p className="problem-closing-sub">
             That's exactly what we're here to change.
           </p>
+
+          {/* CTA Button */}
+          <div className="problem-cta-wrapper">
+            <button
+              className="problem-cta-btn"
+              onClick={() => {
+                document
+                  .getElementById("velara-protocol-section")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              See How We Fix It →
+            </button>
+          </div>
         </div>
       </div>
     </section>

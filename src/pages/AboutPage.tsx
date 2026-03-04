@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
@@ -20,10 +21,104 @@ const protocolSteps = [
 ];
 
 const pressQuotes = [
-  { quote: "Velara is redefining what functional medicine looks like in the modern age.", source: "Forbes" },
-  { quote: "A precision approach to wellness that actually delivers measurable results.", source: "Healthline" },
-  { quote: "The gold standard for root-cause medicine — personalized, evidence-based, and deeply human.", source: "Mindbodygreen" },
+  { quote: "Velara is redefining what functional medicine looks like in the modern age.", source: "FORBES" },
+  { quote: "A precision approach to wellness that actually delivers measurable results.", source: "HEALTHLINE" },
+  { quote: "The gold standard for root-cause medicine — personalized, evidence-based, and deeply human.", source: "MINDBODYGREEN" },
 ];
+
+
+
+/* ── Rotating Quote Component ── */
+const RotatingQuote = () => {
+  const [current, setCurrent] = useState(0);
+  const [visible, setVisible] = useState(true);
+  const [hovered, setHovered] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const goTo = (index: number) => {
+    setVisible(false);
+    setTimeout(() => {
+      setCurrent(index);
+      setVisible(true);
+    }, 400);
+  };
+
+  useEffect(() => {
+    if (hovered) return;
+    timerRef.current = setTimeout(() => {
+      const next = (current + 1) % pressQuotes.length;
+      goTo(next);
+    }, 4500);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [current, hovered]);
+
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ textAlign: "center", maxWidth: 780, margin: "0 auto" }}
+    >
+      {/* Gold rule */}
+      <div style={{ width: 48, height: 1, background: "#C9A84C", margin: "0 auto 16px" }} />
+
+      {/* Quote text */}
+      <p
+        style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontStyle: "italic",
+          fontSize: 36,
+          lineHeight: 1.6,
+          color: "#1C1C1C",
+          margin: "0 0 20px",
+          opacity: visible ? 1 : 0,
+          transition: "opacity 0.4s ease",
+        }}
+      >
+        {pressQuotes[current].quote}
+      </p>
+
+      {/* Source attribution */}
+      <p
+        style={{
+          fontFamily: "'DM Mono', monospace",
+          textTransform: "uppercase",
+          fontSize: 13,
+          letterSpacing: "0.12em",
+          color: "#C9A84C",
+          margin: "0 0 16px",
+          opacity: visible ? 1 : 0,
+          transition: "opacity 0.4s ease",
+        }}
+      >
+        — {pressQuotes[current].source}
+      </p>
+
+      {/* Dot indicators */}
+      <div style={{ display: "flex", justifyContent: "center", gap: 8 }}>
+        {pressQuotes.map((_, i) => (
+          <button
+            key={i}
+            aria-label={`Go to quote ${i + 1}`}
+            onClick={() => goTo(i)}
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: "50%",
+              border: i === current ? "none" : "1.5px solid rgba(201,168,76,0.3)",
+              background: i === current ? "#C9A84C" : "transparent",
+              padding: 0,
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+              flexShrink: 0,
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+
 
 const AboutPage = () => (
   <div className="min-h-screen bg-background">
@@ -88,39 +183,48 @@ const AboutPage = () => (
           <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">The Team</p>
           <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground">Meet Your Practitioners</h2>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="practitioner-grid">
           {team.map((t) => (
-            <div key={t.name} className="bg-card rounded-2xl p-6 border border-border">
-              <ImagePlaceholder src={t.image} label={`Team — ${t.name} portrait`} aspectRatio="portrait" className="rounded-xl mb-4 object-cover" />
-              <h3 className="font-display text-xl font-semibold text-foreground">{t.name}</h3>
-              <p className="text-sm text-accent font-mono mt-1">{t.role}</p>
-              <p className="text-xs text-muted-foreground mt-1 mb-3">{t.credentials}</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">{t.bio}</p>
+            <div key={t.name} className="practitioner-card bg-card rounded-2xl border border-border">
+              {/* Portrait — fixed 320px height, face always visible */}
+              <div className="practitioner-portrait">
+                <img src={t.image} alt={`Team — ${t.name} portrait`} />
+              </div>
+              {/* Doctor name */}
+              <h3 className="practitioner-name">{t.name}</h3>
+              {/* Specialty */}
+              <p className="practitioner-specialty">{t.role}</p>
+              {/* Credentials */}
+              <p className="practitioner-credentials">{t.credentials}</p>
+              {/* Bio */}
+              <p className="practitioner-bio">{t.bio}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    {/* Press */}
-    <section className="py-16 lg:py-20 bg-card">
+    {/* Press — In The Press */}
+    <section style={{ background: "#F7F3EE", padding: "80px 0" }}>
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">In the Press</p>
-          <div className="flex flex-wrap justify-center gap-8 opacity-40 text-lg font-display">
-            {["Healthline", "Forbes", "Mindbodygreen", "Well+Good", "Vogue", "Entrepreneur"].map((p) => (
-              <span key={p}>{p}</span>
-            ))}
-          </div>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8 mt-12">
-          {pressQuotes.map((pq) => (
-            <blockquote key={pq.source} className="text-center">
-              <p className="font-display text-lg italic text-foreground mb-3">"{pq.quote}"</p>
-              <cite className="text-sm text-accent font-mono not-italic">— {pq.source}</cite>
-            </blockquote>
-          ))}
-        </div>
+        {/* Section label */}
+        <p
+          style={{
+            fontFamily: "'DM Mono', monospace",
+            fontSize: 11,
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: "#C9A84C",
+            textAlign: "center",
+            marginBottom: 48,
+          }}
+        >
+          In the Press
+        </p>
+
+
+        {/* Single large rotating quote */}
+        <RotatingQuote />
       </div>
     </section>
 
