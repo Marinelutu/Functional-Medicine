@@ -56,61 +56,33 @@ const RotatingQuote = () => {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{ textAlign: "center", maxWidth: 780, margin: "0 auto" }}
+      className="press-rotating-wrapper"
     >
       {/* Gold rule */}
-      <div style={{ width: 48, height: 1, background: "#C9A84C", margin: "0 auto 16px" }} />
+      <div className="press-gold-rule" />
 
       {/* Quote text */}
       <p
-        style={{
-          fontFamily: "'Cormorant Garamond', serif",
-          fontStyle: "italic",
-          fontSize: 36,
-          lineHeight: 1.6,
-          color: "#1C1C1C",
-          margin: "0 0 20px",
-          opacity: visible ? 1 : 0,
-          transition: "opacity 0.4s ease",
-        }}
+        className={`press-quote-text ${visible ? 'press-quote--visible' : ''}`}
       >
         {pressQuotes[current].quote}
       </p>
 
       {/* Source attribution */}
       <p
-        style={{
-          fontFamily: "'DM Mono', monospace",
-          textTransform: "uppercase",
-          fontSize: 13,
-          letterSpacing: "0.12em",
-          color: "#C9A84C",
-          margin: "0 0 16px",
-          opacity: visible ? 1 : 0,
-          transition: "opacity 0.4s ease",
-        }}
+        className={`press-quote-source ${visible ? 'press-quote--visible' : ''}`}
       >
         — {pressQuotes[current].source}
       </p>
 
       {/* Dot indicators */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 8 }}>
+      <div className="press-dots">
         {pressQuotes.map((_, i) => (
           <button
             key={i}
             aria-label={`Go to quote ${i + 1}`}
             onClick={() => goTo(i)}
-            style={{
-              width: 6,
-              height: 6,
-              borderRadius: "50%",
-              border: i === current ? "none" : "1.5px solid rgba(201,168,76,0.3)",
-              background: i === current ? "#C9A84C" : "transparent",
-              padding: 0,
-              cursor: "pointer",
-              transition: "all 0.2s ease",
-              flexShrink: 0,
-            }}
+            className={`press-dot ${i === current ? 'press-dot--active' : ''}`}
           />
         ))}
       </div>
@@ -205,19 +177,11 @@ const AboutPage = () => (
     </section>
 
     {/* Press — In The Press */}
-    <section style={{ background: "#F7F3EE", padding: "80px 0" }}>
+    <section className="press-section">
       <div className="container mx-auto px-6">
         {/* Section label */}
         <p
-          style={{
-            fontFamily: "'DM Mono', monospace",
-            fontSize: 11,
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "#C9A84C",
-            textAlign: "center",
-            marginBottom: 48,
-          }}
+          className="press-section-label"
         >
           In the Press
         </p>
