@@ -19,6 +19,9 @@ const mostRead = [
 const BlogPage = () => {
   const [filter, setFilter] = useState("All");
   const [activeArticle, setActiveArticle] = useState<BlogArticle | null>(null);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterError, setNewsletterError] = useState("");
+  const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
   const filtered = filter === "All" ? blogPageArticles : blogPageArticles.filter((a) => a.category === filter);
 
   const openArticle = (article: BlogArticle) => {
@@ -28,6 +31,16 @@ const BlogPage = () => {
   const openArticleByTitle = (title: string) => {
     const article = allArticles.find(a => a.title === title);
     if (article) setActiveArticle(article);
+  };
+
+  const handleSubscribe = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!newsletterEmail.trim() || !emailRegex.test(newsletterEmail.trim())) {
+      setNewsletterError("Please enter a valid email address.");
+      return;
+    }
+    setNewsletterError("");
+    setNewsletterSubscribed(true);
   };
 
   return (
@@ -127,11 +140,32 @@ const BlogPage = () => {
                 <input
                   type="email"
                   placeholder="Your email"
-                  className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-sm mb-3 focus:outline-none focus:border-primary"
+                  value={newsletterEmail}
+                  onChange={(e) => { setNewsletterEmail(e.target.value); setNewsletterError(""); }}
+                  disabled={newsletterSubscribed}
+                  className="w-full px-4 py-2.5 rounded-lg bg-background text-sm mb-3 focus:outline-none focus:border-primary"
+                  style={{
+                    border: newsletterError ? '1px solid #E53E3E' : '1px solid var(--border)',
+                  }}
                 />
-                <button className="w-full px-4 py-2.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold">
-                  Subscribe
+                {newsletterError && (
+                  <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '12px', color: '#E53E3E', margin: '0 0 8px 0' }}>
+                    {newsletterError}
+                  </p>
+                )}
+                <button
+                  onClick={handleSubscribe}
+                  disabled={newsletterSubscribed}
+                  className="w-full px-4 py-2.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold"
+                  style={{ cursor: newsletterSubscribed ? 'default' : 'pointer' }}
+                >
+                  {newsletterSubscribed ? "✓ You're in!" : "Subscribe"}
                 </button>
+                {newsletterSubscribed && (
+                  <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: '#2D4A3E', marginTop: '8px' }}>
+                    Check your inbox for your first issue.
+                  </p>
+                )}
               </div>
 
               <div>

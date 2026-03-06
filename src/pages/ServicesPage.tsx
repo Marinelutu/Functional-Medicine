@@ -423,13 +423,22 @@ const ServicesPage = () => {
                           <span className="svc-card-detail-tag">{s.categoryTag}</span>
                         </div>
                         <div className={`svc-card-detail svc-card-delay-1 ${isExpanded ? "svc-card-detail--show" : ""}`}>
-                          <p className="svc-card-detail-desc">{s.desc}</p>
+                          <Link
+                            to="/book"
+                            className="svc-card-cta"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            Book This Protocol →
+                          </Link>
                         </div>
                         <div className={`svc-card-detail svc-card-delay-2 ${isExpanded ? "svc-card-detail--show" : ""}`}>
+                          <p className="svc-card-detail-desc">{s.desc}</p>
+                        </div>
+                        <div className={`svc-card-detail svc-card-delay-3 ${isExpanded ? "svc-card-detail--show" : ""}`}>
                           <p className="svc-card-detail-label">Who this is for:</p>
                           <p className="svc-card-detail-who">{s.who}</p>
                         </div>
-                        <div className={`svc-card-detail svc-card-delay-3 ${isExpanded ? "svc-card-detail--show" : ""}`}>
+                        <div className={`svc-card-detail svc-card-delay-4 ${isExpanded ? "svc-card-detail--show" : ""}`}>
                           <p className="svc-card-detail-label">What's included:</p>
                           <ul className="svc-card-detail-list">
                             {s.included.map((item, i) => (
@@ -438,15 +447,6 @@ const ServicesPage = () => {
                               </li>
                             ))}
                           </ul>
-                        </div>
-                        <div className={`svc-card-detail svc-card-delay-4 ${isExpanded ? "svc-card-detail--show" : ""}`}>
-                          <Link
-                            to="/book"
-                            className="svc-card-cta"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            Book This Protocol →
-                          </Link>
                         </div>
                       </div>
 

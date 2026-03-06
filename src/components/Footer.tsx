@@ -1,25 +1,62 @@
 import { Link } from "react-router-dom";
 
-const footerColumns = [
+interface FooterLink {
+  label: string;
+  to?: string;
+  href?: string;
+}
+
+interface FooterColumn {
+  title: string;
+  links: FooterLink[];
+}
+
+const footerColumns: FooterColumn[] = [
   {
     title: "Programs",
-    links: ["Weight Loss", "Hormones", "Longevity", "Gut Health", "Mental Clarity"],
+    links: [
+      { label: "Weight Loss", to: "/services" },
+      { label: "Hormones", to: "/services" },
+      { label: "Longevity", to: "/services" },
+      { label: "Gut Health", to: "/services" },
+      { label: "Mental Clarity", to: "/services" },
+    ],
   },
   {
     title: "Company",
-    links: ["About Us", "Our Team", "Careers", "Press"],
+    links: [
+      { label: "About Us", to: "/about" },
+      { label: "Our Team", to: "/about" },
+      { label: "Careers", to: "/about" },
+      { label: "Press", to: "/about" },
+    ],
   },
   {
     title: "Resources",
-    links: ["Blog", "Podcast", "Research", "FAQ"],
+    links: [
+      { label: "Blog", to: "/blog" },
+      { label: "Podcast", to: "/blog" },
+      { label: "Research", to: "/blog" },
+      { label: "FAQ", to: "/about" },
+    ],
   },
   {
     title: "Support",
-    links: ["Contact", "Help Center", "Privacy Policy", "Terms of Service"],
+    links: [
+      { label: "Contact", to: "/book" },
+      { label: "Help Center", to: "/about" },
+      { label: "Privacy Policy", to: "/about" },
+      { label: "Terms of Service", to: "/about" },
+    ],
   },
   {
     title: "Connect",
-    links: ["Instagram", "YouTube", "TikTok", "LinkedIn"],
+    links: [
+      { label: "Instagram", href: "https://instagram.com" },
+      { label: "YouTube", href: "https://youtube.com" },
+      { label: "TikTok", href: "https://tiktok.com" },
+      { label: "LinkedIn", href: "https://linkedin.com" },
+    ],
   },
 ];
 
@@ -46,10 +83,28 @@ const Footer = () => {
               </h4>
               <ul className="space-y-2">
                 {col.links.map((link) => (
-                  <li key={link}>
-                    <span className="text-sm text-primary-foreground/60 hover:text-primary-foreground cursor-pointer transition-colors">
-                      {link}
-                    </span>
+                  <li key={link.label}>
+                    {link.href ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-primary-foreground/60 hover:text-primary-foreground cursor-pointer transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    ) : link.to ? (
+                      <Link
+                        to={link.to}
+                        className="text-sm text-primary-foreground/60 hover:text-primary-foreground cursor-pointer transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <span className="text-sm text-primary-foreground/60 hover:text-primary-foreground cursor-pointer transition-colors">
+                        {link.label}
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>
