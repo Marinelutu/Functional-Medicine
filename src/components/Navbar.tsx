@@ -90,15 +90,19 @@ const Navbar = () => {
         </div>
 
         {mobileOpen && (
-          <div className="lg:hidden glass-nav border-t border-border/30 px-6 pb-6 pt-4 space-y-4">
+          <div className="lg:hidden fixed inset-0 top-16 z-49 bg-[#2D4A3E] flex flex-col items-center justify-center gap-8 px-6">
             {navLinks.map((l) => (
-              <Link key={l.href} to={l.href} className="block text-sm font-medium text-foreground/80 hover:text-primary">
+              <Link
+                key={l.href}
+                to={l.href}
+                className="font-display text-[28px] font-medium text-white hover:text-[#C9A84C] transition-colors"
+              >
                 {l.label}
               </Link>
             ))}
             <Link
               to="/book"
-              className="inline-flex items-center px-5 py-2.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold"
+              className="mt-4 inline-flex items-center px-8 py-3.5 rounded-full bg-accent text-accent-foreground text-base font-semibold hover:opacity-90 transition-opacity"
             >
               Start Free Assessment
             </Link>

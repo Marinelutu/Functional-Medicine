@@ -1,0 +1,961 @@
+/* ============================================================
+   MOBILE RESPONSIVENESS — Additive media queries only
+   This file contains responsive overrides for mobile (<768px)
+   and tablet (768px–1024px). No desktop styles are modified.
+   ============================================================ */
+
+/* ============================================================
+   GLOBAL: Prevent horizontal scroll everywhere
+   ============================================================ */
+html,
+body {
+    overflow-x: hidden;
+}
+
+/* ============================================================
+   GLOBAL: prefers-reduced-motion & performance fallbacks
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================================
+   NAVIGATION — handled inline in Navbar.tsx with Tailwind classes
+   ============================================================ */
+
+
+/* ============================================================
+   TABLET — 768px to 1024px
+   ============================================================ */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    /* ── Global Typography ── */
+    .text-4xl,
+    .text-5xl,
+    .md\:text-4xl,
+    .md\:text-5xl,
+    .lg\:text-5xl {
+        font-size: 32px !important;
+        line-height: 1.15 !important;
+    }
+
+    .text-3xl,
+    .md\:text-3xl {
+        font-size: 28px !important;
+    }
+
+    /* Section labels — reduce letter-spacing */
+    .font-mono.tracking-\[0\.2em\],
+    .font-mono.tracking-\[0\.15em\],
+    .font-mono.tracking-\[0\.12em\] {
+        letter-spacing: 0.12em;
+    }
+
+    /* ── Global Spacing ── */
+    .py-24 {
+        padding-top: 56px;
+        padding-bottom: 56px;
+    }
+
+    .lg\:py-32 {
+        padding-top: 56px;
+        padding-bottom: 56px;
+    }
+
+    .py-16 {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .lg\:py-24 {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .lg\:py-28 {
+        padding-top: 52px;
+        padding-bottom: 52px;
+    }
+
+    /* ── Grid Layouts: 4-col → 2-col, 3-col → 2-col ── */
+    .lg\:grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .sm\:grid-cols-3 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* ── Homepage: Services Grid (4→2) ── */
+    .grid.sm\:grid-cols-2.lg\:grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* ── About Page: Stats bar remains 4-col on tablet ── */
+
+    /* ── Blog Page: Article grid ── */
+    .lg\:grid-cols-4 .lg\:col-span-3 .sm\:grid-cols-2.lg\:grid-cols-3 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* ── Shop: Product grid 2 columns ── */
+    .shop-product-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* ── About: Team grid ── */
+    .practitioner-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* ── Meet Team: pull-quote ── */
+    .meet-team-pull-quote {
+        font-size: 22px;
+    }
+
+    /* ── Press quote: reduce size ── */
+    .press-quote-text {
+        font-size: 30px;
+    }
+}
+
+
+/* ============================================================
+   MOBILE — below 768px
+   ============================================================ */
+@media (max-width: 767px) {
+
+    /* ── Global Typography ── */
+    .text-4xl,
+    .text-5xl,
+    .md\:text-4xl,
+    .md\:text-5xl,
+    .lg\:text-5xl {
+        font-size: 28px !important;
+        line-height: 1.2 !important;
+    }
+
+    .text-3xl,
+    .md\:text-3xl {
+        font-size: 24px !important;
+        line-height: 1.25 !important;
+    }
+
+    .text-2xl {
+        font-size: 22px !important;
+    }
+
+    /* Section labels — reduce letter-spacing */
+    .font-mono.tracking-\[0\.2em\],
+    .font-mono.tracking-\[0\.15em\],
+    .font-mono.tracking-\[0\.12em\] {
+        letter-spacing: 0.08em;
+    }
+
+    /* Body text never below 13px */
+    .text-sm {
+        font-size: 14px;
+    }
+
+    /* ── Global Spacing — 40% reduction ── */
+    .py-24 {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .lg\:py-32 {
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+
+    .py-20 {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .lg\:py-20 {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .py-16 {
+        padding-top: 36px;
+        padding-bottom: 36px;
+    }
+
+    .lg\:py-24 {
+        padding-top: 36px;
+        padding-bottom: 36px;
+    }
+
+    .lg\:py-28 {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .pb-20 {
+        padding-bottom: 40px;
+    }
+
+    .pt-32 {
+        padding-top: 96px;
+    }
+
+    .mb-16 {
+        margin-bottom: 32px;
+    }
+
+    .mb-12 {
+        margin-bottom: 24px;
+    }
+
+    /* Min horizontal padding */
+    .container {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    .px-6 {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /* ── Grid Layouts ── */
+    /* 4-col / 3-col → 1 col */
+    .lg\:grid-cols-4,
+    .lg\:grid-cols-3,
+    .sm\:grid-cols-3,
+    .md\:grid-cols-3 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* 2-col splits → stack vertically */
+    .lg\:grid-cols-2,
+    .md\:grid-cols-2 {
+        grid-template-columns: 1fr !important;
+    }
+
+    .sm\:grid-cols-2.lg\:grid-cols-4,
+    .sm\:grid-cols-2.lg\:grid-cols-3 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ── Buttons — min 44px height, full-width, stack ── */
+    button,
+    .inline-flex,
+    a.inline-flex,
+    .hero-cta-primary,
+    .hero-cta-secondary,
+    .problem-cta-btn,
+    .svc-card-cta,
+    .book-visit-pill,
+    .book-back-btn {
+        min-height: 44px;
+    }
+
+    /* Side-by-side buttons → stack */
+    .hero-ctas,
+    .flex.gap-2:has(button),
+    .flex.gap-3:has(button),
+    .flex.gap-4:has(button) {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hero-cta-primary,
+    .hero-cta-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* ── Images — never overflow ── */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — Hero
+     ============================================================ */
+
+    .hero-section {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+
+    /* Copy panel full width, ABOVE image */
+    .hero-left-panel {
+        padding: 96px 20px 40px;
+        order: 1;
+    }
+
+    /* Image full width BELOW copy */
+    .hero-right-panel {
+        order: 2;
+        height: 280px;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .hero-image-gradient {
+        background: linear-gradient(to top, #F7F3EE 0%, transparent 40%);
+    }
+
+    .hero-headline {
+        font-size: 28px !important;
+    }
+
+    .hero-description {
+        font-size: 15px;
+        max-width: 100%;
+    }
+
+    /* Goal tiles: 2 columns */
+    .hero-goals-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .hero-goal-tile {
+        font-size: 13px;
+        padding: 10px 12px;
+        white-space: normal;
+        text-align: center;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — Problem Section (symptom tiles)
+     ============================================================ */
+
+    .problem-tile-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .problem-tile {
+        width: 100%;
+    }
+
+    .problem-closing-main {
+        font-size: 24px;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — Velara Protocol™
+     ============================================================ */
+
+    /* Step selector and content panel: stack vertically */
+    .grid.lg\:grid-cols-\[340px_1fr\] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Step list stays row-like at top, then content below */
+    .protocol-panel {
+        min-height: 0;
+    }
+
+    .protocol-panel>.flex.flex-col {
+        flex-direction: row;
+        overflow-x: auto;
+        -ms-overflow-style: none;
+        border-bottom: 1px solid #E8DDD4;
+    }
+
+    .protocol-panel>.flex.flex-col::-webkit-scrollbar {
+        display: none;
+    }
+
+    .protocol-panel>.flex.flex-col>button {
+        white-space: nowrap;
+        padding: 16px 20px;
+        border-bottom: none;
+        border-right: 1px solid #E8DDD4;
+        flex-shrink: 0;
+    }
+
+    .protocol-panel>.flex.flex-col>button:last-child {
+        border-right: none;
+    }
+
+    /* Content panel goes full width below */
+    .protocol-panel>.p-8,
+    .protocol-panel>[class*="p-8"] {
+        flex-direction: column;
+        padding: 24px 20px;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — Services Grid (4→1 col on mobile)
+     ============================================================ */
+
+    .grid.sm\:grid-cols-2.lg\:grid-cols-4 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Service cards — expanded: image moves to top */
+    .svc-card-expanded-inner {
+        flex-direction: column;
+    }
+
+    .svc-card-right {
+        order: -1;
+        width: 100%;
+        height: 200px;
+        border-radius: 12px;
+        margin: 0 0 16px 0;
+    }
+
+    .svc-card-left {
+        width: 100%;
+        padding-right: 0;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — Meet the Team
+     ============================================================ */
+
+    .grid.lg\:grid-cols-2.gap-12 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Image top, text below */
+    .grid.lg\:grid-cols-2.gap-12> :first-child {
+        order: 1;
+    }
+
+    .grid.lg\:grid-cols-2.gap-12> :last-child {
+        order: 2;
+    }
+
+    .meet-team-pull-quote {
+        font-size: 20px;
+    }
+
+    /* Team member cards 1 column */
+    .grid.sm\:grid-cols-3 {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — Shop Preview (horizontal scroll)
+     ============================================================ */
+
+    .grid.sm\:grid-cols-2.lg\:grid-cols-4.gap-6:has(.group) {
+        display: flex !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -ms-overflow-style: none;
+        gap: 16px;
+        padding-bottom: 8px;
+    }
+
+    .grid.sm\:grid-cols-2.lg\:grid-cols-4.gap-6:has(.group)::-webkit-scrollbar {
+        display: none;
+    }
+
+    .grid.sm\:grid-cols-2.lg\:grid-cols-4.gap-6:has(.group)>.group {
+        flex: 0 0 260px;
+        scroll-snap-align: start;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — Blog Preview
+     ============================================================ */
+
+    /* Featured article: stacks vertically */
+    .grid.lg\:grid-cols-2.gap-6:has(.blog-card-clickable) {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Side articles stack below */
+    .space-y-6:has(.blog-card-clickable) .flex.gap-4.blog-card-clickable {
+        flex-direction: column;
+    }
+
+    .space-y-6:has(.blog-card-clickable) .blog-card-image-wrapper.w-32 {
+        width: 100%;
+        height: 180px;
+    }
+
+    .space-y-6:has(.blog-card-clickable) .blog-card-image-wrapper.w-32 img,
+    .space-y-6:has(.blog-card-clickable) .blog-card-image-wrapper.w-32 .w-32 {
+        width: 100%;
+        height: 180px;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — Testimonials
+     ============================================================ */
+
+    /* Filter tabs: horizontally scrollable, no wrapping */
+    .flex.flex-wrap.justify-center.gap-2.mb-12:has(button) {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        -ms-overflow-style: none;
+        padding-bottom: 8px;
+    }
+
+    .flex.flex-wrap.justify-center.gap-2.mb-12:has(button)::-webkit-scrollbar {
+        display: none;
+    }
+
+    .flex.flex-wrap.justify-center.gap-2.mb-12:has(button)>button {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    /* Testimonial cards: 1 column */
+    .grid.md\:grid-cols-2.lg\:grid-cols-3 {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — FAQ
+     ============================================================ */
+
+    .max-w-3xl {
+        max-width: 100%;
+    }
+
+    /* FAQ question text size */
+    .bg-background.rounded-xl button .text-sm.font-medium {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+
+    /* ============================================================
+     SHOP PAGE
+     ============================================================ */
+
+    /* Product grid: 2 columns on mobile */
+    .shop-product-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+
+    /* Filter tabs: horizontally scrollable */
+    .shop-filter-tabs {
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        -ms-overflow-style: none;
+        padding-bottom: 4px;
+    }
+
+    .shop-filter-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .shop-filter-tab {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    /* Card image area smaller on mobile */
+    .shop-card-image-area {
+        height: 180px;
+        padding: 16px;
+    }
+
+    /* Card name smaller on mobile */
+    .shop-card-name {
+        font-size: 16px;
+        padding: 12px 12px 4px;
+    }
+
+    .shop-card-benefit {
+        padding: 0 12px 6px;
+        font-size: 12px;
+    }
+
+    .shop-card-stars {
+        padding: 0 12px 6px;
+    }
+
+    .shop-card-price {
+        padding: 0 12px 8px;
+        font-size: 18px;
+    }
+
+    /* Bundle grid same */
+    .shop-bundle-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Cart drawer: full screen on mobile, slide up from bottom */
+    .cart-drawer {
+        max-width: 100%;
+        top: auto;
+        bottom: 0;
+        height: 100vh;
+        height: 100dvh;
+        border-left: none;
+        border-top: 1px solid hsl(var(--border));
+        transform: translateY(100%);
+    }
+
+    .cart-drawer--open {
+        transform: translateY(0);
+    }
+
+    .shop-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+
+    /* ============================================================
+     SERVICES PAGE
+     ============================================================ */
+
+    .svc-page-section {
+        padding: 40px 0 56px;
+    }
+
+    .svc-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Collapsed height stays 120px */
+    .svc-card {
+        max-height: 120px;
+    }
+
+    /* Expanded card: image top, text below */
+    .svc-card--expanded {
+        max-height: 700px;
+    }
+
+    .svc-card-expanded-inner {
+        flex-direction: column-reverse;
+        height: auto;
+    }
+
+    .svc-card-right {
+        flex: none;
+        height: 200px;
+        border-radius: 12px;
+        margin: -8px 0 0 0;
+    }
+
+    .svc-card-left {
+        flex: none;
+        padding-right: 0;
+        padding-top: 16px;
+    }
+
+    /* Services filter tabs scrollable */
+    .services-filter-tab {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+
+    /* ============================================================
+     ABOUT PAGE
+     ============================================================ */
+
+    /* Founding story hero: stacks vertically */
+    .gradient-sage .grid.lg\:grid-cols-2 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Team grid: 1 column */
+    .practitioner-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Protocol steps: full width stacked */
+    .space-y-16 .grid.lg\:grid-cols-2 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Stats bar: 2×2 grid */
+    .grid.grid-cols-2.md\:grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 24px;
+    }
+
+    /* Press section: reduce quote size */
+    .press-quote-text {
+        font-size: 24px !important;
+        line-height: 1.5;
+    }
+
+    .press-section {
+        padding: 48px 0;
+    }
+
+
+    /* ============================================================
+     BLOG PAGE
+     ============================================================ */
+
+    /* Featured article: stacks vertically, image top */
+    .grid.lg\:grid-cols-2.gap-10 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Article grid: 1 column */
+    .lg\:col-span-3 .sm\:grid-cols-2.lg\:grid-cols-3,
+    .lg\:col-span-3.grid.sm\:grid-cols-2.lg\:grid-cols-3 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Sidebar: visible on mobile, full width below articles */
+    aside.hidden.lg\:block {
+        display: block !important;
+        margin-top: 32px;
+    }
+
+    /* Blog grid layout – 1 column so sidebar stacks below */
+    .grid.lg\:grid-cols-4.gap-10 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Blog card headline on blog page */
+    .blog-card-headline {
+        font-size: 18px;
+    }
+
+    /* Featured article headline */
+    h1.blog-card-headline {
+        font-size: 26px !important;
+    }
+
+
+    /* ============================================================
+     BOOK PAGE
+     ============================================================ */
+
+    /* Left panel: hidden on mobile (already done in base CSS) */
+    .book-left-panel {
+        display: none;
+    }
+
+    /* Mobile bar: visible */
+    .book-mobile-bar {
+        display: flex;
+    }
+
+    /* Right panel: full width */
+    .book-right-panel {
+        width: 100%;
+    }
+
+    /* Step content padding */
+    .book-step-content {
+        padding: 32px 20px 48px;
+    }
+
+    /* Date card row: horizontal scroll, 72px cards, snap */
+    .book-date-scroll {
+        scroll-snap-type: x mandatory;
+    }
+
+    .book-date-card {
+        scroll-snap-align: start;
+        width: 72px;
+        min-width: 72px;
+    }
+
+    /* Practitioner cards: horizontal scroll */
+    .book-practitioner-grid {
+        display: flex !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -ms-overflow-style: none;
+        gap: 12px;
+        padding-bottom: 8px;
+    }
+
+    .book-practitioner-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .book-practitioner-card {
+        flex: 0 0 auto;
+        min-width: 120px;
+        scroll-snap-align: start;
+    }
+
+    /* Service grid: 2 columns */
+    .book-service-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Form fields: full width, 44px min height */
+    .book-field-input {
+        width: 100%;
+        min-height: 44px;
+        height: 44px;
+    }
+
+    .book-field-textarea {
+        width: 100%;
+        min-height: 88px;
+    }
+
+    /* Confirm button: full width */
+    .book-confirm-btn {
+        width: 100%;
+    }
+
+    /* Progress bar compact */
+    .book-progress-bar {
+        padding: 16px 20px;
+    }
+
+    .book-progress-line {
+        width: 24px;
+        margin: 0 6px;
+    }
+
+    .book-progress-label {
+        display: none;
+    }
+
+    /* Visit toggle pills */
+    .book-visit-toggle {
+        flex-wrap: wrap;
+    }
+
+    .book-visit-pill {
+        flex: 1;
+        text-align: center;
+        justify-content: center;
+        min-height: 44px;
+    }
+
+    /* Time pills */
+    .book-time-pill {
+        min-height: 44px;
+        padding: 10px 16px;
+    }
+
+
+    /* ============================================================
+     FOOTER
+     ============================================================ */
+
+    /* Footer grid: stack on mobile */
+    .grid.lg\:grid-cols-6 {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 24px;
+    }
+
+    .lg\:col-span-1 {
+        grid-column: span 2;
+    }
+
+    /* Newsletter input + button stack */
+    footer .flex.gap-2:has(input) {
+        flex-direction: column;
+    }
+
+    footer .flex.gap-2:has(input) input {
+        width: 100%;
+    }
+
+    footer .flex.gap-2:has(input) button {
+        width: 100%;
+    }
+}
+
+
+/* ============================================================
+   VERY SMALL MOBILE — below 375px
+   ============================================================ */
+@media (max-width: 375px) {
+
+    /* Disable particle animation entirely */
+    .hero-particles-canvas {
+        display: none !important;
+    }
+
+    /* Even more compact typography */
+    .hero-headline {
+        font-size: 24px !important;
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    /* Shop grid: 1 column at very small screens */
+    .shop-product-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Goal tiles: still 2 columns but tighter */
+    .hero-goals-grid {
+        gap: 6px;
+    }
+
+    .hero-goal-tile {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+}
+
+
+/* ============================================================
+   IMAGES — Global safety net
+   ============================================================ */
+@media (max-width: 1024px) {
+    img {
+        max-width: 100%;
+    }
+
+    /* Hero split layout images: full width below copy */
+    .hero-right-panel img,
+    .hero-image {
+        max-width: 100%;
+    }
+}
+
+
+/* ============================================================
+   BOOK PAGE — Additional mobile-first fix for service grid
+   ============================================================ */
+@media (max-width: 480px) {
+    .book-service-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .book-step-content {
+        padding: 24px 16px 40px;
+    }
+
+    .book-service-card {
+        padding: 14px;
+    }
+
+    .book-service-name {
+        font-size: 16px;
+    }
+}
