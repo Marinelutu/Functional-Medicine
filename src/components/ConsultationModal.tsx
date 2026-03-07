@@ -8,7 +8,7 @@ interface ConsultationModalProps {
     onClose: () => void;
 }
 
-/* ── Botanical SVG icons ── */
+/* ── Botanical SVG icons — Step 1 ── */
 const IconEnergy = () => (
     <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 4L8 20h10l-2 12 14-16h-10z" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -48,6 +48,53 @@ const IconLongevity = () => (
     </svg>
 );
 
+/* ── Botanical SVG icons — Step 2 (symptoms) ── */
+const IconTired = () => (
+    <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="10" stroke="#C9A84C" strokeWidth="1.5" />
+        <path d="M13 20c1 2 6 2 10 0" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="14" cy="16" r="1.2" fill="#C9A84C" />
+        <circle cx="22" cy="16" r="1.2" fill="#C9A84C" />
+        <path d="M12 13c1-2 3-2 4-1M20 12c1-1 3-1 4 1" stroke="#C9A84C" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+);
+const IconScale = () => (
+    <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6v24M8 30h20" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M10 14l-4 8h8l-4-8zM26 14l-4 8h8l-4-8z" stroke="#C9A84C" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M10 14h16" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+);
+const IconMood = () => (
+    <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 22c2-3 5-5 8-5s6 2 8 5" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M10 14c2 3 5 5 8 5s6-2 8-5" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="18" cy="18" r="12" stroke="#C9A84C" strokeWidth="1.5" />
+    </svg>
+);
+const IconFocus = () => (
+    <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="4" stroke="#C9A84C" strokeWidth="1.5" />
+        <circle cx="18" cy="18" r="8" stroke="#C9A84C" strokeWidth="1" strokeDasharray="3 2" />
+        <circle cx="18" cy="18" r="12" stroke="#C9A84C" strokeWidth="1" strokeDasharray="2 3" />
+        <path d="M18 4v4M18 28v4M4 18h4M28 18h4" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+);
+const IconDigestion = () => (
+    <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8c0 0-4 4-4 8 0 2.5 1.5 4.5 3 6 1 1 1.5 2.5 1.5 4v2h11v-2c0-1.5.5-3 1.5-4 1.5-1.5 3-3.5 3-6 0-4-4-8-4-8" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M14 28h8" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M16 8c1-3 4-3 4 0" stroke="#C9A84C" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+);
+const IconAging = () => (
+    <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6C11.373 6 6 11.373 6 18c0 6.628 5.373 12 12 12s12-5.372 12-12C30 11.373 24.627 6 18 6z" stroke="#C9A84C" strokeWidth="1.5" />
+        <path d="M18 10v8l5 3" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M10 6L6 2M26 6l4-4" stroke="#C9A84C" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+);
+
 /* ── Data ── */
 const step1Options = [
     { label: "Energy & Fatigue", icon: IconEnergy },
@@ -59,13 +106,29 @@ const step1Options = [
 ];
 
 const step2Options = [
+    { label: "Tired all the time despite sleeping", icon: IconTired },
+    { label: "Can't lose weight no matter what", icon: IconScale },
+    { label: "Mood swings and anxiety", icon: IconMood },
+    { label: "Can't think clearly or focus", icon: IconFocus },
+    { label: "Bloating, pain, or digestive issues", icon: IconDigestion },
+    { label: "Aging faster than I should be", icon: IconAging },
+];
+
+const step3Options = [
     "Less than 3 months",
     "3–12 months",
     "1–3 years",
     "More than 3 years",
 ];
 
-const step3Options = [
+const step4Options = [
+    "Yes — conventional medicine, no results",
+    "Yes — diets, supplements, lifestyle changes",
+    "Yes — both, nothing worked",
+    "No — this is my first step",
+];
+
+const step5Options = [
     "Waking up with real energy",
     "Feeling like myself again",
     "Finally getting answers",
@@ -85,7 +148,9 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
     const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [concern, setConcern] = useState("");
+    const [symptom, setSymptom] = useState("");
     const [duration, setDuration] = useState("");
+    const [priorTreatment, setPriorTreatment] = useState("");
     const [success, setSuccess] = useState("");
     const [showResult, setShowResult] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
@@ -96,7 +161,9 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
         if (isOpen) {
             setStep(1);
             setConcern("");
+            setSymptom("");
             setDuration("");
+            setPriorTreatment("");
             setSuccess("");
             setShowResult(false);
             setIsClosing(false);
@@ -118,17 +185,31 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
         setTimeout(() => navigate(path), 270);
     };
 
+    const handleBack = () => {
+        if (step > 1) setStep(step - 1);
+    };
+
     const handleStep1 = (label: string) => {
         setConcern(label);
         setTimeout(() => setStep(2), 400);
     };
 
     const handleStep2 = (label: string) => {
-        setDuration(label);
+        setSymptom(label);
         setTimeout(() => setStep(3), 400);
     };
 
     const handleStep3 = (label: string) => {
+        setDuration(label);
+        setTimeout(() => setStep(4), 400);
+    };
+
+    const handleStep4 = (label: string) => {
+        setPriorTreatment(label);
+        setTimeout(() => setStep(5), 400);
+    };
+
+    const handleStep5 = (label: string) => {
         setSuccess(label);
         setTimeout(() => setShowResult(true), 600);
     };
@@ -147,10 +228,17 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
                     ×
                 </button>
 
-                {/* Step indicators */}
+                {/* Back button — shown from Step 2 onward */}
+                {!showResult && step > 1 && (
+                    <button className="cm-back" onClick={handleBack} aria-label="Go back">
+                        ← Back
+                    </button>
+                )}
+
+                {/* Step indicators — 5 dots */}
                 {!showResult && (
                     <div className="cm-dots">
-                        {[1, 2, 3].map((s) => (
+                        {[1, 2, 3, 4, 5].map((s) => (
                             <div key={s} className={`cm-dot ${step >= s ? "cm-dot--active" : ""}`} />
                         ))}
                     </div>
@@ -183,7 +271,7 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
                 {/* ── Step 1 ── */}
                 {!showResult && step === 1 && (
                     <div>
-                        <p className="cm-step-label">Step 1 of 3</p>
+                        <p className="cm-step-label">Step 1 of 5</p>
                         <h2 className="cm-headline">What's your main health concern?</h2>
                         <div className="cm-grid">
                             {step1Options.map(({ label, icon: Icon }) => (
@@ -200,16 +288,36 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
                     </div>
                 )}
 
-                {/* ── Step 2 ── */}
+                {/* ── Step 2 (NEW) — Symptoms ── */}
                 {!showResult && step === 2 && (
                     <div>
-                        <p className="cm-step-label">Step 2 of 3</p>
+                        <p className="cm-step-label">Step 2 of 5</p>
+                        <h2 className="cm-headline">How would you describe your symptoms?</h2>
+                        <div className="cm-grid">
+                            {step2Options.map(({ label, icon: Icon }) => (
+                                <button
+                                    key={label}
+                                    onClick={() => handleStep2(label)}
+                                    className={`cm-grid-btn ${symptom === label ? "cm-grid-btn--selected" : ""}`}
+                                >
+                                    <Icon />
+                                    {label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* ── Step 3 (was Step 2) — Duration ── */}
+                {!showResult && step === 3 && (
+                    <div>
+                        <p className="cm-step-label">Step 3 of 5</p>
                         <h2 className="cm-headline">How long have you been dealing with this?</h2>
                         <div className="cm-pills">
-                            {step2Options.map((opt) => (
+                            {step3Options.map((opt) => (
                                 <button
                                     key={opt}
-                                    onClick={() => handleStep2(opt)}
+                                    onClick={() => handleStep3(opt)}
                                     className={`cm-pill ${duration === opt ? "cm-pill--selected" : ""}`}
                                 >
                                     {opt}
@@ -219,16 +327,35 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
                     </div>
                 )}
 
-                {/* ── Step 3 ── */}
-                {!showResult && step === 3 && (
+                {/* ── Step 4 (NEW) — Prior treatment ── */}
+                {!showResult && step === 4 && (
                     <div>
-                        <p className="cm-step-label">Step 3 of 3</p>
-                        <h2 className="cm-headline">What does success look like for you?</h2>
+                        <p className="cm-step-label">Step 4 of 5</p>
+                        <h2 className="cm-headline">Have you already tried to address this?</h2>
                         <div className="cm-pills">
-                            {step3Options.map((opt) => (
+                            {step4Options.map((opt) => (
                                 <button
                                     key={opt}
-                                    onClick={() => handleStep3(opt)}
+                                    onClick={() => handleStep4(opt)}
+                                    className={`cm-pill ${priorTreatment === opt ? "cm-pill--selected" : ""}`}
+                                >
+                                    {opt}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* ── Step 5 (was Step 3) — Success ── */}
+                {!showResult && step === 5 && (
+                    <div>
+                        <p className="cm-step-label">Step 5 of 5</p>
+                        <h2 className="cm-headline">What does success look like for you?</h2>
+                        <div className="cm-pills">
+                            {step5Options.map((opt) => (
+                                <button
+                                    key={opt}
+                                    onClick={() => handleStep5(opt)}
                                     className={`cm-pill ${success === opt ? "cm-pill--selected" : ""}`}
                                 >
                                     {opt}

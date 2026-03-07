@@ -61,6 +61,26 @@
     padding: 4px 8px;
 }
 
+/* ── Back button ── */
+.cm-back {
+    position: absolute;
+    top: 22px;
+    left: 24px;
+    background: none;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #9CA3AF;
+    cursor: pointer;
+    padding: 4px 0;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+}
+
+.cm-back:hover {
+    color: #6B7280;
+}
+
 /* ── Step dots ── */
 .cm-dots {
     display: flex;
