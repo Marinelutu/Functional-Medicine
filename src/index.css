@@ -2459,18 +2459,21 @@
   }
 
   /* ── Full-width two-column layout ── */
+  /* Offset by navbar height (80px desktop) so layout sits cleanly below the fixed global nav */
   .book-layout {
     display: flex;
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - 80px);
+    margin-top: 80px;
   }
 
   /* ── LEFT PANEL ── */
+  /* Sticky within the page — top: 0 here means top of the scroll area which starts at 80px (after nav margin) */
   .book-left-panel {
     position: sticky;
     top: 0;
     width: 35%;
-    height: 100vh;
+    height: calc(100vh - 80px);
     background: #2D4A3E;
     flex-shrink: 0;
     display: flex;
@@ -2668,23 +2671,25 @@
   .book-right-panel {
     width: 65%;
     background: #F7F3EE;
-    min-height: 100vh;
+    min-height: calc(100vh - 80px);
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    padding-top: 0;
   }
 
-  /* ── Progress bar ── */
+  /* ── Progress bar — sticky within the right panel scroll context ── */
+  /* z-index: 10 keeps it well below the global nav (z-index: 50) */
   .book-progress-bar {
     position: sticky;
     top: 0;
-    z-index: 30;
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0;
     background: #F7F3EE;
-    padding: 24px 32px;
+    padding: 20px 40px;
     border-bottom: 1px solid #E8DDD4;
   }
 
@@ -3315,6 +3320,13 @@
   /* ══════════ MOBILE — Below 768px ══════════ */
 
   @media (max-width: 768px) {
+
+    /* Mobile navbar is 64px — correct layout offset */
+    .book-layout {
+      margin-top: 64px;
+      min-height: calc(100vh - 64px);
+    }
+
     .book-left-panel {
       display: none;
     }
@@ -3341,6 +3353,7 @@
 
     .book-right-panel {
       width: 100%;
+      min-height: calc(100vh - 64px);
     }
 
     .book-step-content {

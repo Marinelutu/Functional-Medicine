@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -330,9 +330,22 @@ const services: Service[] = [
 
 /* ── Component ── */
 const ServicesPage = () => {
+  const [searchParams] = useSearchParams();
   const [filter, setFilter] = useState("All");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  useEffect(() => {
+    const initialFilter = searchParams.get("filter");
+    if (initialFilter && categories.includes(initialFilter)) {
+      setFilter(initialFilter);
+      // Wait for the grid to render filtered results then scroll to them
+      setTimeout(() => {
+        const offset = window.innerWidth < 1024 ? 400 : 500;
+        window.scrollTo({ top: offset, behavior: "smooth" });
+      }, 100);
+    }
+  }, [searchParams]);
 
   const filtered = filter === "All" ? services : services.filter((s) => s.category === filter);
 

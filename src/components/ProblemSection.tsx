@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const symptoms = [
   "Exhausted no matter how much you sleep",
@@ -13,6 +14,7 @@ const symptoms = [
 ];
 
 const ProblemSection = () => {
+  const navigate = useNavigate();
   const gridRef = useRef<HTMLDivElement>(null);
   const [visibleTiles, setVisibleTiles] = useState<Set<number>>(new Set());
 
@@ -88,13 +90,9 @@ const ProblemSection = () => {
           <div className="problem-cta-wrapper">
             <button
               className="problem-cta-btn"
-              onClick={() => {
-                document
-                  .getElementById("velara-protocol-section")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
+              onClick={() => navigate("/book")}
             >
-              See How We Fix It →
+              Start Fixing It Today →
             </button>
           </div>
         </div>

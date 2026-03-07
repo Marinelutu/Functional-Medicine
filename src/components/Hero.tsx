@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
+import ConsultationModal from "./ConsultationModal";
 
 const goals = [
   { label: "Energy" },
@@ -97,6 +98,7 @@ function initParticles(
 
 const Hero = () => {
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const leftPanelRef = useRef<HTMLDivElement>(null);
 
@@ -203,86 +205,89 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="hero-section">
-      {/* Left Panel */}
-      <div className="hero-left-panel" ref={leftPanelRef}>
-        {/* Three.js canvas container */}
-        <div className="hero-particles-canvas" ref={canvasContainerRef} />
+    <>
+      <section className="hero-section">
+        {/* Left Panel */}
+        <div className="hero-left-panel" ref={leftPanelRef}>
+          {/* Three.js canvas container */}
+          <div className="hero-particles-canvas" ref={canvasContainerRef} />
 
-        {/* Content (above particles) */}
-        <div className="hero-left-content">
-          <div className="hero-brand-block">
-            <h2 className="hero-wordmark">VELARA</h2>
-            <p className="hero-subtitle">Functional Medicine, Reimagined</p>
-          </div>
+          {/* Content (above particles) */}
+          <div className="hero-left-content">
+            <div className="hero-brand-block">
+              <h2 className="hero-wordmark">VELARA</h2>
+              <p className="hero-subtitle">Functional Medicine, Reimagined</p>
+            </div>
 
-          <div className="hero-headline-block">
-            <h1 className="hero-headline">
-              You've tried everything.{" "}
-              <span className="hero-headline-accent">
-                You still don't feel like yourself.
-              </span>
-            </h1>
-            <p className="hero-description">
-              VELARA combines advanced diagnostics with personalized protocols to
-              help you reclaim the energy, clarity, and vitality you deserve.
-            </p>
-          </div>
+            <div className="hero-headline-block">
+              <h1 className="hero-headline">
+                You've tried everything.{" "}
+                <span className="hero-headline-accent">
+                  You still don't feel like yourself.
+                </span>
+              </h1>
+              <p className="hero-description">
+                VELARA combines advanced diagnostics with personalized protocols to
+                help you reclaim the energy, clarity, and vitality you deserve.
+              </p>
+            </div>
 
-          {/* Goal tiles */}
-          <div className="hero-goals">
-            <p className="hero-goals-label">What's your #1 goal?</p>
-            <div className="hero-goals-grid">
-              {goals.map((g) => (
-                <button
-                  key={g.label}
-                  onClick={() => toggleGoal(g.label)}
-                  className={`hero-goal-tile ${selectedGoals.includes(g.label)
+            {/* Goal tiles */}
+            <div className="hero-goals">
+              <p className="hero-goals-label">What's your #1 goal?</p>
+              <div className="hero-goals-grid">
+                {goals.map((g) => (
+                  <button
+                    key={g.label}
+                    onClick={() => toggleGoal(g.label)}
+                    className={`hero-goal-tile ${selectedGoals.includes(g.label)
                       ? "hero-goal-tile--active"
                       : ""
-                    }`}
-                >
-                  {g.label}
-                </button>
-              ))}
+                      }`}
+                  >
+                    {g.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* CTAs */}
-          <div className="hero-ctas">
-            <a href="/book" className="hero-cta-primary">
-              Start Free Assessment
-            </a>
-            <a href="/services" className="hero-cta-secondary">
-              Explore Services
-            </a>
-          </div>
+            {/* CTAs */}
+            <div className="hero-ctas">
+              <button onClick={() => setModalOpen(true)} className="hero-cta-primary">
+                Book a Free Consultation
+              </button>
+              <a href="/services" className="hero-cta-secondary">
+                Explore Services
+              </a>
+            </div>
 
-          {/* Trust bar */}
-          <div className="hero-trust-bar">
-            <p className="hero-trust-text">4,200+ lives transformed</p>
-            <div className="hero-trust-stars">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <span key={i} className="hero-star">
-                  ★
-                </span>
-              ))}
-              <span className="hero-rating-label">4.9/5 rating</span>
+            {/* Trust bar */}
+            <div className="hero-trust-bar">
+              <p className="hero-trust-text">4,200+ lives transformed</p>
+              <div className="hero-trust-stars">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <span key={i} className="hero-star">
+                    ★
+                  </span>
+                ))}
+                <span className="hero-rating-label">4.9/5 rating</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Right Panel — hero image */}
-      <div className="hero-right-panel">
-        <div className="hero-image-gradient" />
-        <img
-          src="/images/hero_image_1772491701279.png"
-          alt="Real person in natural wellness setting"
-          className="hero-image"
-        />
-      </div>
-    </section>
+        {/* Right Panel — hero image */}
+        <div className="hero-right-panel">
+          <div className="hero-image-gradient" />
+          <img
+            src="/images/hero_image_1772491701279.png"
+            alt="Real person in natural wellness setting"
+            className="hero-image"
+          />
+        </div>
+      </section>
+      <ConsultationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+    </>
   );
 };
 

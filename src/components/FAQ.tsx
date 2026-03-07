@@ -54,7 +54,7 @@ const FAQ = () => {
   };
 
   return (
-    <section className="py-24 lg:py-32 bg-card">
+    <section id="faq" className="py-24 lg:py-32 bg-card">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">FAQ</p>
@@ -80,9 +80,8 @@ const FAQ = () => {
                         <span className="text-sm font-medium text-foreground pr-4">{item.q}</span>
                         <ChevronDown
                           size={18}
-                          className={`flex-shrink-0 text-muted-foreground transition-transform ${
-                            isOpen ? "rotate-180" : ""
-                          }`}
+                          className={`flex-shrink-0 text-muted-foreground transition-transform ${isOpen ? "rotate-180" : ""
+                            }`}
                         />
                       </button>
                       {isOpen && (

@@ -757,6 +757,12 @@ body {
         display: none;
     }
 
+    /* Mobile nav is 64px — correct layout margin */
+    .book-layout {
+        margin-top: 64px;
+        min-height: calc(100vh - 64px);
+    }
+
     /* Mobile bar: visible */
     .book-mobile-bar {
         display: flex;

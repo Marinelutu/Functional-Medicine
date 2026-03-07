@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 interface FooterLink {
@@ -15,7 +16,7 @@ const footerColumns: FooterColumn[] = [
   {
     title: "Programs",
     links: [
-      { label: "Weight Loss", to: "/services" },
+      { label: "Weight Loss", to: "/services?filter=Weight Loss" },
       { label: "Hormones", to: "/services" },
       { label: "Longevity", to: "/services" },
       { label: "Gut Health", to: "/services" },
@@ -37,16 +38,16 @@ const footerColumns: FooterColumn[] = [
       { label: "Blog", to: "/blog" },
       { label: "Podcast", to: "/blog" },
       { label: "Research", to: "/blog" },
-      { label: "FAQ", to: "/about" },
+      { label: "FAQ", to: "/#faq" },
     ],
   },
   {
     title: "Support",
     links: [
       { label: "Contact", to: "/book" },
-      { label: "Help Center", to: "/about" },
-      { label: "Privacy Policy", to: "/about" },
-      { label: "Terms of Service", to: "/about" },
+      { label: "Help Center", to: "/book" },
+      { label: "Privacy Policy", to: "/" },
+      { label: "Terms of Service", to: "/" },
     ],
   },
   {
@@ -61,10 +62,24 @@ const footerColumns: FooterColumn[] = [
 ];
 
 const Footer = () => {
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterError, setNewsletterError] = useState("");
+  const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
+
+  const handleSubscribe = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!newsletterEmail.trim() || !emailRegex.test(newsletterEmail.trim())) {
+      setNewsletterError("Please enter a valid email address.");
+      return;
+    }
+    setNewsletterError("");
+    setNewsletterSubscribed(true);
+  };
+
   return (
     <footer className="gradient-sage py-16 lg:py-20">
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-6 gap-10 mb-12">
+        <div className="grid lg:grid-cols-6 gap-10 mb-12 text-left">
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="font-display text-2xl font-semibold text-primary-foreground">
@@ -93,17 +108,13 @@ const Footer = () => {
                       >
                         {link.label}
                       </a>
-                    ) : link.to ? (
+                    ) : (
                       <Link
-                        to={link.to}
+                        to={link.to || "/"}
                         className="text-sm text-primary-foreground/60 hover:text-primary-foreground cursor-pointer transition-colors"
                       >
                         {link.label}
                       </Link>
-                    ) : (
-                      <span className="text-sm text-primary-foreground/60 hover:text-primary-foreground cursor-pointer transition-colors">
-                        {link.label}
-                      </span>
                     )}
                   </li>
                 ))}
@@ -115,18 +126,38 @@ const Footer = () => {
         {/* Newsletter */}
         <div className="border-t border-primary-foreground/10 pt-10 mb-10">
           <div className="max-w-md">
-            <h4 className="font-display text-lg text-primary-foreground mb-3">
+            <h4 className="font-display text-lg text-primary-foreground mb-3 font-semibold">
               Get weekly health insights
             </h4>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2.5 rounded-full bg-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/40 text-sm border border-primary-foreground/10 focus:outline-none focus:border-accent"
-              />
-              <button className="px-5 py-2.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold hover:opacity-90 transition-opacity">
-                Subscribe
-              </button>
+            <div className="flex flex-col gap-2">
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={newsletterEmail}
+                  onChange={(e) => { setNewsletterEmail(e.target.value); setNewsletterError(""); }}
+                  disabled={newsletterSubscribed}
+                  className={`flex-1 px-4 py-2.5 rounded-full bg-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/40 text-sm border focus:outline-none transition-colors ${newsletterError ? 'border-red-400' : 'border-primary-foreground/10 focus:border-accent'
+                    }`}
+                />
+                <button
+                  onClick={handleSubscribe}
+                  disabled={newsletterSubscribed}
+                  className="px-5 py-2.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold hover:opacity-90 transition-all disabled:opacity-100 disabled:cursor-default"
+                >
+                  {newsletterSubscribed ? "✓" : "Subscribe"}
+                </button>
+              </div>
+              {newsletterError && (
+                <p className="text-red-400 text-xs mt-1 ml-4 font-medium italic">
+                  {newsletterError}
+                </p>
+              )}
+              {newsletterSubscribed && (
+                <p className="text-accent text-xs mt-1 ml-4 font-medium uppercase tracking-wider">
+                  You're in! Check your inbox.
+                </p>
+              )}
             </div>
           </div>
         </div>

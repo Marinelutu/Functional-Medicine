@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import CartDrawer from "./CartDrawer";
+import ConsultationModal from "./ConsultationModal";
 
 const navLinks = [
   { label: "Services", href: "/services" },
@@ -15,6 +16,7 @@ const navLinks = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const location = useLocation();
   const { count, badgeBounce, toggleDrawer } = useCart();
 
@@ -62,12 +64,12 @@ const Navbar = () => {
                 {count}
               </span>
             </button>
-            <Link
-              to="/book"
+            <button
+              onClick={() => setModalOpen(true)}
               className="inline-flex items-center px-5 py-2.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
             >
-              Start Free Assessment
-            </Link>
+              Book a Free Consultation
+            </button>
           </div>
 
           <div className="flex items-center gap-3 lg:hidden">
@@ -100,17 +102,18 @@ const Navbar = () => {
                 {l.label}
               </Link>
             ))}
-            <Link
-              to="/book"
+            <button
+              onClick={() => { setMobileOpen(false); setModalOpen(true); }}
               className="mt-4 inline-flex items-center px-8 py-3.5 rounded-full bg-accent text-accent-foreground text-base font-semibold hover:opacity-90 transition-opacity"
             >
-              Start Free Assessment
-            </Link>
+              Book a Free Consultation
+            </button>
           </div>
         )}
       </nav>
 
       <CartDrawer />
+      <ConsultationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 };
