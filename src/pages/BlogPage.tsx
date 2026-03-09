@@ -143,26 +143,22 @@ const BlogPage = () => {
                   value={newsletterEmail}
                   onChange={(e) => { setNewsletterEmail(e.target.value); setNewsletterError(""); }}
                   disabled={newsletterSubscribed}
-                  className="w-full px-4 py-2.5 rounded-lg bg-background text-sm mb-3 focus:outline-none focus:border-primary"
-                  style={{
-                    border: newsletterError ? '1px solid #E53E3E' : '1px solid var(--border)',
-                  }}
+                  className={`w-full px-4 py-2.5 rounded-lg bg-background text-sm mb-3 focus:outline-none focus:border-primary border border-solid ${newsletterError ? 'border-[#E53E3E]' : 'border-border'}`}
                 />
                 {newsletterError && (
-                  <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '12px', color: '#E53E3E', margin: '0 0 8px 0' }}>
+                  <p className="font-sans text-xs text-[#E53E3E] mb-2">
                     {newsletterError}
                   </p>
                 )}
                 <button
                   onClick={handleSubscribe}
                   disabled={newsletterSubscribed}
-                  className="w-full px-4 py-2.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold"
-                  style={{ cursor: newsletterSubscribed ? 'default' : 'pointer' }}
+                  className={`w-full px-4 py-2.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold ${newsletterSubscribed ? 'cursor-default' : 'cursor-pointer'}`}
                 >
                   {newsletterSubscribed ? "✓ You're in!" : "Subscribe"}
                 </button>
                 {newsletterSubscribed && (
-                  <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '13px', color: '#2D4A3E', marginTop: '8px' }}>
+                  <p className="font-sans text-[13px] text-[#2D4A3E] mt-2">
                     Check your inbox for your first issue.
                   </p>
                 )}

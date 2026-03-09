@@ -253,7 +253,7 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
                         <p className="cm-result-headline">We have a protocol for you.</p>
                         <p className="cm-result-body">
                             Based on your answers, our{" "}
-                            <strong style={{ color: "#1C1C1C" }}>{concern}</strong>{" "}
+                            <strong className="cm-text-dark">{concern}</strong>{" "}
                             program is your best starting point. Your free consultation will map the exact path.
                         </p>
                         <button className="cm-result-btn-primary" onClick={() => handleNavigate("/book")}>

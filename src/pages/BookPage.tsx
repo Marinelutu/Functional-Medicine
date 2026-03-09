@@ -192,8 +192,8 @@ const BookPage = () => {
             LEFT PANEL — LIVE BOOKING SUMMARY
            ════════════════════════════════════════ */}
         <aside className="book-left-panel relative overflow-hidden">
-          <div className="absolute inset-0 z-0 pointer-events-none" style={{ backgroundImage: 'url(/images/backgrounds/book-panel-bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-          <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: 'rgba(45,74,62,0.92)' }} />
+          <div className="absolute inset-0 z-0 pointer-events-none bg-[url('/images/backgrounds/book-panel-bg.jpg')] bg-cover bg-center" />
+          <div className="absolute inset-0 z-0 pointer-events-none bg-[rgba(45,74,62,0.92)]" />
 
           <div className="book-left-inner relative z-10">
             {/* Wordmark */}

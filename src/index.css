@@ -2955,8 +2955,6 @@
     gap: 10px;
     overflow-x: auto;
     scroll-behavior: smooth;
-    scrollbar-width: none;
-    /* stylelint-disable-line */
     -ms-overflow-style: none;
     flex: 1;
     padding: 4px 0;
