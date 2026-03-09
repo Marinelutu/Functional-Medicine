@@ -2948,12 +2948,15 @@
     background: #FDFAF7;
   }
 
+  /* scrollbar-width: Chrome <121, Safari, iOS Safari don't support it.
+     The ::-webkit-scrollbar fallback below covers those browsers. */
   .book-date-scroll {
     display: flex;
     gap: 10px;
     overflow-x: auto;
     scroll-behavior: smooth;
     scrollbar-width: none;
+    /* stylelint-disable-line */
     -ms-overflow-style: none;
     flex: 1;
     padding: 4px 0;
