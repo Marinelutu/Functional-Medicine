@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import ConsultationModal from "./ConsultationModal";
 
 const symptoms = [
   "Exhausted no matter how much you sleep",
@@ -13,10 +13,18 @@ const symptoms = [
   "Skin and hair that stopped feeling like yours",
 ];
 
+const qualifiers = [
+  "You've tried conventional medicine and still don't have answers",
+  "You're ready to commit to a real protocol, not just advice",
+  "You're investing in long-term results, not a quick fix",
+];
+
 const ProblemSection = () => {
-  const navigate = useNavigate();
   const gridRef = useRef<HTMLDivElement>(null);
+  const gateRef = useRef<HTMLDivElement>(null);
   const [visibleTiles, setVisibleTiles] = useState<Set<number>>(new Set());
+  const [gateVisible, setGateVisible] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -43,61 +51,102 @@ const ProblemSection = () => {
     return () => observer.disconnect();
   }, []);
 
+  /* Eligibility gate fade-in on scroll */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setGateVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    if (gateRef.current) {
+      observer.observe(gateRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="problem-section py-24 lg:py-32 overflow-hidden">
-      <div className="container mx-auto px-6">
-        {/* TOP — Headline block */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <p className="font-mono text-xs tracking-[0.2em] uppercase problem-gold-text mb-4">
-            Sound Familiar?
-          </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-white leading-tight">
-            You've been told you're fine.
-            <br />
-            <span className="italic">But you know you're not.</span>
+    <>
+      <section className="problem-section py-24 lg:py-32 overflow-hidden">
+        <div className="container mx-auto px-6">
+          {/* TOP — Headline block */}
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <p className="font-mono text-xs tracking-[0.2em] uppercase problem-gold-text mb-4">
+              Sound Familiar?
+            </p>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-white leading-tight">
+              You've been told you're fine.
+              <br />
+              <span className="italic">But you know you're not.</span>
+            </h2>
+          </div>
+
+          {/* MIDDLE — Symptom tile grid */}
+          <div ref={gridRef} className="problem-tile-grid">
+            {symptoms.map((symptom, i) => (
+              <div
+                key={i}
+                className={`problem-tile ${visibleTiles.has(i) ? "problem-tile--visible" : ""}`}
+                data-tile-index={i}
+              >
+                <span className="problem-tile-text">
+                  {symptom}
+                </span>
+                <span className="problem-tile-qmark">?</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── ELIGIBILITY GATE ── */}
+      <section className="eligibility-gate" ref={gateRef}>
+        <div className={`eligibility-gate-inner ${gateVisible ? "eligibility-gate-inner--visible" : ""}`}>
+          {/* Overline */}
+          <p className="eligibility-overline">Not For Everyone</p>
+
+          {/* Headline */}
+          <h2 className="eligibility-headline">
+            VELARA works for a specific kind of patient.
           </h2>
-        </div>
 
-        {/* MIDDLE — Symptom tile grid */}
-        <div ref={gridRef} className="problem-tile-grid">
-          {symptoms.map((symptom, i) => (
-            <div
-              key={i}
-              className={`problem-tile ${visibleTiles.has(i) ? "problem-tile--visible" : ""}`}
-              data-tile-index={i}
-            >
-              <span className="problem-tile-text">
-                {symptom}
-              </span>
-              <span className="problem-tile-qmark">?</span>
-            </div>
-          ))}
-        </div>
-
-        {/* BOTTOM — Closing statement */}
-        <div className="problem-closing">
-          <div className="problem-closing-line" />
-          <p className="problem-closing-main">
-            <span className="problem-closing-white">Your body isn't broken.</span>
-            <br />
-            <span className="problem-closing-gold">It's been misunderstood.</span>
-          </p>
-          <p className="problem-closing-sub">
-            That's exactly what we're here to change.
+          {/* Body */}
+          <p className="eligibility-body">
+            Not everyone who reaches out is the right fit — and we mean that respectfully. Our protocols require commitment, openness, and a willingness to go beyond surface-level answers. The right patient gets extraordinary results. The wrong fit wastes both our time.
           </p>
 
-          {/* CTA Button */}
-          <div className="problem-cta-wrapper">
+          {/* Gold divider */}
+          <div className="eligibility-divider" />
+
+          {/* Three-column icon row */}
+          <div className="eligibility-qualifiers">
+            {qualifiers.map((q, i) => (
+              <div key={i} className="eligibility-qualifier">
+                <span className="eligibility-check">✓</span>
+                <p className="eligibility-qualifier-text">{q}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="eligibility-cta-wrapper">
             <button
-              className="problem-cta-btn"
-              onClick={() => navigate("/book")}
+              className="eligibility-cta-btn"
+              onClick={() => setModalOpen(true)}
             >
-              Start Fixing It Today →
+              See If You Qualify →
             </button>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <ConsultationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+    </>
   );
 };
 
