@@ -162,6 +162,10 @@ const VelaraProtocol = () => {
             </div>
           </div>
         </div>
+        
+        <p className="narrative-connector narrative-connector-dark">
+          "Patients who commit to this don't come back with the same problems twice."
+        </p>
       </div>
     </section>
   );

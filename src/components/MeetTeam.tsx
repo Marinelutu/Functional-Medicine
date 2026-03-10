@@ -1,9 +1,9 @@
 import ImagePlaceholder from "./ImagePlaceholder";
 
 const teamMembers = [
-  { name: "Dr. Elena Vasquez", role: "Lead Practitioner", image: "/images/team_dr_elena_1772491726653.png" },
-  { name: "Dr. Marcus Chen", role: "Hormones & Longevity", image: "/images/team_dr_marcus_1772491740108.png" },
-  { name: "Dr. Amara Okafor", role: "Gut Health Specialist", image: "/images/team_dr_amara_1772491753632.png" },
+  { name: "Dr. Elena Vasquez", role: "Lead Practitioner", credentials: "MD · IFM Certified Practitioner", image: "/images/team_dr_elena_1772491726653.png" },
+  { name: "Dr. Marcus Chen", role: "Hormones & Longevity", credentials: "MD · Board Certified, Anti-Aging Medicine", image: "/images/team_dr_marcus_1772491740108.png" },
+  { name: "Dr. Amara Okafor", role: "Gut Health Specialist", credentials: "ND · Certified Functional Medicine Practitioner", image: "/images/team_dr_amara_1772491753632.png" },
 ];
 
 const MeetTeam = () => {
@@ -61,6 +61,7 @@ const MeetTeam = () => {
               />
               <h3 className="font-display text-lg font-semibold text-foreground">{m.name}</h3>
               <p className="text-sm text-muted-foreground font-mono">{m.role}</p>
+              <p className="text-xs text-muted-foreground/60 mt-0.5">{m.credentials}</p>
             </div>
           ))}
         </div>

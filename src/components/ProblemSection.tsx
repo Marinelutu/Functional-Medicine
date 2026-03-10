@@ -102,6 +102,10 @@ const ProblemSection = () => {
             ))}
           </div>
         </div>
+        
+        <p className="narrative-connector">
+          "There's a reason conventional medicine keeps missing it."
+        </p>
       </section>
 
       {/* ── ELIGIBILITY GATE ── */}

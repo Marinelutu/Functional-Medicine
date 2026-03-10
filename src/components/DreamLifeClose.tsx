@@ -79,7 +79,7 @@ const DreamLifeClose = () => {
           label="[IMAGE: Dream Life Close — Person thriving, hiking, cinematic]"
           aspectRatio="hero"
           className="w-full h-full rounded-none object-cover"
-          src="/images/dream_life_close_1772491714558.png"
+          src="/images/services/adrenal-recovery.png"
         />
       </div>
 

@@ -28,7 +28,6 @@ const footerColumns: FooterColumn[] = [
     links: [
       { label: "About Us", to: "/about" },
       { label: "Our Team", to: "/about" },
-      { label: "Careers", to: "/about" },
       { label: "Press", to: "/about" },
     ],
   },
@@ -36,8 +35,6 @@ const footerColumns: FooterColumn[] = [
     title: "Resources",
     links: [
       { label: "Blog", to: "/blog" },
-      { label: "Podcast", to: "/blog" },
-      { label: "Research", to: "/blog" },
       { label: "FAQ", to: "/#faq" },
     ],
   },
@@ -121,6 +118,27 @@ const Footer = () => {
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* Trust Anchors */}
+        <div className="footer-trust-row mb-12">
+          <p className="footer-trust-label">
+            Works with your existing stack
+          </p>
+          <div className="footer-trust-logos">
+            <span className="footer-trust-logo">Calendly</span>
+            <span className="text-primary-foreground/30">·</span>
+            <span className="footer-trust-logo">Practice Better</span>
+            <span className="text-primary-foreground/30">·</span>
+            <span className="footer-trust-logo">Jane App</span>
+            <span className="text-primary-foreground/30">·</span>
+            <span className="footer-trust-logo">Stripe</span>
+            <span className="text-primary-foreground/30">·</span>
+            <span className="footer-trust-logo">Zoom</span>
+          </div>
+          <p className="footer-trust-subtext">
+            Built on HIPAA-compatible tools. Your patients' data stays protected.
+          </p>
         </div>
 
         {/* Newsletter */}

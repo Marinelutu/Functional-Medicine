@@ -63,6 +63,10 @@ const Testimonials = () => {
             </div>
           ))}
         </div>
+        
+        <p className="narrative-connector narrative-connector-dark">
+          "Every one of them came to us after the system failed them."
+        </p>
       </div>
     </section>
   );

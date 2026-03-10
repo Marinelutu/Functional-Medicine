@@ -3516,6 +3516,82 @@
     }
   }
 
+  /* ── Blog Demo Label ── */
+  .blog-demo-label {
+    color: #C9A84C;
+    font-variant: all-small-caps;
+    letter-spacing: 0.15em;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    opacity: 0.85;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  /* ── Narrative Connectors ── */
+  .narrative-connector {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 64px;
+    padding-bottom: 24px;
+  }
+  
+  .narrative-connector-dark {
+    color: rgba(28, 28, 28, 0.4);
+  }
+
+  @media (max-width: 640px) {
+    .narrative-connector {
+      font-size: 18px;
+      margin-top: 48px;
+    }
+  }
+
+  /* ── Footer Trust Anchors ── */
+  .footer-trust-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer-trust-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 24px;
+  }
+
+  .footer-trust-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 24px;
+  }
+
+  .footer-trust-logo {
+    font-family: 'DM Sans', sans-serif;
+    font-variant: all-small-caps;
+    font-weight: 500;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-trust-subtext {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.3);
+  }
+
   @media (max-width: 480px) {
     .book-service-grid {
       grid-template-columns: repeat(2, 1fr);

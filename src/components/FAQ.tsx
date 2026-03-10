@@ -42,6 +42,13 @@ const faqData = [
       { q: "Are your products safe to take with prescription medications?", a: "Our practitioners review all your current medications before prescribing any supplements. We'll flag any potential interactions and adjust your protocol accordingly." },
     ],
   },
+  {
+    category: "The System",
+    questions: [
+      { q: "Can this be built for my own practice?", a: "Yes — that's exactly what VELARA is. This site is a live demo of the Smart Patient Filter system we build for functional medicine practitioners. The Teacher Page, Smart Checklist, and Pay-to-Book Calendar you've been experiencing are built and customized for your brand in 30 days. Book a strategy call to see your version." },
+      { q: "What makes this different from a standard medical website?", a: "A standard website presents your services. This system filters, educates, and qualifies patients before they ever contact you — so every person who reaches your calendar has already demonstrated commitment. It runs 24/7 without your involvement and never gets tired of saying no to the wrong people." },
+    ],
+  },
 ];
 
 const FAQ = () => {
