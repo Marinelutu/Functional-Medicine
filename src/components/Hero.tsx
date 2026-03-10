@@ -2,6 +2,16 @@ import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
 import ConsultationModal from "./ConsultationModal";
 
+/* ── Goal → Concern mapping for pre-selecting Step 1 ── */
+const goalToConcern: Record<string, string> = {
+  "Energy": "Energy & Fatigue",
+  "Weight": "Weight & Metabolism",
+  "Hormones": "Hormones & Mood",
+  "Clarity": "Brain Fog & Focus",
+  "Longevity": "Longevity & Aging",
+  "Gut Health": "Gut Health",
+};
+
 const goals = [
   { label: "Energy" },
   { label: "Weight" },
@@ -97,15 +107,24 @@ function initParticles(
 }
 
 const Hero = () => {
-  const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [preSelectedConcern, setPreSelectedConcern] = useState<string | undefined>(undefined);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const leftPanelRef = useRef<HTMLDivElement>(null);
 
-  const toggleGoal = (label: string) => {
-    setSelectedGoals((prev) =>
-      prev.includes(label) ? prev.filter((g) => g !== label) : [...prev, label]
-    );
+  const handleGoalClick = (label: string) => {
+    setPreSelectedConcern(goalToConcern[label]);
+    setModalOpen(true);
+  };
+
+  const handleOpenModal = () => {
+    setPreSelectedConcern(undefined);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setPreSelectedConcern(undefined);
   };
 
   useEffect(() => {
@@ -239,11 +258,8 @@ const Hero = () => {
                 {goals.map((g) => (
                   <button
                     key={g.label}
-                    onClick={() => toggleGoal(g.label)}
-                    className={`hero-goal-tile ${selectedGoals.includes(g.label)
-                      ? "hero-goal-tile--active"
-                      : ""
-                      }`}
+                    onClick={() => handleGoalClick(g.label)}
+                    className="hero-goal-tile"
                   >
                     {g.label}
                   </button>
@@ -253,8 +269,8 @@ const Hero = () => {
 
             {/* CTAs */}
             <div className="hero-ctas">
-              <button onClick={() => setModalOpen(true)} className="hero-cta-primary">
-                Book a Free Consultation
+              <button onClick={handleOpenModal} className="hero-cta-primary">
+                Check If You Qualify
               </button>
               <a href="/services" className="hero-cta-secondary">
                 Explore Services
@@ -286,7 +302,7 @@ const Hero = () => {
           />
         </div>
       </section>
-      <ConsultationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <ConsultationModal isOpen={modalOpen} onClose={handleCloseModal} preSelectedConcern={preSelectedConcern} />
     </>
   );
 };

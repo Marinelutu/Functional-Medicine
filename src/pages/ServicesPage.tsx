@@ -488,13 +488,13 @@ const ServicesPage = () => {
             Not sure which service is right for you?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-            Take our free 2-minute assessment and we'll recommend the perfect protocol.
+            Take our 2-minute assessment and we'll recommend the perfect protocol.
           </p>
           <Link
             to="/book"
             className="inline-flex items-center px-8 py-4 rounded-full bg-accent text-accent-foreground font-semibold text-lg hover:opacity-90 transition-opacity"
           >
-            Start Free Assessment
+            Check If You Qualify
           </Link>
         </div>
       </section>

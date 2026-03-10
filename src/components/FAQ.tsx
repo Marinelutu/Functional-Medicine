@@ -6,7 +6,7 @@ const faqData = [
     category: "Getting Started",
     questions: [
       { q: "What is functional medicine and how is it different?", a: "Functional medicine focuses on identifying and addressing the root cause of disease rather than just treating symptoms. We use advanced diagnostics, lifestyle interventions, and personalized protocols — not just prescriptions." },
-      { q: "Do I need a referral to work with VELARA?", a: "No referral is needed. You can book directly through our website. We recommend starting with our free health assessment to determine the best program for you." },
+      { q: "Do I need a referral to work with VELARA?", a: "No referral is needed. You can book directly through our website. We recommend starting with our health assessment to determine the best program for you." },
       { q: "Is VELARA right for me if I'm already seeing a doctor?", a: "Absolutely. We complement conventional care by providing deeper diagnostics and personalized protocols your primary care doctor may not have time to explore." },
     ],
   },
@@ -23,7 +23,7 @@ const faqData = [
     questions: [
       { q: "How much do your programs cost?", a: "Programs range from $297–$997/month depending on complexity. All programs include practitioner access, lab interpretation, custom protocols, and ongoing support. We also offer payment plans." },
       { q: "Do you accept insurance?", a: "We don't bill insurance directly, but many of our lab tests and consultations may be reimbursable through your HSA/FSA. We provide superbills for out-of-network reimbursement." },
-      { q: "What's included in the free assessment?", a: "The free assessment is a comprehensive questionnaire that evaluates your symptoms, health history, and goals. You'll receive a personalized recommendation for which protocol best fits your needs." },
+      { q: "What's included in the assessment?", a: "The assessment is a comprehensive questionnaire that evaluates your symptoms, health history, and goals. You'll receive a personalized recommendation for which protocol best fits your needs." },
     ],
   },
   {

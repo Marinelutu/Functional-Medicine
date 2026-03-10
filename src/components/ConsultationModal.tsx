@@ -6,6 +6,7 @@ import "./consultation-modal.css";
 interface ConsultationModalProps {
     isOpen: boolean;
     onClose: () => void;
+    preSelectedConcern?: string;
 }
 
 /* ── Botanical SVG icons — Step 1 ── */
@@ -129,10 +130,10 @@ const step4Options = [
 ];
 
 const step5Options = [
-    "Waking up with real energy",
-    "Feeling like myself again",
-    "Finally getting answers",
-    "Living longer and better",
+    "Yes — I'm done with temporary solutions",
+    "Yes — but I need to understand costs first",
+    "I'm still exploring my options",
+    "I'm not sure yet",
 ];
 
 /* ── Result leaf SVG ── */
@@ -143,8 +144,16 @@ const LeafResult = () => (
     </svg>
 );
 
+/* ── Qualification logic ── */
+function isQualified(duration: string, priorTreatment: string, success: string): boolean {
+    const longDuration = duration === "1–3 years" || duration === "More than 3 years";
+    const hasTriedSomething = priorTreatment.startsWith("Yes");
+    const committedAnswer = success === "Yes — I'm done with temporary solutions" || success === "Yes — but I need to understand costs first";
+    return longDuration && hasTriedSomething && committedAnswer;
+}
+
 /* ── Component ── */
-const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
+const ConsultationModal = ({ isOpen, onClose, preSelectedConcern }: ConsultationModalProps) => {
     const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const [concern, setConcern] = useState("");
@@ -159,7 +168,6 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
     /* Open / close animation */
     useEffect(() => {
         if (isOpen) {
-            setStep(1);
             setConcern("");
             setSymptom("");
             setDuration("");
@@ -167,9 +175,18 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
             setSuccess("");
             setShowResult(false);
             setIsClosing(false);
+
+            // If a concern is pre-selected (from hero pills), skip Step 1
+            if (preSelectedConcern) {
+                setConcern(preSelectedConcern);
+                setStep(2);
+            } else {
+                setStep(1);
+            }
+
             requestAnimationFrame(() => setIsVisible(true));
         }
-    }, [isOpen]);
+    }, [isOpen, preSelectedConcern]);
 
     const handleClose = () => {
         setIsClosing(true);
@@ -216,6 +233,8 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
 
     if (!isOpen && !isClosing) return null;
 
+    const qualified = showResult && isQualified(duration, priorTreatment, success);
+
     return (
         <div
             className={`cm-overlay ${isVisible ? "cm-overlay--visible" : "cm-overlay--hidden"}`}
@@ -244,9 +263,9 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
                     </div>
                 )}
 
-                {/* ── Result state ── */}
-                {showResult && (
-                    <div className="cm-result">
+                {/* ── QUALIFIED Result state ── */}
+                {showResult && qualified && (
+                    <div className="cm-result cm-result--enter">
                         <div className="cm-result-icon">
                             <LeafResult />
                         </div>
@@ -254,17 +273,57 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
                         <p className="cm-result-body">
                             Based on your answers, our{" "}
                             <strong className="cm-text-dark">{concern}</strong>{" "}
-                            program is your best starting point. Your free consultation will map the exact path.
+                            program is your strongest starting point. You've clearly been dealing with this long enough — it's time to get real answers.
                         </p>
+                        <div className="cm-result-protocol-box">
+                            <p className="cm-result-protocol-label">Recommended Protocol</p>
+                            <p className="cm-result-protocol-name">{concern}</p>
+                        </div>
                         <button className="cm-result-btn-primary" onClick={() => handleNavigate("/book")}>
-                            Book My Free Consultation →
+                            Book Your Assessment →
                         </button>
                         <button className="cm-result-btn-secondary" onClick={() => handleNavigate("/services")}>
                             Explore All Services
                         </button>
                         <p className="cm-result-disclaimer">
-                            No commitment. No credit card. 30 minutes with a real practitioner.
+                            Serious inquiries only. Your assessment confirms fit before we begin.
                         </p>
+                    </div>
+                )}
+
+                {/* ── NOT QUALIFIED Result state ── */}
+                {showResult && !qualified && (
+                    <div className="cm-result cm-result--enter">
+                        <div className="cm-result-icon">
+                            <div className="cm-result-icon-circle">
+                                <span className="cm-result-icon-neutral">—</span>
+                            </div>
+                        </div>
+                        <p className="cm-result-headline">VELARA may not be the right fit yet.</p>
+                        <p className="cm-result-body">
+                            Our protocols work best for patients who've already tried conventional approaches without success. If your situation changes, we'll be here — and our journal is full of insights you can use right now.
+                        </p>
+                        <a
+                            href="/blog"
+                            className="cm-result-journal-link"
+                            onClick={(e) => { e.preventDefault(); handleNavigate("/blog"); }}
+                        >
+                            Read Our Journal →
+                        </a>
+                        <button
+                            className="cm-result-btn-secondary"
+                            onClick={() => {
+                                setConcern("");
+                                setSymptom("");
+                                setDuration("");
+                                setPriorTreatment("");
+                                setSuccess("");
+                                setShowResult(false);
+                                setStep(1);
+                            }}
+                        >
+                            Retake Quiz
+                        </button>
                     </div>
                 )}
 
@@ -288,7 +347,7 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
                     </div>
                 )}
 
-                {/* ── Step 2 (NEW) — Symptoms ── */}
+                {/* ── Step 2 — Symptoms ── */}
                 {!showResult && step === 2 && (
                     <div>
                         <p className="cm-step-label">Step 2 of 5</p>
@@ -308,7 +367,7 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
                     </div>
                 )}
 
-                {/* ── Step 3 (was Step 2) — Duration ── */}
+                {/* ── Step 3 — Duration ── */}
                 {!showResult && step === 3 && (
                     <div>
                         <p className="cm-step-label">Step 3 of 5</p>
@@ -327,7 +386,7 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
                     </div>
                 )}
 
-                {/* ── Step 4 (NEW) — Prior treatment ── */}
+                {/* ── Step 4 — Prior treatment ── */}
                 {!showResult && step === 4 && (
                     <div>
                         <p className="cm-step-label">Step 4 of 5</p>
@@ -346,11 +405,11 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
                     </div>
                 )}
 
-                {/* ── Step 5 (was Step 3) — Success ── */}
+                {/* ── Step 5 — Commitment ── */}
                 {!showResult && step === 5 && (
                     <div>
                         <p className="cm-step-label">Step 5 of 5</p>
-                        <h2 className="cm-headline">What does success look like for you?</h2>
+                        <h2 className="cm-headline">Are you ready to commit to a real protocol — not just advice or a quick fix?</h2>
                         <div className="cm-pills">
                             {step5Options.map((opt) => (
                                 <button

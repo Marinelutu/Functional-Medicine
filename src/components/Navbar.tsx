@@ -68,7 +68,7 @@ const Navbar = () => {
               onClick={() => setModalOpen(true)}
               className="inline-flex items-center px-5 py-2.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
             >
-              Book a Free Consultation
+              Check If You Qualify
             </button>
           </div>
 
@@ -106,7 +106,7 @@ const Navbar = () => {
               onClick={() => { setMobileOpen(false); setModalOpen(true); }}
               className="mt-4 inline-flex items-center px-8 py-3.5 rounded-full bg-accent text-accent-foreground text-base font-semibold hover:opacity-90 transition-opacity"
             >
-              Book a Free Consultation
+              Check If You Qualify
             </button>
           </div>
         )}

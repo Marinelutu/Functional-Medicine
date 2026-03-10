@@ -21,7 +21,7 @@ const protocolSteps = [
 ];
 
 const pressQuotes = [
-  { quote: "Velara is redefining what functional medicine looks like in the modern age.", source: "FORBES" },
+  { quote: "Velara is redefining what functional medicine looks like in the modern age.", source: "FUNCTIONAL MEDICINE UNIVERSITY" },
   { quote: "A precision approach to wellness that actually delivers measurable results.", source: "HEALTHLINE" },
   { quote: "The gold standard for root-cause medicine — personalized, evidence-based, and deeply human.", source: "MINDBODYGREEN" },
 ];

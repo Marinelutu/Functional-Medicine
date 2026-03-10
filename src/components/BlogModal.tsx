@@ -142,7 +142,7 @@ const BlogModal = ({ article, onClose }: BlogModalProps) => {
                                 Ready to apply this to your own health?
                             </p>
                             <a href="/book" className="blog-modal-cta-button">
-                                Start Free Assessment
+                                Check If You Qualify
                             </a>
                         </div>
                     </div>

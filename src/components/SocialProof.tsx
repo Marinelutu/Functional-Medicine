@@ -1,4 +1,4 @@
-const logos = ["Healthline", "Forbes", "Mindbodygreen", "Well+Good", "Vogue", "Entrepreneur"];
+const logos = ["Well+Good", "Healthline", "MindBodyGreen", "Functional Medicine University", "Healthline"];
 
 const SocialProof = () => {
   return (
