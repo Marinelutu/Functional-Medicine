@@ -17,7 +17,7 @@ const BlogModal = ({ article, onClose }: BlogModalProps) => {
         if (overlayRef.current) {
             overlayRef.current.classList.add("blog-modal-overlay--closing");
         }
-        setTimeout(onClose, 350);
+        setTimeout(onClose, 200);
     }, [onClose]);
 
     useEffect(() => {

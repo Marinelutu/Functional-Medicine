@@ -68,7 +68,8 @@ const DreamLifeClose = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden min-h-[100vh] flex items-center justify-center bg-[#1c1c1c]"
+      className="dream-life-section relative overflow-hidden min-h-[100vh] flex items-center justify-center bg-[#1c1c1c]"
+      data-theme="dark"
     >
       {/* Background Image Container */}
       <div
@@ -151,7 +152,7 @@ const DreamLifeClose = () => {
 
         {/* Reassurance Line */}
         <p
-          className={`font-sans italic text-white opacity-45 text-[13px] m-0 ${getAnimClass('delay-[650ms]')}`}
+          className={`font-sans italic text-white opacity-45 text-[13px] m-0 mb-[100px] ${getAnimClass('delay-[650ms]')}`}
         >
           Join 4,200+ people who chose to understand their body.
         </p>

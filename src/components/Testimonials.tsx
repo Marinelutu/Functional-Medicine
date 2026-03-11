@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ImagePlaceholder from "./ImagePlaceholder";
 
 const goalFilters = ["All", "Energy", "Weight", "Hormones", "Clarity", "Gut Health"];
@@ -15,6 +15,29 @@ const testimonials = [
 const Testimonials = () => {
   const [filter, setFilter] = useState("All");
   const filtered = filter === "All" ? testimonials : testimonials.filter((t) => t.goal === filter);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          filtered.forEach((_, i) => {
+            setTimeout(() => {
+              setVisibleCards((prev) => new Set([...prev, i]));
+            }, i * 70);
+          });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (gridRef.current) observer.observe(gridRef.current);
+    return () => observer.disconnect();
+  }, [filtered]);
 
   return (
     <section className="py-24 lg:py-32 bg-card">
@@ -39,9 +62,9 @@ const Testimonials = () => {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((t) => (
-            <div key={t.name} className="bg-background rounded-2xl p-6 border border-border/50">
+        <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filtered.map((t, index) => (
+            <div key={t.name} className={`bg-background rounded-2xl p-6 testimonial-card stagger-card ${visibleCards.has(index) ? "stagger-card--visible" : ""}`}>
               <div className="flex items-center gap-4 mb-4">
                 <ImagePlaceholder
                   label={`[IMAGE: Testimonial — Member photo, ${t.name}]`}

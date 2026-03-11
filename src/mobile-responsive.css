@@ -283,60 +283,30 @@ body {
 
 
     /* ============================================================
-     HOMEPAGE — Hero
+     HOMEPAGE — Hero (Video Background)
      ============================================================ */
 
     .hero-section {
-        grid-template-columns: 1fr;
-        min-height: 0;
-    }
-
-    /* Copy panel full width, ABOVE image */
-    .hero-left-panel {
-        padding: 96px 20px 40px;
-        order: 1;
-    }
-
-    /* Image full width BELOW copy */
-    .hero-right-panel {
-        order: 2;
-        height: 280px;
-    }
-
-    .hero-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .hero-image-gradient {
-        background: linear-gradient(to top, #F7F3EE 0%, transparent 40%);
+        height: 100vh;
     }
 
     .hero-headline {
-        font-size: 28px !important;
+        font-size: 35px !important;
     }
 
-    .hero-description {
+    .hero-gold-line {
+        font-size: 20px;
+    }
+
+    .hero-subline {
         font-size: 15px;
         max-width: 100%;
     }
 
-    /* Goal tiles: 2 columns */
-    .hero-goals-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-    }
-
-    .hero-goal-tile {
+    .hero-goal-pill {
         font-size: 13px;
-        padding: 10px 12px;
-        white-space: normal;
-        text-align: center;
+        padding: 8px 14px;
         min-height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
 

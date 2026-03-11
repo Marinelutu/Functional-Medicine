@@ -74,7 +74,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="gradient-sage py-16 lg:py-20">
+    <footer className="gradient-sage py-16 lg:py-20" data-theme="dark">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-6 gap-10 mb-12 text-left">
           {/* Brand */}
@@ -118,27 +118,6 @@ const Footer = () => {
               </ul>
             </div>
           ))}
-        </div>
-
-        {/* Trust Anchors */}
-        <div className="footer-trust-row mb-12">
-          <p className="footer-trust-label">
-            Works with your existing stack
-          </p>
-          <div className="footer-trust-logos">
-            <span className="footer-trust-logo">Calendly</span>
-            <span className="text-primary-foreground/30">·</span>
-            <span className="footer-trust-logo">Practice Better</span>
-            <span className="text-primary-foreground/30">·</span>
-            <span className="footer-trust-logo">Jane App</span>
-            <span className="text-primary-foreground/30">·</span>
-            <span className="footer-trust-logo">Stripe</span>
-            <span className="text-primary-foreground/30">·</span>
-            <span className="footer-trust-logo">Zoom</span>
-          </div>
-          <p className="footer-trust-subtext">
-            Built on HIPAA-compatible tools. Your patients' data stays protected.
-          </p>
         </div>
 
         {/* Newsletter */}

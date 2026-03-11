@@ -72,7 +72,7 @@ const ProblemSection = () => {
 
   return (
     <>
-      <section className="problem-section py-24 lg:py-32 overflow-hidden">
+      <section className="problem-section pt-24 lg:pt-32 pb-[80px] overflow-hidden" data-theme="dark">
         <div className="container mx-auto px-6">
           {/* TOP — Headline block */}
           <div className="max-w-3xl mx-auto text-center mb-16">
@@ -109,7 +109,7 @@ const ProblemSection = () => {
       </section>
 
       {/* ── ELIGIBILITY GATE ── */}
-      <section className="eligibility-gate" ref={gateRef}>
+      <section className="eligibility-gate" ref={gateRef} data-theme="dark">
         <div className={`eligibility-gate-inner ${gateVisible ? "eligibility-gate-inner--visible" : ""}`}>
           {/* Overline */}
           <p className="eligibility-overline">Not For Everyone</p>

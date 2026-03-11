@@ -2,10 +2,12 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SocialProof from "@/components/SocialProof";
 import ProblemSection from "@/components/ProblemSection";
+import StatTriplet from "@/components/StatTriplet";
 import VelaraProtocol from "@/components/VelaraProtocol";
 import HealthCalculator from "@/components/HealthCalculator";
 import ServicesGrid from "@/components/ServicesGrid";
 import Testimonials from "@/components/Testimonials";
+import ReframeHeadline from "@/components/ReframeHeadline";
 import ShopPreview from "@/components/ShopPreview";
 import MeetTeam from "@/components/MeetTeam";
 import BlogPreview from "@/components/BlogPreview";
@@ -21,12 +23,12 @@ const Index = () => {
       <Hero />
       <SocialProof />
       <ProblemSection />
-      {/* Gradient transition strip: dark sage → linen */}
-      <div className="section-transition-strip" aria-hidden="true" />
+      <StatTriplet />
       <VelaraProtocol />
       <HealthCalculator />
       <ServicesGrid />
       <Testimonials />
+      <ReframeHeadline />
       <ShopPreview />
       <MeetTeam />
       <BlogPreview />

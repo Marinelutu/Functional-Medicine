@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const categories = [
   "All", "Weight Loss", "Hormones", "Longevity", "Gut Health", "Mental Clarity", "Sexual Health", "Skin & Hair"
@@ -147,6 +147,29 @@ const services = [
 const ServicesGrid = () => {
   const [filter, setFilter] = useState("All");
   const filtered = filter === "All" ? services : services.filter((s) => s.category === filter);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          filtered.forEach((_, i) => {
+            setTimeout(() => {
+              setVisibleCards((prev) => new Set([...prev, i]));
+            }, i * 60);
+          });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (gridRef.current) observer.observe(gridRef.current);
+    return () => observer.disconnect();
+  }, [filtered]);
 
   return (
     <section className="services-section py-24 lg:py-32">
@@ -172,13 +195,13 @@ const ServicesGrid = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filtered.map((s) => {
+        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {filtered.map((s, index) => {
             const IconComponent = iconMap[s.name];
             return (
               <div
                 key={s.name}
-                className="service-card rounded-2xl p-6 transition-all group"
+                className={`service-card rounded-2xl p-6 transition-all group stagger-card ${visibleCards.has(index) ? "stagger-card--visible" : ""}`}
               >
                 <div className="mb-4">
                   {IconComponent && <IconComponent />}
