@@ -1,171 +1,49 @@
-import { useState, useEffect, useCallback } from "react";
-import ImagePlaceholder from "./ImagePlaceholder";
+import { Link } from "react-router-dom";
 
-const steps = [
-  {
-    number: "01",
-    title: "Assess",
-    description:
-      "Complete our comprehensive health assessment and advanced lab panel — going far beyond standard blood work to uncover root causes. We evaluate over 80 biomarkers across metabolic, hormonal, nutritional, and inflammatory pathways to build a complete picture of your health.",
-    stat: "80+ biomarkers analyzed",
-    image: "/images/protocol_step_01_assess_1772491828260.png",
-  },
-  {
-    number: "02",
-    title: "Diagnose",
-    description:
-      "Our clinical team analyzes your results using functional ranges — not just conventional ones — to identify what's actually driving your symptoms. We connect the dots between systems that traditional medicine treats in silos.",
-    stat: "3x more markers than standard labs",
-    image: "/images/protocol_step_02_diagnose_1772491844275.png",
-  },
-  {
-    number: "03",
-    title: "Protocol",
-    description:
-      "Receive your personalized Velara Protocol™ — a tailored plan combining targeted supplements, precision nutrition, and lifestyle shifts designed around your unique biology, not generic guidelines.",
-    stat: "100% personalized protocols",
-    image: "/images/protocol_step_03_protocol_1772491856872.png",
-  },
-  {
-    number: "04",
-    title: "Transform",
-    description:
-      "Experience measurable change within 90 days with ongoing practitioner support, progress tracking, and protocol adjustments. Watch your labs improve, your energy return, and your vitality transform.",
-    stat: "94% see results in 90 days",
-    image: "/images/protocol_step_04_transform_1772491876304.png",
-  },
+const protocolSteps = [
+  { num: "01", title: "Assess", desc: "An in-depth health assessment covering 80+ biomarkers — a complete picture conventional medicine rarely sees.", image: "/images/about_panel_assess_1773774546827.png" },
+  { num: "02", title: "Diagnose", desc: "We analyze your results using functional ranges — catching imbalances long before they become diagnosable disease.", image: "/images/about_panel_diagnose_1773774568262.png" },
+  { num: "03", title: "Protocol", desc: "A personalized plan combining targeted supplementation, nutrition strategy, and ongoing practitioner guidance.", image: "/images/about_panel_protocol_1773774584765.png" },
+  { num: "04", title: "Transform", desc: "Within 90 days, most members experience measurable improvements. Your protocol evolves with you.", image: "/images/about_panel_transform_1773774597976.png" },
 ];
 
-const AUTO_ADVANCE_MS = 5000;
-
 const VelaraProtocol = () => {
-  const [activeStep, setActiveStep] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
-
-  const goToStep = useCallback((index: number) => {
-    setActiveStep(index);
-    setProgress(0);
-  }, []);
-
-  useEffect(() => {
-    if (isPaused) return;
-
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          setActiveStep((s) => (s + 1) % steps.length);
-          return 0;
-        }
-        return prev + 100 / (AUTO_ADVANCE_MS / 50);
-      });
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, [isPaused, activeStep]);
-
-  const current = steps[activeStep];
-
   return (
-    <section
-      id="velara-protocol-section"
-      className="py-24 lg:py-32 bg-protocol-linen"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-    >
-      <div className="container mx-auto px-6">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">
-            Our Method
-          </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold protocol-heading">
-            The Velara Protocol™
-          </h2>
-          <p className="mt-4 text-lg protocol-subtext max-w-2xl mx-auto">
-            A proven 4-step system that identifies root causes and delivers lasting results.
-          </p>
-        </div>
-
-        {/* Interactive Panel */}
-        <div className="grid lg:grid-cols-[340px_1fr] gap-0 rounded-2xl overflow-hidden protocol-panel max-w-5xl mx-auto min-h-[480px]">
-          {/* Left: Step list */}
-          <div className="flex flex-col border-b lg:border-b-0 lg:border-r protocol-panel-divider">
-            {steps.map((step, i) => (
-              <button
-                key={step.number}
-                onClick={() => goToStep(i)}
-                className={`relative text-left px-8 py-7 transition-all duration-300 group flex-1 ${i < steps.length - 1 ? "border-b protocol-panel-divider" : ""
-                  } ${activeStep === i ? "protocol-step-active" : "protocol-step-idle"}`}
-              >
-                <div className="flex items-center gap-4">
-                  <span
-                    className={`font-mono text-xs tracking-wider transition-colors duration-300 ${activeStep === i ? "text-accent" : "protocol-step-num-inactive"
-                      }`}
-                  >
-                    {step.number}
-                  </span>
-                  <span
-                    className={`font-display text-xl font-semibold transition-colors duration-300 ${activeStep === i ? "protocol-step-title-active" : "protocol-step-title-inactive"
-                      }`}
-                  >
-                    {step.title}
-                  </span>
-                </div>
-                {/* Progress bar */}
-                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-white/5">
-                  <div
-                    className="h-full bg-accent transition-all duration-100 ease-linear protocol-progress-bar"
-                    ref={(el) => {
-                      if (el) {
-                        const width = activeStep === i ? `${progress}%` : i < activeStep ? '100%' : '0%';
-                        el.style.setProperty('--progress-width', width);
-                      }
-                    }}
-                  />
-                </div>
-              </button>
-            ))}
-          </div>
-
-          {/* Right: Content area */}
-          <div className="p-8 lg:p-12 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-            {/* Image */}
-            <div className="w-full lg:w-1/2 flex-shrink-0">
-              <ImagePlaceholder
-                label={`[ICON: ${current.title}]`}
-                aspectRatio="square"
-                className="w-full rounded-xl"
-                src={current.image}
-              />
-            </div>
-
-            {/* Text */}
-            <div className="w-full lg:w-1/2 space-y-6">
-              <div>
-                <span className="font-mono text-xs tracking-wider text-accent">
-                  Step {current.number}
-                </span>
-                <h3 className="text-3xl font-display font-semibold protocol-content-heading mt-1">
-                  {current.title}
-                </h3>
+    <section className="bg-[#F5F0E8] pt-20 pb-12">
+      <div className="container mx-auto px-6 mb-10 text-center">
+        <p className="font-mono text-xs tracking-[0.2em] uppercase text-[#C9A84C] mb-4">OUR METHOD</p>
+        <h2 className="text-4xl md:text-5xl font-display font-semibold text-foreground">The Velara Protocol™</h2>
+      </div>
+      <div className="w-full">
+        <div className="flex flex-col md:flex-row w-full h-auto md:h-[520px]">
+          {protocolSteps.map((step) => (
+            <div key={step.num} className="group relative w-full md:w-1/4 h-[380px] md:h-[520px] overflow-hidden border-r border-transparent md:hover:border-[rgba(201,168,76,0.4)] transition-all duration-300">
+              <img src={step.image} alt={step.title} className="absolute inset-0 w-full h-full object-cover object-center" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(20,35,25,0.92)] via-[rgba(20,35,25,0.5)] to-[rgba(20,35,25,0.15)] group-hover:from-[rgba(20,35,25,0.96)] transition-all duration-300"></div>
+              
+              <div className="absolute inset-x-0 top-12 flex justify-center">
+                <span className="text-[96px] font-display font-bold text-[rgba(201,168,76,0.9)] group-hover:text-[#C9A84C] leading-none transition-colors duration-300">{step.num}</span>
               </div>
-              <p className="text-base protocol-content-body leading-relaxed">
-                {current.description}
-              </p>
-              <div className="flex items-center gap-3 pt-2">
-                <span className="text-accent text-lg">✦</span>
-                <span className="font-mono text-sm tracking-wider text-accent font-medium">
-                  {current.stat}
-                </span>
+              
+              <div className="absolute inset-x-0 top-[65%] flex justify-center">
+                <div className="w-[40px] h-[1px] bg-[#C9A84C] group-hover:w-[60px] transition-all duration-300"></div>
+              </div>
+
+              <div className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-8 px-4">
+                <h3 className="text-[22px] font-display italic text-[#F5F0E8] mb-4">{step.title}</h3>
+                <p className="text-[14px] text-[#F5F0E8]/75 max-w-[180px] leading-[1.6] text-center mb-6 md:opacity-0 md:translate-y-[8px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                  {step.desc}
+                </p>
               </div>
             </div>
-          </div>
+          ))}
         </div>
-        
-        <p className="narrative-connector narrative-connector-dark">
-          "Patients who commit to this don't come back with the same problems twice."
-        </p>
+        <div className="pt-[48px] text-center">
+          <Link to="/book" className="inline-flex items-center px-8 py-4 rounded-full bg-[#C9A84C] text-[#2D4A3E] font-semibold text-lg hover:opacity-90 transition-opacity">
+            Check If You Qualify →
+          </Link>
+          <p className="text-sm text-muted-foreground mt-4 text-center">Your assessment is the first step.</p>
+        </div>
       </div>
     </section>
   );

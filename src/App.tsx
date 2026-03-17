@@ -17,6 +17,7 @@ import BlogPage from "./pages/BlogPage";
 import BookPage from "./pages/BookPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import ProductPage from "./pages/ProductPage";
+import TimedOfferModal from "./components/TimedOfferModal";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <TimedOfferModal />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/services" element={<ServicesPage />} />
