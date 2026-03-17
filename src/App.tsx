@@ -18,6 +18,7 @@ import BookPage from "./pages/BookPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import ProductPage from "./pages/ProductPage";
 import TimedOfferModal from "./components/TimedOfferModal";
+import VelaraEffects from "./components/VelaraEffects";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <VelaraEffects />
           <TimedOfferModal />
           <Routes>
             <Route path="/" element={<Index />} />

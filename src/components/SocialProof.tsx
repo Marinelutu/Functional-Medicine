@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import LiquidGoldDivider from "./LiquidGoldDivider";
 
 const logos = ["Well+Good", "Healthline", "MindBodyGreen", "Functional Medicine University"];
 
@@ -65,7 +66,7 @@ const SocialProof = () => {
           Real results. Real people.<br />
           <em>Measured, not promised.</em>
         </h2>
-        <div className="social-proof-gold-rule" />
+        <LiquidGoldDivider />
 
         {/* Marquee partner logos */}
         <div className="relative mb-10">

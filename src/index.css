@@ -3919,4 +3919,68 @@
       font-size: 22px;
     }
   }
+
+  /* ══════════════════════════════════════════
+     EFFECT 1 — BREATHING BACKGROUND
+     ══════════════════════════════════════════ */
+  @keyframes breathe {
+    0%   { background-color: #2D4A3E; }
+    50%  { background-color: #324F43; }
+    100% { background-color: #2D4A3E; }
+  }
+
+  body:not([data-page="book"]) .breathe {
+    animation: breathe 6s ease-in-out infinite;
+  }
+
+  /* ══════════════════════════════════════════
+     EFFECT 2 — CURSOR GLOW TRAIL
+     ══════════════════════════════════════════ */
+  body:not([data-page="book"]) #cursor-glow {
+    position: fixed;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.04) 40%, transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+    mix-blend-mode: screen;
+    opacity: 0;
+  }
+
+  @media (max-width: 1023px) {
+    #cursor-glow {
+      display: none !important;
+    }
+  }
+
+  /* ══════════════════════════════════════════
+     EFFECT 3 — LIQUID GOLD DIVIDER
+     ══════════════════════════════════════════ */
+  body:not([data-page="book"]) .liquid-gold-divider {
+    width: 100%;
+    max-width: 600px;
+    height: 24px;
+    margin: 0 auto;
+    display: block;
+    overflow: visible;
+  }
+
+  body:not([data-page="book"]) .liquid-gold-divider svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  body:not([data-page="book"]) .liquid-gold-divider svg path {
+    stroke-dasharray: 1300;
+    stroke-dashoffset: 1300;
+    transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  body:not([data-page="book"]) .liquid-gold-divider.animate svg path {
+    stroke-dashoffset: 0;
+  }
 }

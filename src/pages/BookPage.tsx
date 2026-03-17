@@ -102,6 +102,14 @@ const BookPage = () => {
 
   const dateScrollRef = useRef<HTMLDivElement>(null);
 
+  /* ── Set data-page="book" on body to exclude visual effects ── */
+  useEffect(() => {
+    document.body.dataset.page = "book";
+    return () => {
+      delete document.body.dataset.page;
+    };
+  }, []);
+
   /* ── Build 14 days starting from today ── */
   const today = useMemo(() => new Date(), []);
   const dateCards = useMemo(() => {

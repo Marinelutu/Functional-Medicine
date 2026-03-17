@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import LiquidGoldDivider from "./LiquidGoldDivider";
 
 /* ── Easing: cubic ease-out ── */
 function easeOutCubic(t: number): number {
@@ -95,7 +96,7 @@ const StatTriplet = () => {
       className="stat-triplet-section"
     >
       {/* Gold rule top */}
-      <div className="stat-triplet-rule" />
+      <LiquidGoldDivider />
 
       <div className={`stat-triplet-grid ${visible ? "stat-triplet-grid--visible" : ""}`}>
         {/* Stat 1: 30 Days */}
@@ -118,7 +119,7 @@ const StatTriplet = () => {
       </div>
 
       {/* Gold rule bottom */}
-      <div className="stat-triplet-rule" />
+      <LiquidGoldDivider />
     </section>
   );
 };

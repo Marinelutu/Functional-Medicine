@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ConsultationModal from "./ConsultationModal";
+import LiquidGoldDivider from "./LiquidGoldDivider";
 
 const symptoms = [
   "Exhausted no matter how much you sleep",
@@ -125,7 +126,7 @@ const ProblemSection = () => {
           </p>
 
           {/* Gold divider */}
-          <div className="eligibility-divider" />
+          <LiquidGoldDivider />
 
           {/* Three-column icon row */}
           <div className="eligibility-qualifiers">
