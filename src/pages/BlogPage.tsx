@@ -47,8 +47,23 @@ const BlogPage = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
+      {/* Hero Section */}
+      <section className="dark-section bg-[#2D4A3E] relative pt-[120px] pb-[80px] text-center after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] after:pointer-events-none">
+        <div className="container mx-auto px-6 relative z-10">
+          <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-[#C9A84C] block mb-4">
+            THE JOURNAL
+          </span>
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6">
+            Evidence-Based Insights
+          </h1>
+          <p className="font-sans text-[17px] text-[#F5F0E8]/80 max-w-2xl mx-auto">
+            Written by our practitioners. Grounded in functional medicine. Designed to help you understand your body.
+          </p>
+        </div>
+      </section>
+
       {/* Featured Article */}
-      <section className="pt-28 pb-12">
+      <section className="pt-8 pb-[40px]">
         <div className="container mx-auto px-6">
           <div
             className="grid lg:grid-cols-2 gap-10 items-center blog-card-clickable group"
@@ -87,7 +102,7 @@ const BlogPage = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-12 lg:py-16">
+      <section className="pt-[40px] pb-12 lg:pb-16 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#F5F0E8] after:to-[#2D4A3E] after:pointer-events-none">
         <div className="container mx-auto px-6">
           <div className="flex flex-wrap gap-2 mb-10">
             {categories.map((c) => (
@@ -188,8 +203,8 @@ const BlogPage = () => {
         </div>
       </section>
 
+      <BlogModal article={activeArticle} onClose={() => setActiveArticle(null)} onOpenArticle={openArticle} />
       <Footer />
-      <BlogModal article={activeArticle} onClose={() => setActiveArticle(null)} />
     </div>
   );
 };

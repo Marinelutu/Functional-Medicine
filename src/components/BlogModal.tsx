@@ -1,14 +1,27 @@
-import { useEffect, useRef, useCallback } from "react";
-import type { BlogArticle } from "@/data/blogArticles";
+import { useEffect, useRef, useCallback, useState } from "react";
+import { BlogArticle, allArticles } from "@/data/blogArticles";
+import ImagePlaceholder from "@/components/ImagePlaceholder";
 
 interface BlogModalProps {
     article: BlogArticle | null;
     onClose: () => void;
+    onOpenArticle?: (article: BlogArticle) => void;
 }
 
-const BlogModal = ({ article, onClose }: BlogModalProps) => {
+const mostReadTitles = [
+    "5 Lab Tests Your Doctor Never Orders But Should",
+    "Why Your Thyroid Labs Are 'Normal' But You Still Feel Terrible",
+    "Brain Fog Is Not Normal — Here's What's Causing It",
+    "The Gut-Brain Axis Explained",
+    "Why Your Cortisol Is Sabotaging Your Weight Loss",
+];
+
+const BlogModal = ({ article, onClose, onOpenArticle }: BlogModalProps) => {
     const overlayRef = useRef<HTMLDivElement>(null);
     const modalRef = useRef<HTMLDivElement>(null);
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const progressRef = useRef<HTMLDivElement>(null);
+    const [scrollProgress, setScrollProgress] = useState(0);
 
     const handleClose = useCallback(() => {
         if (modalRef.current) {
@@ -23,6 +36,9 @@ const BlogModal = ({ article, onClose }: BlogModalProps) => {
     useEffect(() => {
         if (!article) return;
         document.body.style.overflow = "hidden";
+        setScrollProgress(0);
+        if (scrollRef.current) scrollRef.current.scrollTop = 0;
+        if (progressRef.current) progressRef.current.style.setProperty('--progress-width', '0%');
 
         const handleKey = (e: KeyboardEvent) => {
             if (e.key === "Escape") handleClose();
@@ -35,7 +51,38 @@ const BlogModal = ({ article, onClose }: BlogModalProps) => {
         };
     }, [article, handleClose]);
 
+    const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+        const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+        const maxScroll = scrollHeight - clientHeight;
+        if (maxScroll <= 0) {
+            setScrollProgress(0);
+            if (progressRef.current) progressRef.current.style.setProperty('--progress-width', '0%');
+            return;
+        }
+        const progress = (scrollTop / maxScroll) * 100;
+        setScrollProgress(progress);
+        if (progressRef.current) progressRef.current.style.setProperty('--progress-width', `${progress}%`);
+    };
+
     if (!article) return null;
+
+    let relatedArticles: BlogArticle[] = [];
+    const sameCategoryIndex = allArticles.findIndex(a => a.category === article.category && a.slug !== article.slug);
+    const sameCategory = sameCategoryIndex !== -1 ? allArticles[sameCategoryIndex] : null;
+
+    if (sameCategory) {
+        relatedArticles.push(sameCategory);
+        const diffCategoryMostRead = allArticles.find(a => mostReadTitles.includes(a.title) && a.category !== article.category && a.slug !== article.slug);
+        if (diffCategoryMostRead) {
+            relatedArticles.push(diffCategoryMostRead);
+        } else {
+            relatedArticles.push(allArticles.find(a => a.slug !== article.slug && a.slug !== sameCategory.slug)!);
+        }
+    } else {
+        relatedArticles = allArticles
+            .filter(a => mostReadTitles.includes(a.title) && a.slug !== article.slug)
+            .slice(0, 2);
+    }
 
     const renderBody = (body: string) => {
         const lines = body.split("\n").filter(line => line.trim() !== "");
@@ -64,6 +111,29 @@ const BlogModal = ({ article, onClose }: BlogModalProps) => {
                     <li key={key++} className="blog-modal-list-item">{trimmed.slice(2)}</li>
                 );
             } else {
+                const items = trimmed.split(/(?=\*\*)/).filter(Boolean);
+                const isInlineList = items.length > 1 && items.every(item => /^\*\*[^*]+\*\*\s*—\s*/.test(item));
+
+                if (isInlineList) {
+                    elements.push(
+                        <ul key={key++} className="blog-modal-inline-list">
+                            {items.map((item, i) => {
+                                const match = item.match(/^\*\*([^*]+)\*\*\s*—\s*(.*)$/);
+                                if (match) {
+                                    return (
+                                        <li key={i} className="blog-modal-inline-list-item">
+                                            <span className="blog-modal-inline-list-term">{match[1]}</span>
+                                            <span className="blog-modal-inline-list-desc"> — {match[2]}</span>
+                                        </li>
+                                    );
+                                }
+                                return null;
+                            })}
+                        </ul>
+                    );
+                    continue;
+                }
+
                 // Parse bold text within paragraphs
                 const parts = trimmed.split(/(\*\*[^*]+\*\*)/g);
                 const rendered = parts.map((part, i) => {
@@ -98,6 +168,10 @@ const BlogModal = ({ article, onClose }: BlogModalProps) => {
                     aria-modal="true"
                     aria-label={article.title}
                 >
+                    <div 
+                        ref={progressRef}
+                        className="blog-modal-progress-bar"
+                    />
                     {/* Fixed close button - positioned relative to .blog-modal-content */}
                     <button
                         className="blog-modal-close"
@@ -112,7 +186,7 @@ const BlogModal = ({ article, onClose }: BlogModalProps) => {
                     </button>
 
                     {/* Scrollable inner content */}
-                    <div className="blog-modal-scroll">
+                    <div className="blog-modal-scroll" ref={scrollRef} onScroll={handleScroll}>
                         {/* Hero image */}
                         <div className="blog-modal-hero">
                             <img src={article.image} alt={article.title} className="blog-modal-hero-img" />
@@ -133,6 +207,49 @@ const BlogModal = ({ article, onClose }: BlogModalProps) => {
 
                             <div className="blog-modal-article-body">
                                 {renderBody(article.body)}
+                            </div>
+                        </div>
+
+                        {/* Read Next Section */}
+                        <div className="bg-[#F5F0E8] py-10 px-6 md:px-10 text-center">
+                            <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-[#C9A84C] block mb-8">
+                                READ NEXT
+                            </span>
+                            <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto text-left">
+                                {relatedArticles.map(a => (
+                                    <div
+                                        key={a.slug}
+                                        className="bg-white rounded-xl shadow-sm overflow-hidden cursor-pointer hover:-translate-y-1 transition-transform duration-200"
+                                        onClick={() => {
+                                            if (onOpenArticle) {
+                                                handleClose();
+                                                setTimeout(() => onOpenArticle(a), 200);
+                                            }
+                                        }}
+                                        role="button"
+                                        tabIndex={0}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter" && onOpenArticle) {
+                                                handleClose();
+                                                setTimeout(() => onOpenArticle(a), 200);
+                                            }
+                                        }}
+                                    >
+                                        <div className="h-[160px] overflow-hidden">
+                                            <ImagePlaceholder
+                                                label={`Blog — ${a.title}`}
+                                                aspectRatio="landscape"
+                                                className="w-full h-full object-cover"
+                                                src={a.image}
+                                            />
+                                        </div>
+                                        <div className="p-5">
+                                            <span className="font-mono text-[10px] tracking-wider uppercase text-[#C9A84C] block mb-2">{a.category}</span>
+                                            <h4 className="font-display font-semibold text-lg text-[#2D4A3E] leading-tight mb-2">{a.title}</h4>
+                                            <span className="font-sans text-[13px] text-muted-foreground">{a.readTime} read</span>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
 

@@ -28,7 +28,7 @@ const Navbar = () => {
       // Detect if header is over a dark section
       const headerCenterY = 40; 
       let overDark = false;
-      const darkSelectors = ['.hero-section', '.problem-section', '.eligibility-gate', '.dream-life-section', 'footer'];
+      const darkSelectors = ['.hero-section', '.problem-section', '.eligibility-gate', '.dream-life-section', 'footer', '.dark-section'];
       
       for (const selector of darkSelectors) {
         const elements = document.querySelectorAll(selector);

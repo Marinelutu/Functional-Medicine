@@ -8,87 +8,20 @@ const team = [
   { name: "Dr. Elena Vasquez", role: "Founder & Lead Practitioner", credentials: "MD, IFMCP — Board-certified in Integrative Medicine", bio: "After a decade in conventional medicine, Elena founded Velara when she realized lab 'normals' were failing patients. She's helped over 2,000 patients uncover root causes conventional medicine missed.", image: "/images/team_dr_elena_1772491726653.png" },
   { name: "Dr. Marcus Chen", role: "Hormones & Longevity Specialist", credentials: "DO, ABAARM — Anti-Aging & Regenerative Medicine", bio: "Marcus blends cutting-edge longevity science with traditional Chinese medicine principles. His hormone optimization protocols have become the backbone of Velara's most transformative programs.", image: "/images/team_dr_marcus_1772491740108.png" },
   { name: "Dr. Amara Okafor", role: "Gut Health & Immunology", credentials: "PhD, CNS — Clinical Nutrition & Gastroenterology", bio: "Amara's research on the gut-brain axis has been published in 12 peer-reviewed journals. She designs Velara's gut restoration protocols and oversees all microbiome-related testing.", image: "/images/team_dr_amara_1772491753632.png" },
-  { name: "Dr. Sarah Mitchell", role: "Neuro-Cognitive Specialist", credentials: "PsyD, ABIHM — Integrative & Holistic Medicine", bio: "Sarah specializes in the intersection of brain health and metabolic function. Her Neuro-Clarity Program has helped hundreds of professionals regain peak cognitive performance.", image: "/images/dr_4_latino_1772572310653.png" },
-  { name: "Dr. James Rivera", role: "Metabolic & Weight Optimization", credentials: "MD, ABOM — Board-certified in Obesity Medicine", bio: "James brings a metabolic-first approach to weight management, focusing on insulin signaling, thyroid optimization, and inflammatory pathways rather than calorie restriction.", image: "/images/dr_5_south_asian_1772572324802.png" },
-  { name: "Dr. Priya Sharma", role: "Thyroid & Autoimmune Specialist", credentials: "MD, ECNU — Endocrinology & Clinical Nutrition", bio: "Priya's deep expertise in thyroid dysfunction goes far beyond TSH. She's developed Velara's comprehensive thyroid panel protocol that catches what standard testing misses.", image: "/images/dr_6_white_male_1772572337828.png" },
 ];
 
 const protocolSteps = [
-  { num: "01", title: "Assess", desc: "We begin with an in-depth health assessment that goes far beyond a standard intake form. Combined with our advanced lab panel covering 80+ biomarkers, we build a complete picture of your unique biology — one that conventional medicine rarely sees.", image: "/images/protocol_step_01_assess_1772491828260.png" },
-  { num: "02", title: "Diagnose", desc: "Our clinical team analyzes your results using functional ranges, not just conventional ones. This means we catch imbalances long before they become diagnosable diseases. We look at how your systems interact, not just individual markers in isolation.", image: "/images/protocol_step_02_diagnose_1772491844275.png" },
-  { num: "03", title: "Protocol", desc: "Your personalized Velara Protocol™ is a comprehensive plan combining targeted supplementation, nutrition strategies, lifestyle modifications, and ongoing practitioner guidance. Every recommendation is evidence-based and tailored to your specific root causes.", image: "/images/protocol_step_03_protocol_1772491856872.png" },
-  { num: "04", title: "Transform", desc: "Within 90 days, most members experience measurable improvements. But we don't stop there — your protocol evolves with you through regular check-ins, retesting, and adjustments. Transformation isn't a destination; it's a sustainable way of living.", image: "/images/protocol_step_04_transform_1772491876304.png" },
+  { num: "01", title: "Assess", desc: "An in-depth health assessment covering 80+ biomarkers — a complete picture conventional medicine rarely sees.", image: "/images/about_panel_assess_1773774546827.png" },
+  { num: "02", title: "Diagnose", desc: "We analyze your results using functional ranges — catching imbalances long before they become diagnosable disease.", image: "/images/about_panel_diagnose_1773774568262.png" },
+  { num: "03", title: "Protocol", desc: "A personalized plan combining targeted supplementation, nutrition strategy, and ongoing practitioner guidance.", image: "/images/about_panel_protocol_1773774584765.png" },
+  { num: "04", title: "Transform", desc: "Within 90 days, most members experience measurable improvements. Your protocol evolves with you.", image: "/images/about_panel_transform_1773774597976.png" },
 ];
 
 const pressQuotes = [
-  { quote: "Velara is redefining what functional medicine looks like in the modern age.", source: "FUNCTIONAL MEDICINE UNIVERSITY" },
   { quote: "A precision approach to wellness that actually delivers measurable results.", source: "HEALTHLINE" },
-  { quote: "The gold standard for root-cause medicine — personalized, evidence-based, and deeply human.", source: "MINDBODYGREEN" },
+  { quote: "VELARA is redefining what personalized medicine looks like in practice.", source: "MINDBODYGREEN" },
+  { quote: "The protocol-first model is something the functional medicine space has needed for years.", source: "WELL+GOOD" },
 ];
-
-
-
-/* ── Rotating Quote Component ── */
-const RotatingQuote = () => {
-  const [current, setCurrent] = useState(0);
-  const [visible, setVisible] = useState(true);
-  const [hovered, setHovered] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const goTo = (index: number) => {
-    setVisible(false);
-    setTimeout(() => {
-      setCurrent(index);
-      setVisible(true);
-    }, 400);
-  };
-
-  useEffect(() => {
-    if (hovered) return;
-    timerRef.current = setTimeout(() => {
-      const next = (current + 1) % pressQuotes.length;
-      goTo(next);
-    }, 4500);
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [current, hovered]);
-
-  return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="press-rotating-wrapper"
-    >
-      {/* Gold rule */}
-      <div className="press-gold-rule" />
-
-      {/* Quote text */}
-      <p
-        className={`press-quote-text ${visible ? 'press-quote--visible' : ''}`}
-      >
-        {pressQuotes[current].quote}
-      </p>
-
-      {/* Source attribution */}
-      <p
-        className={`press-quote-source ${visible ? 'press-quote--visible' : ''}`}
-      >
-        — {pressQuotes[current].source}
-      </p>
-
-      {/* Dot indicators */}
-      <div className="press-dots">
-        {pressQuotes.map((_, i) => (
-          <button
-            key={i}
-            aria-label={`Go to quote ${i + 1}`}
-            onClick={() => goTo(i)}
-            className={`press-dot ${i === current ? 'press-dot--active' : ''}`}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
 
 
 
@@ -97,20 +30,15 @@ const AboutPage = () => (
     <Navbar />
 
     {/* Hero */}
-    <section className="gradient-sage pt-32 pb-20">
-      <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">Our Story</p>
-            <h1 className="text-4xl md:text-5xl font-display font-semibold text-primary-foreground mb-6">
-              We built Velara because the system failed us too.
-            </h1>
-            <p className="text-lg text-primary-foreground/70 leading-relaxed">
-              We were the patients told "your labs are normal" while we struggled with fatigue, brain fog, and unexplained symptoms. We were the doctors frustrated by a system that treated symptoms instead of seeking root causes. So we built something better — a practice where advanced diagnostics meet compassionate, personalized care.
-            </p>
-          </div>
-          <ImagePlaceholder src="/images/about_page_hero_1772572296572.png" label="About hero — founding team" aspectRatio="landscape" className="rounded-2xl object-cover" />
-        </div>
+    <section className="dark-section relative pt-32 pb-20 bg-[#2D4A3E] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8]">
+      <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
+        <p className="font-mono text-xs tracking-[0.2em] uppercase text-[#C9A84C] mb-4">Our Story</p>
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-white mb-6 w-full max-w-4xl mx-auto">
+          We built Velara because the system failed us too.
+        </h1>
+        <p className="text-lg text-[#F5F0E8]/80 leading-relaxed max-w-[680px] w-full mx-auto">
+          We were the patients told "your labs are normal" while we struggled with fatigue, brain fog, and unexplained symptoms. We were the doctors frustrated by a system that treated symptoms instead of seeking root causes. So we built something better — a practice where advanced diagnostics meet compassionate, personalized care.
+        </p>
       </div>
     </section>
 
@@ -125,31 +53,46 @@ const AboutPage = () => (
     </section>
 
     {/* Protocol Expanded */}
-    <section className="py-16 lg:py-24 bg-card">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">Our Method</p>
-          <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground">The Velara Protocol™</h2>
-        </div>
-        <div className="space-y-16">
-          {protocolSteps.map((step, i) => (
-            <div key={step.num} className={`grid lg:grid-cols-2 gap-10 items-center ${i % 2 === 1 ? "lg:flex-row-reverse" : ""}`}>
-              <div className={i % 2 === 1 ? "lg:order-2" : ""}>
-                <span className="font-mono text-xs tracking-wider text-accent">{step.num}</span>
-                <h3 className="text-2xl font-display font-semibold text-foreground mt-2 mb-4">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{step.desc}</p>
+    <section className="bg-[#F5F0E8] pt-20 pb-12">
+      <div className="container mx-auto px-6 mb-10 text-center">
+        <p className="font-mono text-xs tracking-[0.2em] uppercase text-[#C9A84C] mb-4">OUR METHOD</p>
+        <h2 className="text-4xl md:text-5xl font-display font-semibold text-foreground">The Velara Protocol™</h2>
+      </div>
+      <div className="w-full">
+        <div className="flex flex-col md:flex-row w-full h-auto md:h-[520px]">
+          {protocolSteps.map((step) => (
+            <div key={step.num} className="group relative w-full md:w-1/4 h-[380px] md:h-[520px] overflow-hidden border-r border-transparent md:hover:border-[rgba(201,168,76,0.4)] transition-all duration-300">
+              <img src={step.image} alt={step.title} className="absolute inset-0 w-full h-full object-cover object-center" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(20,35,25,0.92)] via-[rgba(20,35,25,0.5)] to-[rgba(20,35,25,0.15)] group-hover:from-[rgba(20,35,25,0.96)] transition-all duration-300"></div>
+              
+              <div className="absolute inset-x-0 top-12 flex justify-center">
+                <span className="text-[96px] font-display font-bold text-[rgba(201,168,76,0.9)] group-hover:text-[#C9A84C] leading-none transition-colors duration-300">{step.num}</span>
               </div>
-              <div className={i % 2 === 1 ? "lg:order-1" : ""}>
-                <ImagePlaceholder src={step.image} label={`Protocol illustration — step ${step.num}`} aspectRatio="landscape" className="rounded-2xl object-cover" />
+              
+              <div className="absolute inset-x-0 top-[65%] flex justify-center">
+                <div className="w-[40px] h-[1px] bg-[#C9A84C] group-hover:w-[60px] transition-all duration-300"></div>
+              </div>
+
+              <div className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-8 px-4">
+                <h3 className="text-[22px] font-display italic text-[#F5F0E8] mb-4">{step.title}</h3>
+                <p className="text-[14px] text-[#F5F0E8]/75 max-w-[180px] leading-[1.6] text-center mb-6 md:opacity-0 md:translate-y-[8px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                  {step.desc}
+                </p>
               </div>
             </div>
           ))}
+        </div>
+        <div className="pt-[48px] text-center">
+          <Link to="/book" className="inline-flex items-center px-8 py-4 rounded-full bg-[#C9A84C] text-[#2D4A3E] font-semibold text-lg hover:opacity-90 transition-opacity">
+            Check If You Qualify →
+          </Link>
+          <p className="text-sm text-muted-foreground mt-4 text-center">Your assessment is the first step.</p>
         </div>
       </div>
     </section>
 
     {/* Team */}
-    <section className="py-16 lg:py-24">
+    <section className="pt-16 lg:pt-24 pb-[80px]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">The Team</p>
@@ -177,18 +120,19 @@ const AboutPage = () => (
     </section>
 
     {/* Press — In The Press */}
-    <section className="press-section">
+    <section className="pt-[80px] pb-16 lg:pb-24 bg-background">
       <div className="container mx-auto px-6">
-        {/* Section label */}
-        <p
-          className="press-section-label"
-        >
-          In the Press
-        </p>
-
-
-        {/* Single large rotating quote */}
-        <RotatingQuote />
+        <div className="text-center mb-12">
+          <p className="inline-block font-mono text-xs tracking-[0.2em] uppercase text-[#C9A84C] mb-8">IN THE PRESS</p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {pressQuotes.map((item, i) => (
+            <div key={i} className="bg-white rounded-2xl p-[28px] border-[0.5px] border-[#C9A84C]/30">
+              <p className="font-mono text-[11px] tracking-[0.2em] text-[#C9A84C] uppercase mb-4">{item.source}</p>
+              <p className="font-display italic text-lg text-foreground leading-relaxed">"{item.quote}"</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 
@@ -212,14 +156,14 @@ const AboutPage = () => (
     </section>
 
     {/* CTA */}
-    <section className="py-16 gradient-assessment">
-      <div className="container mx-auto px-6 text-center">
+    <section className="relative py-16 gradient-assessment after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60px] after:bg-gradient-to-b after:from-[#F5F0E8] after:to-[#2D4A3E]">
+      <div className="container mx-auto px-6 text-center relative z-10">
         <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">Join the mission.</h2>
         <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
           Experience what healthcare should feel like — personal, precise, and transformative.
         </p>
         <Link to="/book" className="inline-flex items-center px-8 py-4 rounded-full bg-accent text-accent-foreground font-semibold text-lg hover:opacity-90 transition-opacity">
-          Start Your Journey
+          Check If You Qualify →
         </Link>
       </div>
     </section>

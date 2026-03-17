@@ -58,7 +58,7 @@ const ShopAtcButton = ({ productName, productPrice, productBenefit, variant = "p
   const label =
     state === "confirmed" ? "✓ Added" :
       state === "loading" ? "" :
-        isBundle ? "Add Bundle" : "Add to Cart";
+        isBundle ? "Add Protocol Bundle" : "Add to Protocol";
 
   return (
     <button
@@ -101,19 +101,19 @@ const ShopPage = () => {
       <Navbar />
 
       {/* ── Hero Header ── */}
-      <section className="pt-32 pb-8">
+      <section className="dark-section pt-32 pb-8 relative bg-[#2D4A3E] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] after:pointer-events-none">
         <div className="container mx-auto px-6 text-center">
           <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">The Velara Dispensary</p>
-          <h1 className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-4">
+          <h1 className="text-4xl md:text-5xl font-display font-semibold text-white mb-4">
             Practitioner-Grade Supplements
           </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-[#F5F0E8]/80 max-w-2xl mx-auto">
             Practitioner-formulated. Third-party tested. Designed for your protocol.
           </p>
         </div>
       </section>
 
-      <section className="py-12 lg:py-16">
+      <section className="py-12 lg:py-16 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#F5F0E8] after:to-[#2D4A3E] after:pointer-events-none">
         <div className="container mx-auto px-6">
 
           {/* ── Filter Tabs + Sort ── */}
@@ -148,6 +148,13 @@ const ShopPage = () => {
                 <div key={p.name} className="shop-product-card">
                   {/* 1. Image area */}
                   <div className="shop-card-image-area">
+                    {p.name === "Vitamin D3 + K2" || p.name === "Gut Restore Probiotic" || p.name === "Deep Sleep Formula" ? (
+                      <span className="shop-product-badge shop-product-badge-bestseller">Bestseller</span>
+                    ) : p.name === "Mitochondrial Energy Complex" ? (
+                      <span className="shop-product-badge shop-product-badge-popular">Most Popular</span>
+                    ) : p.name === "Magnesium Glycinate" ? (
+                      <span className="shop-product-badge shop-product-badge-new">New</span>
+                    ) : null}
                     <img
                       src={p.image}
                       alt={p.name}

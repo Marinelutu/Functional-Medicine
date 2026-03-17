@@ -374,7 +374,7 @@ const ServicesPage = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="gradient-sage pt-32 pb-20">
+      <section className="dark-section gradient-sage pt-32 pb-20 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] after:pointer-events-none">
         <div className="container mx-auto px-6 text-center">
           <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">Our Services</p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-primary-foreground mb-4">
@@ -387,7 +387,7 @@ const ServicesPage = () => {
       </section>
 
       {/* Filters + Grid */}
-      <section className="svc-page-section">
+      <section className="svc-page-section bg-[#F5F0E8]">
         <div className="container mx-auto px-6">
           {/* Filter Tabs */}
           <div className="flex flex-wrap gap-2 mb-12 justify-center">
@@ -411,7 +411,7 @@ const ServicesPage = () => {
                 <div
                   key={s.id}
                   ref={(el) => { cardRefs.current[s.id] = el; }}
-                  className={`svc-card ${isExpanded ? "svc-card--expanded" : ""}`}
+                  className={`svc-card group ${isExpanded ? "svc-card--expanded" : ""}`}
                   onClick={() => handleToggle(s.id)}
                 >
                   {/* ── Collapsed View ── */}
@@ -423,7 +423,23 @@ const ServicesPage = () => {
                         <p className="svc-card-outcome">{s.outcome}</p>
                       </div>
                     </div>
-                    <span className={`svc-card-chevron ${isExpanded ? "svc-card-chevron--open" : ""}`}>›</span>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#C9A84C"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className={`shrink-0 ml-3 transition-all ease-out ${
+                        isExpanded
+                          ? "rotate-90 opacity-100 [transition-duration:250ms]"
+                          : "rotate-0 opacity-80 group-hover:opacity-100 group-hover:translate-x-[3px] duration-200"
+                      }`}
+                    >
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
                   </div>
 
                   {/* ── Expanded View ── */}
@@ -432,7 +448,6 @@ const ServicesPage = () => {
                       {/* Left Column */}
                       <div className="svc-card-left">
                         <div className={`svc-card-detail svc-card-delay-0 ${isExpanded ? "svc-card-detail--show" : ""}`}>
-                          <h3 className="svc-card-detail-name">{s.name}</h3>
                           <span className="svc-card-detail-tag">{s.categoryTag}</span>
                         </div>
                         <div className={`svc-card-detail svc-card-delay-1 ${isExpanded ? "svc-card-detail--show" : ""}`}>
@@ -441,7 +456,7 @@ const ServicesPage = () => {
                             className="svc-card-cta"
                             onClick={(e) => e.stopPropagation()}
                           >
-                            Book This Protocol →
+                            Check If You Qualify →
                           </Link>
                         </div>
                         <div className={`svc-card-detail svc-card-delay-2 ${isExpanded ? "svc-card-detail--show" : ""}`}>
@@ -482,7 +497,7 @@ const ServicesPage = () => {
       </section>
 
       {/* CTA Strip */}
-      <section className="gradient-assessment py-16">
+      <section className="py-16 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#F5F0E8] after:to-[#2D4A3E] after:pointer-events-none bg-[#F5F0E8]">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">
             Not sure which service is right for you?
