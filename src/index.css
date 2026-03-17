@@ -3578,17 +3578,6 @@
     }
   }
 
-  /* ── Blog Demo Label ── */
-  .blog-demo-label {
-    color: #C9A84C;
-    font-variant: all-small-caps;
-    letter-spacing: 0.15em;
-    font-size: 11px;
-    font-family: 'DM Mono', monospace;
-    opacity: 0.85;
-    text-align: center;
-    margin-bottom: 32px;
-  }
 
   /* ── Narrative Connectors ── */
   .narrative-connector {

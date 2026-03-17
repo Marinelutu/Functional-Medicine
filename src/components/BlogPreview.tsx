@@ -14,11 +14,6 @@ const BlogPreview = () => {
   return (
     <section className="py-24 lg:py-32">
       <div className="container mx-auto px-6">
-        {/* Demo label */}
-        <p className="blog-demo-label">
-          THIS IS YOUR TEACHER PAGE — EDUCATING PATIENTS BEFORE THEY EVER REACH YOU
-        </p>
-
         <div className="flex items-end justify-between mb-12">
           <div>
             <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">The Journal</p>
