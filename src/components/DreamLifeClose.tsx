@@ -62,7 +62,7 @@ const DreamLifeClose = () => {
   }, [isMobile]);
 
   const getAnimClass = (delayClass: string) => {
-    return `transition-all duration-[600ms] ease-[cubic-bezier(0,0,0.2,1)] ${delayClass} ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-[20px] opacity-0'}`;
+    return `transition-all [transition-duration:600ms] [transition-timing-function:cubic-bezier(0,0,0.2,1)] ${delayClass} ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-[20px] opacity-0'}`;
   };
 
   return (
@@ -102,7 +102,7 @@ const DreamLifeClose = () => {
 
         {/* Leaf Icon (32px) */}
         <div
-          className={`mb-4 text-[#C9A84C] flex justify-center w-full ${getAnimClass('delay-[0ms]')}`}
+          className={`mb-4 text-[#C9A84C] flex justify-center w-full ${getAnimClass('[transition-delay:0ms]')}`}
         >
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M16 2.66663C16 2.66663 26.6667 8.00003 26.6667 16.0001C26.6667 22.9999 21.3333 26.6667 16 30.6667C10.6667 26.6667 5.33333 22.9999 5.33333 16.0001C5.33333 8.00003 16 2.66663 16 2.66663Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -112,14 +112,14 @@ const DreamLifeClose = () => {
 
         {/* Eyebrow Label */}
         <p
-          className={`font-mono uppercase text-[#C9A84C] opacity-80 text-[11px] tracking-[0.15em] mb-3 ${getAnimClass('delay-[100ms]')}`}
+          className={`font-mono uppercase text-[#C9A84C] opacity-80 text-[11px] tracking-[0.15em] mb-3 ${getAnimClass('[transition-delay:100ms]')}`}
         >
           Your Dream Life Awaits
         </p>
 
         {/* Headline */}
         <h2
-          className={`font-display text-white text-[36px] md:text-[64px] leading-[1.2] max-w-[720px] mx-auto mb-6 ${getAnimClass('delay-[200ms]')}`}
+          className={`font-display text-white text-[36px] md:text-[64px] leading-[1.2] max-w-[720px] mx-auto mb-6 ${getAnimClass('[transition-delay:200ms]')}`}
         >
           This is what's waiting<br />
           <span className="italic">on the other side.</span>
@@ -127,14 +127,14 @@ const DreamLifeClose = () => {
 
         {/* Subline */}
         <p
-          className={`font-sans text-white text-[17px] opacity-75 max-w-[480px] mx-auto leading-[1.7] mb-10 ${getAnimClass('delay-[350ms]')}`}
+          className={`font-sans text-white text-[17px] opacity-75 max-w-[480px] mx-auto leading-[1.7] mb-10 ${getAnimClass('[transition-delay:350ms]')}`}
         >
           A life where you wake up energized, think clearly, move freely, and feel like yourself again.
         </p>
 
         {/* Buttons */}
         <div
-          className={`flex flex-col md:flex-row gap-3 md:gap-4 mb-12 w-full md:w-auto ${getAnimClass('delay-[500ms]')}`}
+          className={`flex flex-col md:flex-row gap-3 md:gap-4 mb-12 w-full md:w-auto ${getAnimClass('[transition-delay:500ms]')}`}
         >
           <a
             href="/book"
@@ -152,7 +152,7 @@ const DreamLifeClose = () => {
 
         {/* Reassurance Line */}
         <p
-          className={`font-sans italic text-white opacity-45 text-[13px] m-0 mb-[100px] ${getAnimClass('delay-[650ms]')}`}
+          className={`font-sans italic text-white opacity-45 text-[13px] m-0 mb-[100px] ${getAnimClass('[transition-delay:650ms]')}`}
         >
           Join 4,200+ people who chose to understand their body.
         </p>

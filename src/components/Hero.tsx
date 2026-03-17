@@ -61,6 +61,7 @@ const Hero = () => {
           muted
           loop
           playsInline
+          webkit-playsinline="true"
         >
           <source src="/images/44969-441206537_medium.mp4" type="video/mp4" />
         </video>

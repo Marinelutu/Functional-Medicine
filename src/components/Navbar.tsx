@@ -105,7 +105,8 @@ const Navbar = () => {
             </button>
           </div>
 
-          <div className="flex items-center gap-3 lg:hidden">
+          {/* Mobile Actions: Cart then Hamburger (gold) */}
+          <div className="flex items-center gap-4 lg:hidden">
             <button
               onClick={toggleDrawer}
               className={`relative transition-colors duration-200 ${isDarkBg ? "text-[#F5F0E8]" : "text-foreground/80"}`}
@@ -118,31 +119,47 @@ const Navbar = () => {
                 {count}
               </span>
             </button>
-            <button onClick={() => setMobileOpen(!mobileOpen)} className={`transition-colors duration-200 ${isDarkBg ? "text-[#F5F0E8]" : "text-foreground"}`} aria-label="Toggle menu">
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            <button onClick={() => setMobileOpen(true)} className="text-[#C9A84C] transition-colors duration-200" aria-label="Open menu">
+              <Menu size={24} />
             </button>
           </div>
         </div>
 
-        {mobileOpen && (
-          <div className="lg:hidden fixed inset-0 top-16 z-49 bg-[#2D4A3E] flex flex-col items-center justify-center gap-8 px-6">
+        {/* Full-Screen Overlay Mobile Menu (Slides in from right) */}
+        <div
+          className={`lg:hidden fixed inset-0 z-[60] bg-[#2D4A3E] flex flex-col pt-24 px-6 pb-12 transition-transform duration-300 ease-in-out ${
+            mobileOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          {/* Close Button Top Right */}
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="absolute top-5 right-6 text-[#F5F0E8] p-2 min-h-[44px] min-w-[44px] flex items-center justify-center pointer-events-auto"
+            aria-label="Close menu"
+          >
+            <X size={24} />
+          </button>
+
+          <div className="flex flex-col items-center justify-center flex-1">
             {navLinks.map((l) => (
               <Link
                 key={l.href}
                 to={l.href}
-                className="font-display text-[28px] font-medium text-white hover:text-[#C9A84C] transition-colors"
+                onClick={() => setMobileOpen(false)}
+                className="font-display text-[#F5F0E8] text-[28px] py-5 w-full text-center hover:opacity-80 transition-opacity"
               >
                 {l.label}
               </Link>
             ))}
-            <button
-              onClick={() => { setMobileOpen(false); setModalOpen(true); }}
-              className="mt-4 inline-flex items-center px-8 py-3.5 rounded-full bg-accent text-accent-foreground text-base font-semibold hover:opacity-90 transition-opacity"
-            >
-              Check If You Qualify
-            </button>
           </div>
-        )}
+
+          <button
+            onClick={() => { setMobileOpen(false); setModalOpen(true); }}
+            className="mt-6 w-full flex items-center justify-center min-h-[44px] py-3.5 rounded-full bg-[#C9A84C] text-[#1C1C1C] text-base font-semibold hover:bg-opacity-90 transition-opacity"
+          >
+            Check If You Qualify
+          </button>
+        </div>
       </nav>
 
       <CartDrawer />

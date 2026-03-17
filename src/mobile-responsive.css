@@ -290,8 +290,14 @@ body {
         height: 100vh;
     }
 
+    .hero-content {
+        padding: 0 24px;
+        max-width: 100%;
+        text-align: center;
+    }
+
     .hero-headline {
-        font-size: 35px !important;
+        font-size: clamp(32px, 8vw, 56px) !important;
     }
 
     .hero-gold-line {
@@ -303,10 +309,43 @@ body {
         max-width: 100%;
     }
 
+    .hero-goals-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-rows: repeat(2, auto);
+        gap: 8px;
+    }
+
     .hero-goal-pill {
         font-size: 13px;
-        padding: 8px 14px;
+        padding: 8px 12px;
         min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .hero-ctas {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .hero-social-proof {
+        font-size: 13px;
+        text-align: center;
+        margin-top: 24px;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — Social Proof
+     ============================================================ */
+    .social-proof-section .flex.flex-col.sm\\:flex-row {
+        flex-direction: column !important;
+        gap: 24px !important;
+        text-align: center;
     }
 
 
@@ -320,12 +359,75 @@ body {
 
     .problem-tile {
         width: 100%;
+        min-height: 80px;
+        padding: 20px;
     }
 
     .problem-closing-main {
         font-size: 24px;
     }
 
+
+    /* ============================================================
+     HOMEPAGE — Eligibility Gate
+     ============================================================ */
+
+    .eligibility-qualifiers {
+        flex-direction: column !important;
+        gap: 20px !important;
+        align-items: center;
+    }
+
+    .eligibility-qualifier {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
+
+    .eligibility-check {
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — Stat Triplet
+     ============================================================ */
+
+    .stat-triplet-grid {
+        grid-template-columns: 1fr !important;
+        text-align: center;
+    }
+
+    .stat-triplet-number {
+        font-size: clamp(48px, 12vw, 80px) !important;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — Reframe Headline
+     ============================================================ */
+    .reframe-headline {
+        font-size: clamp(28px, 7vw, 64px) !important;
+        letter-spacing: 0.02em !important;
+    }
+
+
+    /* ============================================================
+     HOMEPAGE — Smart Patient Filter
+     ============================================================ */
+    .bg-card .max-w-\[700px\] {
+        max-width: 100% !important;
+    }
+    
+    .bg-card .max-w-\[700px\] > div {
+        padding: 32px 20px;
+    }
+    
+    .bg-card .max-w-\[700px\] button {
+        width: 100%;
+        justify-content: center;
+    }
 
     /* ============================================================
      HOMEPAGE — Velara Protocol™
@@ -528,12 +630,68 @@ body {
         gap: 12px !important;
     }
 
+    /* Filters */
+    .blog-filter-tabs {
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        -ms-overflow-style: none;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .blog-filter-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .blog-filter-tab {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    /* Article Grid (from 2/3 cols to 1) */
+    .lg\:col-span-3.grid.sm\:grid-cols-2 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Article Modal */
+    .blog-modal-content {
+        max-width: 100% !important;
+        max-height: 100vh !important;
+        max-height: 100dvh !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .blog-modal-close {
+        top: 16px !important;
+        right: 16px !important;
+        width: 44px !important;
+        height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.5);
+        color: #fff;
+    }
+    
+    .blog-modal-body-wrapper {
+        padding: 24px !important;
+    }
+    
+    /* Global Modals overlay */
+    .blog-modal-overlay,
+    .consultation-modal-overlay {
+        border-radius: 0 !important;
+    }
     /* Filter tabs: horizontally scrollable */
     .shop-filter-tabs {
         flex-wrap: nowrap !important;
         overflow-x: auto;
         -ms-overflow-style: none;
         padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
     }
 
     .shop-filter-tabs::-webkit-scrollbar {
@@ -639,9 +797,36 @@ body {
     }
 
     /* Services filter tabs scrollable */
+    .flex.flex-wrap.justify-center.gap-2.mb-12:has(.services-filter-tab) {
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        -ms-overflow-style: none;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        justify-content: flex-start !important;
+    }
+    .flex.flex-wrap.justify-center.gap-2.mb-12:has(.services-filter-tab)::-webkit-scrollbar {
+        display: none;
+    }
+
     .services-filter-tab {
         flex-shrink: 0;
         white-space: nowrap;
+    }
+
+    .svc-card-cta {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Page Hero Overrides (Services, Shop, Blog) */
+    .page-hero-section {
+        padding: 60px 24px !important;
+    }
+    .page-hero-headline {
+        font-size: clamp(28px, 7vw, 56px) !important;
+        line-height: 1.15 !important;
     }
 
 
@@ -649,24 +834,58 @@ body {
      ABOUT PAGE
      ============================================================ */
 
-    /* Founding story hero: stacks vertically */
-    .gradient-sage .grid.lg\:grid-cols-2 {
+    /* Hero */
+    .about-hero-section {
+        padding: 60px 24px !important;
+        text-align: center;
+    }
+    .about-hero-headline {
+        font-size: clamp(28px, 7vw, 48px) !important;
+        line-height: 1.2 !important;
+        text-align: center;
+    }
+
+    /* Our Story section */
+    .our-story-section {
+        padding: 0 24px !important;
+        text-align: center;
         grid-template-columns: 1fr !important;
     }
 
-    /* Team grid: 1 column */
+    /* Magnified Moments — Our Method panels */
+    .method-panels-container {
+        flex-direction: column !important;
+    }
+    .method-panel {
+        width: 100% !important;
+        height: 300px !important;
+    }
+    .method-panel-number {
+        font-size: 64px !important;
+    }
+    .method-panel-body {
+        opacity: 1 !important; /* always visible */
+        transform: none !important; /* no transition */
+        transition: none !important;
+    }
+
+    /* Team */
     .practitioner-grid {
         grid-template-columns: 1fr !important;
     }
-
-    /* Protocol steps: full width stacked */
-    .space-y-16 .grid.lg\:grid-cols-2 {
-        grid-template-columns: 1fr !important;
+    .practitioner-grid > div {
+        width: 100% !important;
     }
 
-    /* Stats bar: 2×2 grid */
+    /* Press quote cards */
+    .press-quote-cards {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+
+    /* Stats bar: 2x2 grid or single column */
     .grid.grid-cols-2.md\:grid-cols-4 {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: 1fr 1fr !important;
         gap: 24px;
     }
 
@@ -678,6 +897,15 @@ body {
 
     .press-section {
         padding: 48px 0;
+    }
+
+    /* Join the mission CTA */
+    .join-mission-section {
+        padding: 0 24px !important;
+    }
+    .join-mission-btn {
+        width: 100% !important;
+        justify-content: center;
     }
 
 

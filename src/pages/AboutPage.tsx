@@ -30,13 +30,13 @@ const AboutPage = () => (
     <Navbar />
 
     {/* Hero */}
-    <section className="dark-section relative pt-32 pb-20 bg-[#2D4A3E] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8]">
+    <section className="dark-section relative pt-32 pb-20 bg-[#2D4A3E] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] about-hero-section">
       <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
         <p className="font-mono text-xs tracking-[0.2em] uppercase text-[#C9A84C] mb-4">Our Story</p>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-white mb-6 w-full max-w-4xl mx-auto">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-white mb-6 w-full max-w-4xl mx-auto about-hero-headline">
           We built Velara because the system failed us too.
         </h1>
-        <p className="text-lg text-[#F5F0E8]/80 leading-relaxed max-w-[680px] w-full mx-auto">
+        <p className="text-lg text-[#F5F0E8]/80 leading-relaxed max-w-[680px] w-full mx-auto our-story-section">
           We were the patients told "your labs are normal" while we struggled with fatigue, brain fog, and unexplained symptoms. We were the doctors frustrated by a system that treated symptoms instead of seeking root causes. So we built something better — a practice where advanced diagnostics meet compassionate, personalized care.
         </p>
       </div>
@@ -59,14 +59,14 @@ const AboutPage = () => (
         <h2 className="text-4xl md:text-5xl font-display font-semibold text-foreground">The Velara Protocol™</h2>
       </div>
       <div className="w-full">
-        <div className="flex flex-col md:flex-row w-full h-auto md:h-[520px]">
+        <div className="flex flex-col md:flex-row w-full h-auto md:h-[520px] method-panels-container">
           {protocolSteps.map((step) => (
-            <div key={step.num} className="group relative w-full md:w-1/4 h-[380px] md:h-[520px] overflow-hidden border-r border-transparent md:hover:border-[rgba(201,168,76,0.4)] transition-all duration-300">
+            <div key={step.num} className="group relative w-full md:w-1/4 h-[380px] md:h-[520px] overflow-hidden border-r border-transparent md:hover:border-[rgba(201,168,76,0.4)] transition-all duration-300 method-panel">
               <img src={step.image} alt={step.title} className="absolute inset-0 w-full h-full object-cover object-center" />
               <div className="absolute inset-0 bg-gradient-to-t from-[rgba(20,35,25,0.92)] via-[rgba(20,35,25,0.5)] to-[rgba(20,35,25,0.15)] group-hover:from-[rgba(20,35,25,0.96)] transition-all duration-300"></div>
               
               <div className="absolute inset-x-0 top-12 flex justify-center">
-                <span className="text-[96px] font-display font-bold text-[rgba(201,168,76,0.9)] group-hover:text-[#C9A84C] leading-none transition-colors duration-300">{step.num}</span>
+                <span className="text-[96px] font-display font-bold text-[rgba(201,168,76,0.9)] group-hover:text-[#C9A84C] leading-none transition-colors duration-300 method-panel-number">{step.num}</span>
               </div>
               
               <div className="absolute inset-x-0 top-[65%] flex justify-center">
@@ -75,7 +75,7 @@ const AboutPage = () => (
 
               <div className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-8 px-4">
                 <h3 className="text-[22px] font-display italic text-[#F5F0E8] mb-4">{step.title}</h3>
-                <p className="text-[14px] text-[#F5F0E8]/75 max-w-[180px] leading-[1.6] text-center mb-6 md:opacity-0 md:translate-y-[8px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                <p className="text-[14px] text-[#F5F0E8]/75 max-w-[180px] leading-[1.6] text-center mb-6 md:opacity-0 md:translate-y-[8px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 method-panel-body">
                   {step.desc}
                 </p>
               </div>
@@ -125,7 +125,7 @@ const AboutPage = () => (
         <div className="text-center mb-12">
           <p className="inline-block font-mono text-xs tracking-[0.2em] uppercase text-[#C9A84C] mb-8">IN THE PRESS</p>
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 press-quote-cards">
           {pressQuotes.map((item, i) => (
             <div key={i} className="bg-white rounded-2xl p-[28px] border-[0.5px] border-[#C9A84C]/30">
               <p className="font-mono text-[11px] tracking-[0.2em] text-[#C9A84C] uppercase mb-4">{item.source}</p>
@@ -156,13 +156,13 @@ const AboutPage = () => (
     </section>
 
     {/* CTA */}
-    <section className="relative py-16 gradient-assessment after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60px] after:bg-gradient-to-b after:from-[#F5F0E8] after:to-[#2D4A3E]">
+    <section className="relative py-16 gradient-assessment after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60px] after:bg-gradient-to-b after:from-[#F5F0E8] after:to-[#2D4A3E] join-mission-section">
       <div className="container mx-auto px-6 text-center relative z-10">
         <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">Join the mission.</h2>
         <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
           Experience what healthcare should feel like — personal, precise, and transformative.
         </p>
-        <Link to="/book" className="inline-flex items-center px-8 py-4 rounded-full bg-accent text-accent-foreground font-semibold text-lg hover:opacity-90 transition-opacity">
+        <Link to="/book" className="inline-flex items-center px-8 py-4 rounded-full bg-accent text-accent-foreground font-semibold text-lg hover:opacity-90 transition-opacity join-mission-btn">
           Check If You Qualify →
         </Link>
       </div>

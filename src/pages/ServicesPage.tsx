@@ -374,10 +374,10 @@ const ServicesPage = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="dark-section gradient-sage pt-32 pb-20 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] after:pointer-events-none">
+      <section className="dark-section gradient-sage pt-32 pb-20 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] after:pointer-events-none page-hero-section">
         <div className="container mx-auto px-6 text-center">
           <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">Our Services</p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-primary-foreground mb-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-primary-foreground mb-4 page-hero-headline">
             Every Protocol. Built for You.
           </h1>
           <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto">

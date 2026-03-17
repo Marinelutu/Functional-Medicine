@@ -48,12 +48,12 @@ const BlogPage = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="dark-section bg-[#2D4A3E] relative pt-[120px] pb-[80px] text-center after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] after:pointer-events-none">
+      <section className="dark-section bg-[#2D4A3E] relative pt-[120px] pb-[80px] text-center after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] after:pointer-events-none page-hero-section">
         <div className="container mx-auto px-6 relative z-10">
           <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-[#C9A84C] block mb-4">
             THE JOURNAL
           </span>
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6 page-hero-headline">
             Evidence-Based Insights
           </h1>
           <p className="font-sans text-[17px] text-[#F5F0E8]/80 max-w-2xl mx-auto">
@@ -104,12 +104,12 @@ const BlogPage = () => {
       {/* Filters */}
       <section className="pt-[40px] pb-12 lg:pb-16 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#F5F0E8] after:to-[#2D4A3E] after:pointer-events-none">
         <div className="container mx-auto px-6">
-          <div className="flex flex-wrap gap-2 mb-10">
+          <div className="flex flex-wrap gap-2 mb-10 blog-filter-tabs">
             {categories.map((c) => (
               <button
                 key={c}
                 onClick={() => setFilter(c)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === c ? "bg-primary text-primary-foreground" : "bg-card text-foreground hover:bg-border"
+                className={`blog-filter-tab px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === c ? "bg-primary text-primary-foreground" : "bg-card text-foreground hover:bg-border"
                   }`}
               >
                 {c}
