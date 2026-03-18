@@ -165,9 +165,7 @@ body {
         overflow: hidden !important;
     }
 
-    body.menu-open .mobile-sticky-cta-wrapper {
-        display: none !important;
-    }
+
 
     /* ── Global Typography ── */
     .text-4xl,

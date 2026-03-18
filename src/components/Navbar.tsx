@@ -175,30 +175,13 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* CTA in menu */}
-        <button
-          onClick={() => { setMobileOpen(false); setModalOpen(true); }}
-          className="mt-12 w-full flex items-center justify-center min-h-[52px] py-4 rounded-full bg-[#C9A84C] text-[#2D4A3E] text-lg font-semibold hover:bg-opacity-90 transition-opacity"
-        >
-          Change your life
-        </button>
+
       </div>
 
       <CartDrawer />
       <ConsultationModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 
-      {/* Sticky Mobile CTA — only visible on small screens and when menu is closed */}
-      <div 
-        className="lg:hidden fixed bottom-6 left-0 right-0 px-6 z-[70] pointer-events-none transition-all duration-300 animate-in fade-in slide-in-from-bottom-4 mobile-sticky-cta-wrapper"
-        style={{ display: mobileOpen ? 'none' : 'block' }}
-      >
-        <button
-          onClick={() => setModalOpen(true)}
-          className="w-full flex items-center justify-center min-h-[52px] rounded-full bg-[#C9A84C] text-[#2D4A3E] text-base font-semibold shadow-xl pointer-events-auto active:scale-[0.98] transition-all"
-        >
-          Change your life →
-        </button>
-      </div>
+
     </>
   );
 };
