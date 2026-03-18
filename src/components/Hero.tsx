@@ -12,12 +12,12 @@ const goalToConcern: Record<string, string> = {
 };
 
 const goals = [
-  { label: "Energy" },
-  { label: "Weight" },
-  { label: "Hormones" },
-  { label: "Clarity" },
-  { label: "Longevity" },
-  { label: "Gut Health" },
+  { label: "Energy", icon: "✦" },
+  { label: "Weight", icon: "⚖" },
+  { label: "Hormones", icon: "⚥" },
+  { label: "Clarity", icon: "⚛" },
+  { label: "Longevity", icon: "∞" },
+  { label: "Gut Health", icon: "☘" },
 ];
 
 const Hero = () => {
@@ -109,7 +109,8 @@ const Hero = () => {
                     onClick={() => handleGoalClick(g.label)}
                     className={`hero-goal-pill ${clickedPill === g.label ? "hero-goal-pill--clicked" : ""}`}
                   >
-                    {g.label}
+                    <span className="hero-goal-pill-icon">{g.icon}</span>
+                    <span className="hero-goal-pill-text">{g.label}</span>
                   </button>
                 ))}
               </div>
@@ -117,7 +118,7 @@ const Hero = () => {
 
             {/* CTAs */}
             <div className="hero-ctas">
-              <button onClick={handleOpenModal} className="hero-cta-primary">
+              <button onClick={handleOpenModal} className="hero-cta-primary hidden md:flex">
                 Check If You Qualify →
               </button>
               <a href="/services" className="hero-cta-secondary">

@@ -22,7 +22,7 @@ const AssessmentCTA = () => {
               onClick={() => setModalOpen(true)}
               className="inline-flex items-center px-8 py-4 rounded-full bg-accent text-accent-foreground font-semibold text-lg hover:opacity-90 transition-opacity"
             >
-              Check If You Qualify
+              Begin Assessment
             </button>
           </div>
         </div>

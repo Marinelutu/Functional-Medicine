@@ -354,20 +354,20 @@
     }
     
     .cm-card {
-        max-width: 100% !important;
-        max-height: 100vh !important;
-        max-height: 100dvh !important;
-        height: 100%;
-        border-radius: 0 !important;
-        margin: 0 !important;
-        padding: 48px 24px 24px;
+        max-width: 90% !important;
+        max-height: 85vh !important;
+        max-height: 85dvh !important;
+        border-radius: 20px !important;
+        margin: auto !important;
+        padding: 40px 20px 24px;
         display: flex;
         flex-direction: column;
     }
 
     .cm-close {
-        top: 16px;
-        right: 16px;
+        top: 12px;
+        right: 50%;
+        transform: translateX(50%);
         width: 44px;
         height: 44px;
         display: flex;
@@ -376,6 +376,7 @@
         background: rgba(0,0,0,0.05);
         border-radius: 50%;
         color: #1C1C1C;
+        font-size: 24px;
     }
 
     .cm-back {

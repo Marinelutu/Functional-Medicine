@@ -20,7 +20,7 @@ const TimedOfferModal = () => {
       document.body.dataset.page === "book" || location.pathname === "/book";
     const isMobile = window.innerWidth < 768;
 
-    if (!hasSeenReset && !isBookPage && !isMobile) {
+    if (!hasSeenReset && !isBookPage) {
       let blocked = false;
 
       // Track if quiz modal opened
@@ -105,7 +105,8 @@ const TimedOfferModal = () => {
   };
 
   // If mobile and somehow triggers, don't render (safety net)
-  if (window.innerWidth < 768) return null;
+  // Removed mobile-only restriction to allow on mobile
+  // if (window.innerWidth < 768) return null;
 
   return (
     <>

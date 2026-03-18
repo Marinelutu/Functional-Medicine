@@ -49,7 +49,7 @@ const Testimonials = () => {
           </h2>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        <div className="mobile-filter-container flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 mb-12 overflow-x-auto md:overflow-x-visible">
           {goalFilters.map((g) => (
             <button
               key={g}

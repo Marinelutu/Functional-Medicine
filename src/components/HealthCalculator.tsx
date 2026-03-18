@@ -26,11 +26,8 @@ const HealthCalculator = () => {
               </p>
 
               {/* Single CTA */}
-              <button
-                onClick={() => setModalOpen(true)}
-                className="inline-flex items-center px-8 py-4 rounded-full bg-accent text-accent-foreground font-semibold text-lg hover:opacity-90 transition-opacity"
-              >
-                Find Out Now →
+              <button onClick={() => setModalOpen(true)} className="w-full flex items-center justify-center h-14 bg-[#C9A84C] text-[#1C1C1C] font-semibold rounded-full group hover:shadow-lg transition-all active:scale-[0.98]">
+                Begin Assessment →
               </button>
             </div>
           </div>

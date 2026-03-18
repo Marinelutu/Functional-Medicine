@@ -50,13 +50,13 @@ const MeetTeam = () => {
         </div>
 
         {/* Secondary team */}
-        <div className="grid sm:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
           {teamMembers.map((m) => (
             <div key={m.name} className="text-center">
               <ImagePlaceholder
                 label={`[IMAGE: Team member photo — ${m.name}]`}
                 aspectRatio="portrait"
-                className="w-full max-w-[280px] mx-auto rounded-2xl mb-4"
+                className="practitioner-image w-full max-w-[280px] mx-auto rounded-2xl mb-4"
                 src={m.image}
               />
               <h3 className="font-display text-lg font-semibold text-foreground">{m.name}</h3>

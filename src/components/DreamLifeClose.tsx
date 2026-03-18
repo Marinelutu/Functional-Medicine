@@ -140,7 +140,7 @@ const DreamLifeClose = () => {
             href="/book"
             className="flex items-center justify-center bg-[#C9A84C] text-[#1C1C1C] font-sans font-medium text-[15px] rounded-full h-[52px] px-[40px] transition-transform hover:scale-105 w-full md:w-auto whitespace-nowrap"
           >
-            Check If You Qualify →
+            Change your life →
           </a>
           <a
             href="/services"
