@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { ChevronDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useCart } from "@/contexts/CartContext";
@@ -129,16 +130,19 @@ const ShopPage = () => {
                 </button>
               ))}
             </div>
-            <select
-              value={sort}
-              onChange={(e) => setSort(e.target.value as SortOption)}
-              aria-label="Sort products"
-              className="shop-sort-select"
-            >
-              <option value="bestselling">Bestselling</option>
-              <option value="price-asc">Price: Low → High</option>
-              <option value="price-desc">Price: High → Low</option>
-            </select>
+            <div className="shop-sort-wrapper">
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value as SortOption)}
+                aria-label="Sort products"
+                className="shop-sort-select"
+              >
+                <option value="bestselling">Bestselling</option>
+                <option value="price-asc">Price: Low → High</option>
+                <option value="price-desc">Price: High → Low</option>
+              </select>
+              <ChevronDown className="shop-sort-chevron" size={14} />
+            </div>
           </div>
 
           {/* ── Product Grid ── */}

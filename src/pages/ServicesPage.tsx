@@ -390,7 +390,7 @@ const ServicesPage = () => {
       <section className="svc-page-section bg-[#F5F0E8]">
         <div className="container mx-auto px-6">
           {/* Filter Tabs */}
-          <div className="flex flex-wrap gap-2 mb-12 justify-center">
+          <div className="mobile-filter-container flex flex-nowrap md:flex-wrap gap-2 mb-12 justify-start md:justify-center overflow-x-auto md:overflow-x-visible">
             {categories.map((c) => (
               <button
                 key={c}

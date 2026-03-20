@@ -564,20 +564,42 @@ body {
 
     /* Service cards — expanded: image moves to top */
     .svc-card-expanded-inner {
-        flex-direction: column;
+        flex-direction: column !important; /* Force column over index.css column-reverse */
+        height: auto !important;
+    }
+
+    .svc-card--expanded {
+        max-height: none !important;
+        padding: 24px !important;
     }
 
     .svc-card-right {
-        order: -1;
+        order: 1 !important; /* Move image to top */
         width: 100%;
-        height: 200px;
+        height: 240px !important; /* Increased height */
         border-radius: 12px;
-        margin: 0 0 16px 0;
+        margin: 0 0 20px 0 !important;
+        opacity: 1 !important;
     }
 
     .svc-card-left {
+        order: 2 !important; /* Content below image */
         width: 100%;
         padding-right: 0;
+        gap: 16px !important; /* Standardize vertical spacing */
+    }
+
+    /* Reduce icon size by 15% (28px -> 24px) */
+    .svc-card-icon svg {
+        width: 24px !important;
+        height: 24px !important;
+    }
+
+    /* Ensure CTA has breathing room */
+    .svc-card-cta {
+        margin-top: 12px !important;
+        width: 100% !important;
+        justify-content: center;
     }
 
 
@@ -717,10 +739,119 @@ body {
      SHOP PAGE
      ============================================================ */
 
-    /* Product grid: 2 columns on mobile */
+    /* --- Product Grid --- */
     .shop-product-grid {
         grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+    }
+
+    /* --- Product Card alignment & content scaling --- */
+    .shop-card-body {
+        min-height: 140px !important;
+    }
+
+    .shop-card-name {
+        font-size: 19px !important;
+        padding: 12px 12px 4px 12px !important;
+    }
+
+    .shop-card-benefit {
+        font-size: 12px !important;
+        padding: 0 12px 8px 12px !important;
+        white-space: normal !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+    }
+
+    .shop-card-stars, 
+    .shop-card-price {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .shop-product-atc-btn {
+        height: 36px !important;
+        font-size: 13px !important;
+    }
+
+    /* --- Sorting: Compact & Right Aligned --- */
+    .shop-controls {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-end !important;
         gap: 12px !important;
+        margin-bottom: 24px !important;
+        width: 100% !important;
+        position: relative !important;
+        z-index: 10 !important;
+    }
+
+    .shop-sort-wrapper {
+        position: relative !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .shop-sort-select {
+        -webkit-appearance: none !important;
+        appearance: none !important;
+        padding: 6px 32px 6px 16px !important;
+        font-size: 13px !important;
+        background: #FFFFFF !important;
+        border: 1px solid #E8DDD4 !important;
+        border-radius: 8px !important;
+        color: #1C1C1C !important;
+        cursor: pointer !important;
+        width: auto !important;
+        min-width: 140px !important;
+        height: 38px !important;
+    }
+
+    .shop-sort-chevron {
+        position: absolute !important;
+        right: 10px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        pointer-events: none !important;
+        color: #C9A84C !important;
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    /* --- Protocol Bundles horizontal slider --- */
+    .shop-bundle-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 16px !important;
+        padding-bottom: 20px !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+    }
+
+    .shop-bundle-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .shop-bundle-card {
+        flex: 0 0 82% !important;
+        scroll-snap-align: start !important;
+        margin-bottom: 0 !important;
+    }
+
+    .shop-bundle-image-area {
+        height: 180px !important;
+    }
+
+    /* --- Cart Drawer safety padding --- */
+    .cart-drawer-footer {
+        padding-bottom: calc(24px + env(safe-area-inset-bottom)) !important;
     }
 
     /* Filters */
@@ -796,57 +927,7 @@ body {
         white-space: nowrap;
     }
 
-    /* Card image area smaller on mobile */
-    .shop-card-image-area {
-        height: 180px;
-        padding: 16px;
-    }
-
-    /* Card name smaller on mobile */
-    .shop-card-name {
-        font-size: 16px;
-        padding: 12px 12px 4px;
-    }
-
-    .shop-card-benefit {
-        padding: 0 12px 6px;
-        font-size: 12px;
-    }
-
-    .shop-card-stars {
-        padding: 0 12px 6px;
-    }
-
-    .shop-card-price {
-        padding: 0 12px 8px;
-        font-size: 18px;
-    }
-
-    /* Bundle grid same */
-    .shop-bundle-grid {
-        grid-template-columns: 1fr !important;
-    }
-
-    /* Cart drawer: full screen on mobile, slide up from bottom */
-    .cart-drawer {
-        max-width: 100%;
-        top: auto;
-        bottom: 0;
-        height: 100vh;
-        height: 100dvh;
-        border-left: none;
-        border-top: 1px solid hsl(var(--border));
-        transform: translateY(100%);
-    }
-
-    .cart-drawer--open {
-        transform: translateY(0);
-    }
-
-    .shop-controls {
-        flex-direction: column;
-        align-items: stretch;
-    }
+    /* Shop grid layout - handled above */
 
 
     /* ============================================================
@@ -976,29 +1057,183 @@ body {
         gap: 24px !important;
     }
 
-    /* Stats bar: 2x2 grid or single column */
-    .grid.grid-cols-2.md\:grid-cols-4 {
-        grid-template-columns: 1fr 1fr !important;
-        gap: 24px;
+    /* --- Hero Headlines Refinement --- */
+    .about-hero-headline {
+        letter-spacing: -0.02em !important;
+        line-height: 1.1 !important;
     }
 
-    /* Press section: reduce quote size */
-    .press-quote-text {
-        font-size: 24px !important;
-        line-height: 1.5;
+    /* --- Mission Quote --- */
+    .mission-quote-section {
+        padding-top: 120px !important;
+        padding-bottom: 120px !important;
+    }
+    .mission-quote-text {
+        font-size: 28px !important;
+        letter-spacing: -0.01em !important;
     }
 
-    .press-section {
-        padding: 48px 0;
+    /* --- Method Panels horizontal slider --- */
+    .method-panels-container {
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch;
+        gap: 0 !important;
+        padding: 0 24px 20px !important;
+        scrollbar-width: none;
+    }
+    .method-panels-container::-webkit-scrollbar {
+        display: none;
     }
 
-    /* Join the mission CTA */
-    .join-mission-section {
-        padding: 0 24px !important;
+    .method-panel {
+        flex: 0 0 85% !important;
+        width: 85% !important;
+        margin-right: 16px !important;
+        border-radius: 16px;
+        scroll-snap-align: center !important;
     }
-    .join-mission-btn {
+
+    /* --- Practitioner Bios truncation & toggle --- */
+    .practitioner-bio {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .practitioner-bio--expanded {
+        -webkit-line-clamp: unset;
+        line-clamp: unset;
+        display: block;
+    }
+
+    .practitioner-name {
+        letter-spacing: -0.01em !important;
+    }
+
+    /* --- Stats Main Grid (Mobile High-Fidelity) --- */
+    .stats-section {
+        background-color: #1A3A2A !important;
+        padding: 60px 24px 88px 24px !important;
+    }
+
+    .stats-main-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 5px !important;
+        background-color: #1A3A2A !important;
+    }
+
+    .stats-main-item {
+        background-color: #1F4231 !important;
+        padding: 32px 20px !important;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: statsFadeIn 500ms ease-out forwards;
+        animation-delay: calc(var(--item-index) * 80ms);
+        border: none !important;
+    }
+
+    @keyframes statsFadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .stats-number {
+        font-family: 'DM Serif Display', serif !important;
+        font-size: 52px !important;
+        font-weight: 300 !important;
+        color: #C9A84C !important;
+        line-height: 1 !important;
+        display: block;
+    }
+
+    .stats-main-label {
+        font-family: 'DM Sans', sans-serif !important;
+        font-size: 11px !important;
+        font-weight: 500 !important;
+        color: #A8B8A8 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.12em !important;
+        margin-top: 6px !important;
+        display: block;
+    }
+
+    /* --- Mission Block (Mobile High-Fidelity) --- */
+    .mission-block-section {
+        background-color: #EDE8DF !important;
+        border-radius: 28px 28px 0 0 !important;
+        margin-top: -28px !important;
+        padding: 48px 28px 60px 28px !important;
+        position: relative;
+        z-index: 10;
+        text-align: center;
+    }
+
+    .mission-block-headline {
+        font-family: 'DM Serif Display', serif !important;
+        font-size: 36px !important;
+        font-weight: 400 !important;
+        color: #1A3A2A !important;
+        margin-bottom: 14px !important;
+        line-height: 1.2 !important;
+    }
+
+    .mission-block-body {
+        font-family: 'DM Sans', sans-serif !important;
+        font-size: 17px !important;
+        color: #5C6B5C !important;
+        line-height: 1.6 !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+    }
+
+    /* --- CTA Button (Mobile High-Fidelity) --- */
+    .mission-cta-area {
+        margin-top: 32px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mission-cta-micro {
+        font-size: 12px !important;
+        color: #8A9A8A !important;
+        margin-bottom: 10px !important;
+    }
+
+    .mission-cta-btn {
         width: 100% !important;
+        height: 60px !important;
+        background-color: #C9A84C !important;
+        border-radius: 999px !important;
+        font-family: 'DM Sans', sans-serif !important;
+        font-size: 17px !important;
+        font-weight: 700 !important;
+        color: #1A3A2A !important;
+        display: flex;
+        align-items: center;
         justify-content: center;
+        text-decoration: none !important;
+        box-shadow: 0 4px 24px rgba(201, 168, 76, 0.35) !important;
+        transition: transform 100ms ease !important;
+        animation: ctaPulse 800ms ease-in-out 1500ms 2;
+    }
+
+    .mission-cta-btn:active {
+        transform: scale(0.97) !important;
+    }
+
+    @keyframes ctaPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.025); }
     }
 
 
@@ -1232,6 +1467,68 @@ body {
     .hero-right-panel img,
     .hero-image {
         max-width: 100%;
+    }
+
+    /* ============================================================
+     FOOTER — Realignment
+     ============================================================ */
+
+    footer .grid.lg\:grid-cols-6 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 40px 10px !important;
+        text-align: center !important;
+        justify-items: center !important;
+    }
+
+    /* Brand column spans full width and centered */
+    footer .lg\:col-span-1 {
+        grid-column: 1 / -1 !important;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center !important;
+    }
+
+    footer h4 {
+        text-align: center !important;
+    }
+
+    footer ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Newsletter full-width */
+    footer .max-w-md {
+        max-width: 100% !important;
+        text-align: center !important;
+    }
+
+    footer .max-w-md .flex.gap-2 {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    footer .max-w-md input {
+        width: 100% !important;
+        text-align: center;
+    }
+
+    footer .max-w-md button {
+        width: 100% !important;
+    }
+
+    /* Bottom links */
+    footer .border-t.flex-col.sm\:flex-row {
+        text-align: center !important;
+        align-items: center !important;
+    }
+
+    /* CTA Section Fix: Increase bottom padding to prevent overlap by gradient */
+    section.py-16.bg-\[\#F5F0E8\].relative.after\:absolute {
+        padding-bottom: 100px !important;
     }
 }
 

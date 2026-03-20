@@ -173,7 +173,7 @@ function makePetalGeo(){
 // --- FERN FROND ---
 function makeFernGroup(){
   var group=new THREE.Group();
-  var mat=new THREE.MeshPhysicalMaterial({color:fernColor,roughness:0.85,transparent:true,opacity:0.9,side:THREE.DoubleSide,transmission:0.3,thickness:0.5});
+  var mat=new THREE.MeshPhysicalMaterial({color:fernColor,roughness:0.85,transparent:true,opacity:0.9,side:THREE.DoubleSide,transmission:0.3});
   var curve=new THREE.QuadraticBezierCurve3(new THREE.Vector3(0,0,0),new THREE.Vector3(0.04+Math.random()*0.04,0.22,0.015),new THREE.Vector3(0,0.48+Math.random()*0.08,0));
   var spineGeo=new THREE.TubeGeometry(curve,12,0.004,4,false);
   group.add(new THREE.Mesh(spineGeo,mat));
@@ -304,7 +304,7 @@ for(var i=0;i<NODE_COUNT;i++){
   if(type==='leaf'){
     var ci=Math.floor(Math.random()*leafColors.length);
     var col=hueShift(leafColors[ci],(Math.random()-0.5)*16);
-    var mat=new THREE.MeshPhysicalMaterial({color:col,roughness:0.85,transparent:true,opacity:0.9,side:THREE.DoubleSide,transmission:0.3,thickness:0.5});
+    var mat=new THREE.MeshPhysicalMaterial({color:col,roughness:0.85,transparent:true,opacity:0.9,side:THREE.DoubleSide,transmission:0.3});
     var geo=makeLeafGeo();
     mesh=new THREE.Mesh(geo,mat);
     var tipLen=0.32+Math.random()*0.12;
@@ -313,7 +313,7 @@ for(var i=0;i<NODE_COUNT;i++){
   }else if(type==='petal'){
     var ci=Math.floor(Math.random()*petalColors.length);
     var col=hueShift(petalColors[ci],(Math.random()-0.5)*16);
-    var mat=new THREE.MeshPhysicalMaterial({color:col,roughness:0.85,transparent:true,opacity:0.9,side:THREE.DoubleSide,transmission:0.5,thickness:0.3});
+    var mat=new THREE.MeshPhysicalMaterial({color:col,roughness:0.85,transparent:true,opacity:0.9,side:THREE.DoubleSide,transmission:0.5});
     var geo=makePetalGeo();
     mesh=new THREE.Mesh(geo,mat);
   }else if(type==='frond'){

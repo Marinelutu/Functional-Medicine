@@ -23,6 +23,65 @@ const pressQuotes = [
   { quote: "The protocol-first model is something the functional medicine space has needed for years.", source: "WELL+GOOD" },
 ];
 
+// ── Number Ticker for Stats ──
+const NumberTicker = ({ value, suffix = "" }: { value: string; suffix?: string }) => {
+  const [count, setCount] = useState(0);
+  const nodeRef = useRef(null);
+  const target = parseInt(value.replace(/[,+]/g, ""), 10);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          const start = 0;
+          const duration = 1200;
+          const startTime = performance.now();
+
+          const animate = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            setCount(Math.floor(progress * target));
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            }
+          };
+          requestAnimationFrame(animate);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (nodeRef.current) observer.observe(nodeRef.current);
+    return () => observer.disconnect();
+  }, [target]);
+
+  return (
+    <span ref={nodeRef} className="stats-number">
+      {count.toLocaleString()}{suffix}
+    </span>
+  );
+};
+
+// ── Bio Toggle Component for Practitioners ──
+const PractitionerBio = ({ bio }: { bio: string }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  return (
+    <div className="mt-4">
+      <p className={`practitioner-bio ${isExpanded ? "practitioner-bio--expanded" : ""}`}>
+        {bio}
+      </p>
+      <button 
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="text-[#C9A84C] text-xs font-mono uppercase tracking-wider mt-2 hover:opacity-80 transition-opacity"
+      >
+        {isExpanded ? "Show Less" : "Read Bio"}
+      </button>
+    </div>
+  );
+};
+
 
 
 const AboutPage = () => (
@@ -33,7 +92,7 @@ const AboutPage = () => (
     <section className="dark-section relative pt-32 pb-20 bg-[#2D4A3E] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] about-hero-section">
       <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
         <p className="font-mono text-xs tracking-[0.2em] uppercase text-[#C9A84C] mb-4">Our Story</p>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-white mb-6 w-full max-w-4xl mx-auto about-hero-headline">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-white mb-6 w-full max-w-4xl mx-auto about-hero-headline leading-tight tracking-tight">
           We built Velara because the system failed us too.
         </h1>
         <p className="text-lg text-[#F5F0E8]/80 leading-relaxed max-w-[680px] w-full mx-auto our-story-section">
@@ -43,9 +102,9 @@ const AboutPage = () => (
     </section>
 
     {/* Mission */}
-    <section className="py-20 lg:py-28">
+    <section className="py-20 lg:py-28 mission-quote-section">
       <div className="container mx-auto px-6 text-center max-w-4xl">
-        <blockquote className="text-3xl md:text-4xl lg:text-5xl font-display italic text-primary leading-snug">
+        <blockquote className="text-3xl md:text-4xl lg:text-5xl font-display italic text-primary leading-snug mission-quote-text">
           "Root causes. Not band-aids. Never shortcuts."
         </blockquote>
         <p className="mt-6 text-muted-foreground">— The Velara Mission</p>
@@ -61,7 +120,7 @@ const AboutPage = () => (
       <div className="w-full">
         <div className="flex flex-col md:flex-row w-full h-auto md:h-[520px] method-panels-container">
           {protocolSteps.map((step) => (
-            <div key={step.num} className="group relative w-full md:w-1/4 h-[380px] md:h-[520px] overflow-hidden border-r border-transparent md:hover:border-[rgba(201,168,76,0.4)] transition-all duration-300 method-panel">
+            <div key={step.num} className="group relative w-full md:w-1/4 h-[380px] md:h-[520px] overflow-hidden border-r border-transparent md:hover:border-[rgba(201,168,76,0.4)] transition-all duration-300 method-panel snap-center">
               <img src={step.image} alt={step.title} className="absolute inset-0 w-full h-full object-cover object-center" />
               <div className="absolute inset-0 bg-gradient-to-t from-[rgba(20,35,25,0.92)] via-[rgba(20,35,25,0.5)] to-[rgba(20,35,25,0.15)] group-hover:from-[rgba(20,35,25,0.96)] transition-all duration-300"></div>
               
@@ -72,7 +131,7 @@ const AboutPage = () => (
               <div className="absolute inset-x-0 top-[65%] flex justify-center">
                 <div className="w-[40px] h-[1px] bg-[#C9A84C] group-hover:w-[60px] transition-all duration-300"></div>
               </div>
-
+ 
               <div className="absolute inset-x-0 bottom-0 flex flex-col items-center pb-8 px-4">
                 <h3 className="text-[22px] font-display italic text-[#F5F0E8] mb-4">{step.title}</h3>
                 <p className="text-[14px] text-[#F5F0E8]/75 max-w-[180px] leading-[1.6] text-center mb-6 md:opacity-0 md:translate-y-[8px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 method-panel-body">
@@ -111,8 +170,8 @@ const AboutPage = () => (
               <p className="practitioner-specialty">{t.role}</p>
               {/* Credentials */}
               <p className="practitioner-credentials">{t.credentials}</p>
-              {/* Bio */}
-              <p className="practitioner-bio">{t.bio}</p>
+              {/* Bio with Toggle */}
+              <PractitionerBio bio={t.bio} />
             </div>
           ))}
         </div>
@@ -137,34 +196,40 @@ const AboutPage = () => (
     </section>
 
     {/* Stats */}
-    <section className="py-16 gradient-sage">
+    <section className="py-16 md:py-24 gradient-sage stats-section">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center stats-main-grid">
           {[
-            { val: "4,200+", label: "Members" },
-            { val: "15+", label: "Years Experience" },
-            { val: "80+", label: "Biomarkers Tested" },
-            { val: "94%", label: "Improvement Rate" },
-          ].map((s) => (
-            <div key={s.label}>
-              <p className="text-3xl md:text-4xl font-display font-semibold text-accent">{s.val}</p>
-              <p className="text-sm text-primary-foreground/60 mt-1 font-mono">{s.label}</p>
+            { val: "4200", suffix: "+", label: "Members" },
+            { val: "15", suffix: "+", label: "Years Experience" },
+            { val: "80", suffix: "+", label: "Biomarkers Tested" },
+            { val: "94", suffix: "%", label: "Improvement Rate" },
+          ].map((s, i) => (
+            <div key={s.label} className="stats-main-item" style={{ "--item-index": i } as React.CSSProperties}>
+              <p className="text-3xl md:text-5xl font-display font-semibold text-accent">
+                <NumberTicker value={s.val} suffix={s.suffix} />
+              </p>
+              <p className="text-sm text-primary-foreground/60 mt-2 font-mono uppercase tracking-wider stats-main-label">{s.label}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    {/* CTA */}
-    <section className="relative py-16 gradient-assessment after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60px] after:bg-gradient-to-b after:from-[#F5F0E8] after:to-[#2D4A3E] join-mission-section">
-      <div className="container mx-auto px-6 text-center relative z-10">
-        <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">Join the mission.</h2>
-        <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
+    {/* Mission & CTA Block */}
+    <section className="relative py-20 md:py-32 gradient-assessment mission-block-section overflow-hidden">
+      <div className="container mx-auto px-6 text-center relative z-10 mission-block-content">
+        <h2 className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-6 mission-block-headline">Join the mission.</h2>
+        <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto mission-block-body leading-relaxed">
           Experience what healthcare should feel like — personal, precise, and transformative.
         </p>
-        <Link to="/book" className="inline-flex items-center px-8 py-4 rounded-full bg-accent text-accent-foreground font-semibold text-lg hover:opacity-90 transition-opacity join-mission-btn">
-          Check If You Qualify →
-        </Link>
+
+        <div className="mission-cta-area flex flex-col items-center">
+          <p className="text-sm text-muted-foreground mb-4 mission-cta-micro">No commitment required</p>
+          <Link to="/book" className="inline-flex items-center px-10 py-5 rounded-full bg-accent text-accent-foreground font-semibold text-lg hover:opacity-90 transition-all hover:scale-105 shadow-xl mission-cta-btn">
+            Check If You Qualify →
+          </Link>
+        </div>
       </div>
     </section>
 
