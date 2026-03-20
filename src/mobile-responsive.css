@@ -698,7 +698,9 @@ body {
         justify-content: flex-start !important;
         -ms-overflow-style: none;
         padding: 0 20px 12px !important;
-        scrollbar-width: none;
+        @supports (scrollbar-width: none) {
+            scrollbar-width: none;
+        }
         width: 100% !important;
     }
 
@@ -830,7 +832,9 @@ body {
         scroll-snap-type: x mandatory !important;
         gap: 16px !important;
         padding-bottom: 20px !important;
-        scrollbar-width: none !important;
+        @supports (scrollbar-width: none) {
+            scrollbar-width: none !important;
+        }
     }
 
     .shop-bundle-grid::-webkit-scrollbar {
@@ -858,7 +862,9 @@ body {
         overflow-x: auto;
         -ms-overflow-style: none;
         padding-bottom: 4px;
-        scrollbar-width: none;
+        @supports (scrollbar-width: none) {
+            scrollbar-width: none;
+        }
     }
     .blog-filter-tabs::-webkit-scrollbar {
         display: none;
@@ -911,7 +917,9 @@ body {
         overflow-x: auto;
         -ms-overflow-style: none;
         padding-bottom: 4px;
-        scrollbar-width: none;
+        @supports (scrollbar-width: none) {
+            scrollbar-width: none;
+        }
     }
 
     .shop-filter-tabs::-webkit-scrollbar {
@@ -972,7 +980,9 @@ body {
         overflow-x: auto;
         -ms-overflow-style: none;
         padding-bottom: 8px;
-        scrollbar-width: none;
+        @supports (scrollbar-width: none) {
+            scrollbar-width: none;
+        }
         justify-content: flex-start !important;
     }
     .flex.flex-wrap.justify-center.gap-2.mb-12:has(.services-filter-tab)::-webkit-scrollbar {
@@ -1075,7 +1085,9 @@ body {
         scroll-snap-type: x mandatory !important;
         gap: 0 !important;
         padding: 0 24px 20px !important;
-        scrollbar-width: none;
+        @supports (scrollbar-width: none) {
+            scrollbar-width: none;
+        }
     }
     .method-panels-container::-webkit-scrollbar {
         display: none;
