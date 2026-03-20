@@ -120,28 +120,89 @@ const BlogPage = () => {
           <div className="grid lg:grid-cols-4 gap-10">
             {/* Articles Grid */}
             <div className="lg:col-span-3 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((a) => (
-                <div
-                  key={a.slug}
-                  className="blog-card-clickable group"
-                  onClick={() => openArticle(a)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && openArticle(a)}
-                >
-                  <div className="blog-card-image-wrapper rounded-xl overflow-hidden mb-3">
-                    <ImagePlaceholder
-                      label={`Blog — ${a.title}`}
-                      aspectRatio="landscape"
-                      className="rounded-xl blog-card-image"
-                      src={a.image}
-                    />
-                  </div>
-                  <div className="blog-card-text-area">
-                    <span className="blog-card-category">{a.category}</span>
-                    <h3 className="blog-card-headline">{a.title}</h3>
-                    <p className="blog-card-excerpt">{a.excerpt}</p>
-                    <span className="blog-card-readtime">{a.readTime} read</span>
+              {filtered.map((a, index) => (
+                <div key={a.slug} className="contents">
+                  {/* Mobile Most Read Slider after 1st article */}
+                  {index === 0 && (
+                    <div className="lg:hidden col-span-1 bg-white py-4 mb-6 -mx-6 px-6 border-y border-border/50 shadow-sm overflow-hidden">
+                      <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-[#C9A84C] block mb-6">
+                        MOST READ
+                      </span>
+                      <div className="flex overflow-x-auto gap-4 pb-4 no-scrollbar -mx-6 px-6 snap-x snap-mandatory">
+                        {mostRead.map((title, j) => {
+                          const articleHighlight = allArticles.find(art => art.title === title);
+                          return (
+                            <div
+                              key={title}
+                              className="flex-shrink-0 w-[280px] bg-card rounded-xl border border-border p-5 snap-start shadow-sm hover:border-primary transition-colors cursor-pointer"
+                              onClick={() => openArticleByTitle(title)}
+                            >
+                              <span className="font-mono text-xs text-[#C9A84C] font-bold block mb-2">{String(j + 1).padStart(2, "0")}</span>
+                              <h4 className="font-display font-semibold text-base text-[#2D4A3E] leading-tight mb-3 line-clamp-2">
+                                {title}
+                              </h4>
+                              {articleHighlight && (
+                                <div className="flex items-center gap-2">
+                                  <span className="text-[11px] text-muted-foreground uppercase tracking-wider">{articleHighlight.category}</span>
+                                  <span className="text-muted-foreground">·</span>
+                                  <span className="text-[11px] text-muted-foreground">{articleHighlight.readTime} read</span>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Mobile In-Feed Newsletter after 2nd article */}
+                  {index === 2 && (
+                    <div className="lg:hidden col-span-1 bg-[#2D4A3E] rounded-2xl p-8 mb-10 text-center border border-white/10 shadow-xl">
+                      <h3 className="font-display text-2xl font-semibold text-white mb-3">Get Weekly Insights</h3>
+                      <p className="text-sm text-[#F5F0E8]/80 mb-6">Join 4,200+ readers getting evidence-based health content directly to their inbox.</p>
+                      <div className="flex flex-col gap-3 max-w-sm mx-auto">
+                        <input
+                          type="email"
+                          placeholder="Your email"
+                          value={newsletterEmail}
+                          onChange={(e) => { setNewsletterEmail(e.target.value); setNewsletterError(""); }}
+                          disabled={newsletterSubscribed}
+                          className={`w-full px-4 py-3 rounded-xl bg-white/10 text-white placeholder:text-white/40 text-sm focus:outline-none focus:ring-2 focus:ring-[#C9A84C]/50 border border-white/20 transition-all ${newsletterError ? 'border-red-400' : ''}`}
+                        />
+                        <button
+                          onClick={handleSubscribe}
+                          disabled={newsletterSubscribed}
+                          className={`w-full px-6 py-3 rounded-full bg-[#C9A84C] text-[#2D4A3E] text-sm font-bold hover:bg-[#D4B96A] transition-colors shadow-lg ${newsletterSubscribed ? 'opacity-70 cursor-default' : ''}`}
+                        >
+                          {newsletterSubscribed ? "✓ You're Subscribed" : "Subscribe Now"}
+                        </button>
+                      </div>
+                      {newsletterError && <p className="text-red-400 text-xs mt-2">{newsletterError}</p>}
+                      {newsletterSubscribed && <p className="text-[#C9A84C] text-xs mt-3 font-medium">Excellent. Check your inbox for your first issue.</p>}
+                    </div>
+                  )}
+
+                  <div
+                    className="blog-card-clickable group"
+                    onClick={() => openArticle(a)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === "Enter" && openArticle(a)}
+                  >
+                    <div className="blog-card-image-wrapper rounded-xl overflow-hidden mb-3">
+                      <ImagePlaceholder
+                        label={`Blog — ${a.title}`}
+                        aspectRatio="landscape"
+                        className="rounded-xl blog-card-image"
+                        src={a.image}
+                      />
+                    </div>
+                    <div className="blog-card-text-area">
+                      <span className="blog-card-category">{a.category}</span>
+                      <h3 className="blog-card-headline">{a.title}</h3>
+                      <p className="blog-card-excerpt">{a.excerpt}</p>
+                      <span className="blog-card-readtime">{a.readTime} read</span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -149,7 +210,7 @@ const BlogPage = () => {
 
             {/* Sidebar */}
             <aside className="hidden lg:block space-y-10">
-              <div className="bg-card rounded-2xl p-6 border border-border">
+              <div className="bg-card rounded-2xl p-6 border border-border lg:block hidden">
                 <h3 className="font-display text-lg font-semibold text-foreground mb-3">Get Weekly Insights</h3>
                 <p className="text-sm text-muted-foreground mb-4">Join 4,200+ readers getting evidence-based health content.</p>
                 <input
@@ -179,7 +240,7 @@ const BlogPage = () => {
                 )}
               </div>
 
-              <div>
+              <div className="lg:block hidden">
                 <h3 className="font-mono text-xs tracking-[0.15em] uppercase text-accent mb-4">Most Read</h3>
                 <ol className="space-y-3">
                   {mostRead.map((title, i) => (

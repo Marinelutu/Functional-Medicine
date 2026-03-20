@@ -1268,14 +1268,92 @@ body {
         margin-top: 32px;
     }
 
+    /* Hide the second newsletter (sidebar one) on mobile */
+    aside.hidden.lg\:block .bg-card.rounded-2xl.p-6 {
+        display: none !important;
+    }
+
+    /* COMPONENT: Horizontal Scrollable Category Filter (mobile) */
+    .blog-filter-tabs {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 8px !important;
+        padding: 0 20px !important;
+        margin-left: -20px !important;
+        margin-right: -20px !important;
+        margin-bottom: 32px !important;
+        scrollbar-width: none !important; /* Hide scrollbar Firefox */
+        -ms-overflow-style: none !important;  /* Hide scrollbar IE/Edge */
+    }
+
+    .blog-filter-tabs::-webkit-scrollbar {
+        display: none !important; /* Hide scrollbar Chrome/Safari */
+    }
+
+    .blog-filter-tab {
+        flex: 0 0 auto !important; /* Pills never compress */
+        height: 40px !important;
+        border-radius: 999px !important;
+        padding: 0 18px !important;
+        white-space: nowrap !important; /* Never wraps to next line */
+        font-family: "Inter", sans-serif !important;
+        font-size: 15px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: background 200ms ease !important;
+        border: none !important;
+        box-shadow: none !important;
+        min-height: unset !important;
+        width: auto !important;
+    }
+
+    /* Default State */
+    .blog-filter-tab:not(.bg-primary) {
+        background-color: #E8E3D8 !important;
+        color: #1A1A1A !important;
+        font-weight: 400 !important;
+    }
+
+    /* Active State */
+    .blog-filter-tab.bg-primary {
+        background-color: #1F4231 !important;
+        color: #FFFFFF !important;
+        font-weight: 500 !important;
+    }
+
+    /* Active State (matches image dark green) */
+    .blog-filter-tab.bg-primary {
+        background-color: #2D4A3E !important;
+        color: #FFFFFF !important;
+    }
+
+    /* Inactive State (matches image beige) */
+    .blog-filter-tab:not(.bg-primary) {
+        background-color: #EDE5D8 !important;
+        color: #1C1C1C !important;
+    }
+
     /* Blog grid layout – 1 column so sidebar stacks below */
     .grid.lg\:grid-cols-4.gap-10 {
         grid-template-columns: 1fr !important;
     }
 
-    /* Blog card headline on blog page */
-    .blog-card-headline {
-        font-size: 18px;
+    /* Blog card excerpt on blog page */
+    .blog-card-excerpt {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        margin-bottom: 12px !important;
+        color: #4A5568 !important;
     }
 
     /* Featured article headline */
@@ -1539,6 +1617,32 @@ body {
     /* CTA Section Fix: Increase bottom padding to prevent overlap by gradient */
     section.py-16.bg-\[\#F5F0E8\].relative.after\:absolute {
         padding-bottom: 100px !important;
+    }
+
+    /* Minimalist Close Button on Mobile */
+    .blog-modal-close {
+        top: 20px !important;
+        right: 20px !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        box-shadow: none !important;
+        width: 32px !important;
+        height: 32px !important;
+        color: #2D4A3E !important;
+        padding: 0 !important;
+    }
+
+    .blog-modal-close:hover {
+        transform: none !important;
+        opacity: 0.7;
+    }
+
+    /* Progress bar visibility */
+    .blog-modal-progress-bar {
+        height: 4px !important;
+        background-color: #C9A84C !important;
+        box-shadow: 0 1px 4px rgba(201, 168, 76, 0.3);
     }
 }
 
