@@ -698,7 +698,6 @@ body {
         justify-content: flex-start !important;
         -ms-overflow-style: none;
         padding: 0 20px 12px !important;
-        -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         width: 100% !important;
     }
@@ -831,7 +830,6 @@ body {
         scroll-snap-type: x mandatory !important;
         gap: 16px !important;
         padding-bottom: 20px !important;
-        -webkit-overflow-scrolling: touch !important;
         scrollbar-width: none !important;
     }
 
@@ -860,7 +858,6 @@ body {
         overflow-x: auto;
         -ms-overflow-style: none;
         padding-bottom: 4px;
-        -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
     }
     .blog-filter-tabs::-webkit-scrollbar {
@@ -914,7 +911,6 @@ body {
         overflow-x: auto;
         -ms-overflow-style: none;
         padding-bottom: 4px;
-        -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
     }
 
@@ -976,7 +972,6 @@ body {
         overflow-x: auto;
         -ms-overflow-style: none;
         padding-bottom: 8px;
-        -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         justify-content: flex-start !important;
     }
@@ -1078,7 +1073,6 @@ body {
         flex-direction: row !important;
         overflow-x: auto !important;
         scroll-snap-type: x mandatory !important;
-        -webkit-overflow-scrolling: touch;
         gap: 0 !important;
         padding: 0 24px 20px !important;
         scrollbar-width: none;
@@ -1135,9 +1129,13 @@ body {
         opacity: 0;
         transform: translateY(20px);
         animation: statsFadeIn 500ms ease-out forwards;
-        animation-delay: calc(var(--item-index) * 80ms);
         border: none !important;
     }
+
+    .stats-main-item:nth-child(1) { animation-delay: 0ms; }
+    .stats-main-item:nth-child(2) { animation-delay: 80ms; }
+    .stats-main-item:nth-child(3) { animation-delay: 160ms; }
+    .stats-main-item:nth-child(4) { animation-delay: 240ms; }
 
     @keyframes statsFadeIn {
         to {

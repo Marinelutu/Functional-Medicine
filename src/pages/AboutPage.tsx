@@ -205,7 +205,7 @@ const AboutPage = () => (
             { val: "80", suffix: "+", label: "Biomarkers Tested" },
             { val: "94", suffix: "%", label: "Improvement Rate" },
           ].map((s, i) => (
-            <div key={s.label} className="stats-main-item" style={{ "--item-index": i } as React.CSSProperties}>
+            <div key={s.label} className="stats-main-item">
               <p className="text-3xl md:text-5xl font-display font-semibold text-accent">
                 <NumberTicker value={s.val} suffix={s.suffix} />
               </p>

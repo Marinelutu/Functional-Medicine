@@ -123,8 +123,7 @@ const Navbar = () => {
             >
               <ShoppingBag size={20} />
               <span
-                className={`cart-badge ${badgeBounce ? "cart-badge--bounce" : ""}`}
-                style={{ top: '2px', right: '-2px' }}
+                className={`cart-badge ${badgeBounce ? "cart-badge--bounce" : ""} top-[2px] right-[-2px]`}
               >
                 {count}
               </span>
@@ -144,13 +143,9 @@ const Navbar = () => {
           Placed at highest depth to avoid stacking issues
       */}
       <div
-        className={`lg:hidden fixed inset-0 z-[9999] flex flex-col pt-24 px-6 pb-12 transition-all duration-300 ease-in-out ${
-          mobileOpen ? "translate-x-0 opacity-100 visible" : "translate-x-full opacity-0 invisible"
+        className={`lg:hidden fixed inset-0 z-[9999] flex flex-col pt-24 px-6 pb-12 transition-all duration-300 ease-in-out bg-[#2D4A3E] ${
+          mobileOpen ? "translate-x-0 opacity-100 visible pointer-events-auto" : "translate-x-full opacity-0 invisible pointer-events-none"
         }`}
-        style={{ 
-          backgroundColor: '#2D4A3E',
-          pointerEvents: mobileOpen ? 'auto' : 'none'
-        }}
       >
         {/* Close Button Top Right */}
         <button
