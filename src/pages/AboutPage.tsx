@@ -89,7 +89,7 @@ const AboutPage = () => (
     <Navbar />
 
     {/* Hero */}
-    <section className="dark-section relative pt-32 pb-20 bg-[#2D4A3E] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] about-hero-section">
+    <section className="dark-section relative pt-32 pb-20 bg-[#2D4A3E] about-hero-section">
       <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
         <p className="font-mono text-xs tracking-[0.2em] uppercase text-[#C9A84C] mb-4">Our Story</p>
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-white mb-6 w-full max-w-4xl mx-auto about-hero-headline leading-tight tracking-tight">
@@ -112,7 +112,7 @@ const AboutPage = () => (
     </section>
 
     {/* Protocol Expanded */}
-    <section className="bg-[#F5F0E8] pt-20 pb-12">
+    <section className="bg-[#F5F0E8] pt-20 pb-12 about-method-section">
       <div className="container mx-auto px-6 mb-10 text-center">
         <p className="font-mono text-xs tracking-[0.2em] uppercase text-[#C9A84C] mb-4">OUR METHOD</p>
         <h2 className="text-4xl md:text-5xl font-display font-semibold text-foreground">The Velara Protocol™</h2>

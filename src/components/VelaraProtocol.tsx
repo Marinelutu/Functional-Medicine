@@ -19,19 +19,19 @@ const VelaraProtocol = () => {
           {protocolSteps.map((step) => (
             <div key={step.num} className="protocol-step-card group relative w-full md:w-1/4 h-[380px] md:h-[520px] overflow-hidden border-r border-transparent md:hover:border-[rgba(201,168,76,0.4)] transition-all duration-300">
               <img src={step.image} alt={step.title} className="protocol-step-image-area absolute inset-0 w-full h-full object-cover object-center" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(20,35,25,0.92)] via-[rgba(20,35,25,0.5)] to-[rgba(20,35,25,0.15)] group-hover:from-[rgba(20,35,25,0.96)] transition-all duration-300"></div>
+              <div className="protocol-step-gradient absolute inset-0 bg-gradient-to-t from-[rgba(20,35,25,0.92)] via-[rgba(20,35,25,0.5)] to-[rgba(20,35,25,0.15)] md:group-hover:from-[rgba(20,35,25,0.96)] transition-all duration-300"></div>
               
-              <div className="absolute inset-x-0 top-12 flex justify-center">
-                <span className="text-[96px] font-display font-bold text-[rgba(201,168,76,0.9)] group-hover:text-[#C9A84C] leading-none transition-colors duration-300">{step.num}</span>
+              <div className="protocol-step-num-wrapper absolute inset-x-0 top-12 flex justify-center">
+                <span className="text-[96px] font-display font-bold text-[rgba(201,168,76,0.9)] md:group-hover:text-[#C9A84C] leading-none transition-colors duration-300">{step.num}</span>
               </div>
               
-              <div className="absolute inset-x-0 top-[65%] flex justify-center">
-                <div className="w-[40px] h-[1px] bg-[#C9A84C] group-hover:w-[60px] transition-all duration-300"></div>
+              <div className="protocol-step-line-wrapper absolute inset-x-0 top-[65%] flex justify-center">
+                <div className="w-[40px] h-[1px] bg-[#C9A84C] md:group-hover:w-[60px] transition-all duration-300"></div>
               </div>
 
               <div className="protocol-step-content-area absolute inset-x-0 bottom-0 flex flex-col items-center pb-8 px-4">
                 <h3 className="text-[22px] font-display italic text-[#F5F0E8] mb-4">{step.title}</h3>
-                <p className="text-[14px] text-[#F5F0E8]/75 max-w-[180px] leading-[1.6] text-center mb-6 md:opacity-0 md:translate-y-[8px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                <p className="text-[14px] text-[#F5F0E8]/75 max-w-[180px] leading-[1.6] text-center mb-6 md:opacity-0 md:translate-y-[8px] md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300">
                   {step.desc}
                 </p>
               </div>

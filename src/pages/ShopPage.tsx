@@ -102,7 +102,7 @@ const ShopPage = () => {
       <Navbar />
 
       {/* ── Hero Header ── */}
-      <section className="dark-section pt-32 pb-8 relative bg-[#2D4A3E] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] after:pointer-events-none page-hero-section">
+      <section className="dark-section pt-32 pb-8 relative bg-[#2D4A3E] page-hero-section">
         <div className="container mx-auto px-6 text-center">
           <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">The Velara Dispensary</p>
           <h1 className="text-4xl md:text-5xl font-display font-semibold text-white mb-4 page-hero-headline">
@@ -114,7 +114,7 @@ const ShopPage = () => {
         </div>
       </section>
 
-      <section className="py-12 lg:py-16 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#F5F0E8] after:to-[#2D4A3E] after:pointer-events-none">
+      <section className="py-12 lg:py-16 relative">
         <div className="container mx-auto px-6">
 
           {/* ── Filter Tabs + Sort ── */}

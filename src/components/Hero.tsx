@@ -12,12 +12,12 @@ const goalToConcern: Record<string, string> = {
 };
 
 const goals = [
-  { label: "Energy", icon: "✦" },
-  { label: "Weight", icon: "⚖" },
-  { label: "Hormones", icon: "⚥" },
-  { label: "Clarity", icon: "⚛" },
-  { label: "Longevity", icon: "∞" },
-  { label: "Gut Health", icon: "☘" },
+  { label: "Energy" },
+  { label: "Weight" },
+  { label: "Hormones" },
+  { label: "Clarity" },
+  { label: "Longevity" },
+  { label: "Gut Health" },
 ];
 
 const Hero = () => {
@@ -70,11 +70,7 @@ const Hero = () => {
         <div className="hero-overlay" />
 
         {/* Content */}
-        <div className="hero-content">
-          {/* Overline */}
-          <p className={`hero-overline ${animReady ? "hero-anim-active" : ""}`}>
-            Functional Medicine, Reimagined
-          </p>
+        <div className="hero-content mt-12 sm:mt-0">
 
           {/* Headline */}
           <h1 className="hero-headline">
@@ -109,7 +105,6 @@ const Hero = () => {
                     onClick={() => handleGoalClick(g.label)}
                     className={`hero-goal-pill ${clickedPill === g.label ? "hero-goal-pill--clicked" : ""}`}
                   >
-                    <span className="hero-goal-pill-icon">{g.icon}</span>
                     <span className="hero-goal-pill-text">{g.label}</span>
                   </button>
                 ))}

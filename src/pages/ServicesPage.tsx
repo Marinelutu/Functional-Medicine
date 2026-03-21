@@ -374,7 +374,7 @@ const ServicesPage = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="dark-section gradient-sage pt-32 pb-20 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] after:pointer-events-none page-hero-section">
+      <section className="dark-section gradient-sage pt-32 pb-20 relative page-hero-section">
         <div className="container mx-auto px-6 text-center">
           <p className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">Our Services</p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-primary-foreground mb-4 page-hero-headline">
@@ -497,7 +497,7 @@ const ServicesPage = () => {
       </section>
 
       {/* CTA Strip */}
-      <section className="py-16 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#F5F0E8] after:to-[#2D4A3E] after:pointer-events-none bg-[#F5F0E8]">
+      <section className="py-16 relative bg-[#F5F0E8]">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">
             Not sure which service is right for you?

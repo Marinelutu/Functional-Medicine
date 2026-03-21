@@ -48,7 +48,7 @@ const BlogPage = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="dark-section bg-[#2D4A3E] relative pt-[120px] pb-[80px] text-center after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#2D4A3E] after:to-[#F5F0E8] after:pointer-events-none page-hero-section">
+      <section className="dark-section bg-[#2D4A3E] relative pt-[120px] pb-[80px] text-center page-hero-section">
         <div className="container mx-auto px-6 relative z-10">
           <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-[#C9A84C] block mb-4">
             THE JOURNAL
@@ -102,7 +102,7 @@ const BlogPage = () => {
       </section>
 
       {/* Filters */}
-      <section className="pt-[40px] pb-12 lg:pb-16 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[60px] after:bg-gradient-to-b after:from-[#F5F0E8] after:to-[#2D4A3E] after:pointer-events-none">
+      <section className="pt-[40px] pb-12 lg:pb-16 relative">
         <div className="container mx-auto px-6">
           <div className="flex flex-wrap gap-2 mb-10 blog-filter-tabs">
             {categories.map((c) => (
