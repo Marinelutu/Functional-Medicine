@@ -78,6 +78,7 @@
     text-transform: uppercase;
     color: #e8dfc4;
     white-space: nowrap;
+    -webkit-user-select: none;
     user-select: none;
   }
 
@@ -240,7 +241,11 @@
     overflow-x: auto;
     padding-bottom: 4px;
     animation: vc-fadein 0.2s ease;
-    scrollbar-width: none;
+  }
+  @supports (scrollbar-width: none) {
+    .vc-cards {
+      scrollbar-width: none;
+    }
   }
   .vc-cards::-webkit-scrollbar { display: none; }
   .vc-card {

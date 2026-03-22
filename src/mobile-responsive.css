@@ -1316,14 +1316,24 @@ body {
         flex-wrap: nowrap !important;
         overflow-x: auto !important;
         overflow-y: hidden !important;
-        -webkit-overflow-scrolling: touch !important;
         gap: 8px !important;
         padding: 0 20px !important;
         margin-left: -20px !important;
         margin-right: -20px !important;
         margin-bottom: 32px !important;
-        scrollbar-width: none !important; /* Hide scrollbar Firefox */
         -ms-overflow-style: none !important;  /* Hide scrollbar IE/Edge */
+    }
+
+    @supports (-webkit-overflow-scrolling: touch) {
+        .blog-filter-tabs {
+            -webkit-overflow-scrolling: touch !important;
+        }
+    }
+
+    @supports (scrollbar-width: none) {
+        .blog-filter-tabs {
+            scrollbar-width: none !important; /* Hide scrollbar Firefox */
+        }
     }
 
     .blog-filter-tabs::-webkit-scrollbar {
@@ -1657,8 +1667,8 @@ body {
         top: 20px !important;
         right: 20px !important;
         background: transparent !important;
-        backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
         box-shadow: none !important;
         width: 32px !important;
         height: 32px !important;
