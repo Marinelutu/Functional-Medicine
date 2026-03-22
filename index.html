@@ -21,5 +21,647 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+<!-- VELARA Custom Chat Widget -->
+
+<style>
+  #vc-tab {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: #2c3e2d;
+    border: 1px solid #b89a4e;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    padding: 16px 12px;
+    cursor: pointer;
+    box-shadow: 3px 0 20px rgba(184,154,78,0.12);
+    transition: background 0.25s, padding 0.25s, box-shadow 0.25s;
+  }
+  #vc-tab:hover {
+    background: #3a4e3b;
+    padding-right: 18px;
+    box-shadow: 4px 0 28px rgba(184,154,78,0.3);
+  }
+  #vc-tab .vc-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #b89a4e;
+    flex-shrink: 0;
+    position: relative;
+  }
+  #vc-tab .vc-dot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(184,154,78,0.35);
+    animation: vc-ring 2.4s ease-in-out infinite;
+  }
+  @keyframes vc-ring {
+    0%,100% { transform: scale(1); opacity: 0.5; }
+    50%      { transform: scale(1.7); opacity: 0; }
+  }
+  #vc-tab .vc-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: 'Georgia', serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #e8dfc4;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  #vc-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  #vc-modal.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #vc-box {
+    width: 420px;
+    max-width: calc(100vw - 32px);
+    height: 600px;
+    max-height: calc(100vh - 48px);
+    background: #1c2a1e;
+    border: 1px solid rgba(184,154,78,0.35);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(16px);
+    transition: transform 0.3s ease;
+  }
+  #vc-modal.open #vc-box { transform: translateY(0); }
+
+  #vc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(184,154,78,0.2);
+    flex-shrink: 0;
+  }
+  #vc-header-left { display: flex; align-items: center; gap: 10px; }
+  #vc-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #2c3e2d;
+    border: 1px solid rgba(184,154,78,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Georgia', serif;
+    font-size: 13px;
+    color: #b89a4e;
+    font-style: italic;
+  }
+  #vc-header-title {
+    font-family: 'Georgia', serif;
+    font-size: 14px;
+    color: #e8dfc4;
+    letter-spacing: 0.04em;
+  }
+  #vc-header-sub {
+    font-size: 11px;
+    color: rgba(184,154,78,0.7);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+  #vc-close {
+    background: none;
+    border: none;
+    color: rgba(232,223,196,0.35);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  #vc-close:hover { color: rgba(232,223,196,0.75); }
+
+  #vc-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scroll-behavior: smooth;
+  }
+  #vc-messages::-webkit-scrollbar { width: 4px; }
+  #vc-messages::-webkit-scrollbar-track { background: transparent; }
+  #vc-messages::-webkit-scrollbar-thumb { background: rgba(184,154,78,0.25); border-radius: 2px; }
+
+  .vc-msg {
+    max-width: 82%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.55;
+    animation: vc-fadein 0.2s ease;
+    word-wrap: break-word;
+  }
+  @keyframes vc-fadein {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .vc-msg.agent {
+    background: rgba(255,255,255,0.07);
+    color: #e8dfc4;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+  .vc-msg.user {
+    background: #b89a4e;
+    color: #1a1e1a;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+    font-weight: 500;
+  }
+
+  /* Choice buttons */
+  .vc-choices {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-self: flex-start;
+    max-width: 90%;
+    animation: vc-fadein 0.2s ease;
+  }
+  .vc-choice-btn {
+    background: transparent;
+    border: 1px solid rgba(184,154,78,0.5);
+    border-radius: 24px;
+    padding: 9px 18px;
+    font-family: 'Georgia', serif;
+    font-size: 13px;
+    color: #e8dfc4;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .vc-choice-btn:hover {
+    background: rgba(184,154,78,0.15);
+    border-color: #b89a4e;
+    color: #b89a4e;
+  }
+  .vc-choice-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Cards */
+  .vc-cards {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-self: flex-start;
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    animation: vc-fadein 0.2s ease;
+    scrollbar-width: none;
+  }
+  .vc-cards::-webkit-scrollbar { display: none; }
+  .vc-card {
+    min-width: 200px;
+    max-width: 200px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(184,154,78,0.25);
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .vc-card-img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    display: block;
+  }
+  .vc-card-img-placeholder {
+    width: 100%;
+    height: 110px;
+    background: rgba(184,154,78,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(184,154,78,0.3);
+    font-size: 24px;
+  }
+  .vc-card-body { padding: 12px; }
+  .vc-card-title {
+    font-family: 'Georgia', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #e8dfc4;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .vc-card-desc {
+    font-size: 12px;
+    color: rgba(232,223,196,0.55);
+    line-height: 1.45;
+    margin-bottom: 8px;
+  }
+  .vc-card-btn {
+    display: block;
+    width: 100%;
+    background: rgba(184,154,78,0.12);
+    border: 1px solid rgba(184,154,78,0.4);
+    border-radius: 20px;
+    padding: 7px 12px;
+    font-family: 'Georgia', serif;
+    font-size: 12px;
+    color: #b89a4e;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s;
+    margin-top: 4px;
+    box-sizing: border-box;
+  }
+  .vc-card-btn:hover { background: rgba(184,154,78,0.25); }
+
+  /* Image */
+  .vc-image {
+    max-width: 80%;
+    align-self: flex-start;
+    animation: vc-fadein 0.2s ease;
+  }
+  .vc-image img {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+  }
+
+  /* Typing */
+  .vc-typing {
+    display: flex;
+    gap: 5px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 12px;
+    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+  }
+  .vc-typing span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(184,154,78,0.6);
+    animation: vc-bounce 1.2s ease-in-out infinite;
+  }
+  .vc-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .vc-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes vc-bounce {
+    0%,60%,100% { transform: translateY(0); }
+    30%          { transform: translateY(-6px); }
+  }
+
+  /* Input row */
+  #vc-input-row {
+    display: flex;
+    gap: 10px;
+    padding: 14px 16px;
+    border-top: 1px solid rgba(184,154,78,0.15);
+    flex-shrink: 0;
+  }
+  #vc-input {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(184,154,78,0.25);
+    border-radius: 24px;
+    padding: 10px 16px;
+    font-family: 'Georgia', serif;
+    font-size: 14px;
+    color: #e8dfc4;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #vc-input::placeholder { color: rgba(232,223,196,0.3); }
+  #vc-input:focus { border-color: rgba(184,154,78,0.55); }
+  #vc-send {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #b89a4e;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, transform 0.15s;
+  }
+  #vc-send:hover { background: #caa95a; transform: scale(1.06); }
+  #vc-send:disabled { background: rgba(184,154,78,0.3); cursor: not-allowed; transform: none; }
+  #vc-send svg { width: 16px; height: 16px; fill: #1a1e1a; }
+
+  @media (max-width: 768px) {
+    #vc-tab {
+      top: auto;
+      bottom: 24px;
+      transform: none;
+      flex-direction: row;
+      padding: 11px 15px 11px 11px;
+      border-radius: 0 24px 24px 0;
+      gap: 8px;
+    }
+    #vc-tab .vc-label { writing-mode: horizontal-tb; transform: none; }
+    #vc-box { height: 75vh; border-radius: 16px 16px 0 0; align-self: flex-end; }
+    #vc-modal { align-items: flex-end; }
+    .vc-card { min-width: 170px; max-width: 170px; }
+  }
+</style>
+
+<!-- Side Tab -->
+<div id="vc-tab" role="button" aria-label="Ask Velara" tabindex="0">
+  <div class="vc-dot"></div>
+  <span class="vc-label">Ask Velara</span>
+</div>
+
+<!-- Chat Modal -->
+<div id="vc-modal" role="dialog" aria-label="Velara Assistant">
+  <div id="vc-box">
+    <div id="vc-header">
+      <div id="vc-header-left">
+        <div id="vc-avatar">V</div>
+        <div>
+          <div id="vc-header-title">Velara</div>
+          <div id="vc-header-sub">Health Assistant</div>
+        </div>
+      </div>
+      <button id="vc-close" aria-label="Close">✕</button>
+    </div>
+    <div id="vc-messages"></div>
+    <div id="vc-input-row">
+      <input id="vc-input" type="text" placeholder="Ask anything about your health…" autocomplete="off" />
+      <button id="vc-send" aria-label="Send">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var VF_API_KEY    = "VF.DM.6973ecb7b7cc09a1d22ceb22.32VKMc7afjsccI4P";
+    var VF_VERSION_ID = "6973e8e01081ca8af3ebe6f9";
+    var SESSION_ID    = "velara_" + Math.random().toString(36).slice(2);
+    var API_BASE      = "https://general-runtime.voiceflow.com";
+    var isWaiting     = false;
+    var isOpen        = false;
+
+    var tab      = document.getElementById('vc-tab');
+    var modal    = document.getElementById('vc-modal');
+    var messages = document.getElementById('vc-messages');
+    var input    = document.getElementById('vc-input');
+    var sendBtn  = document.getElementById('vc-send');
+    var closeBtn = document.getElementById('vc-close');
+
+    function openChat() {
+      isOpen = true;
+      modal.classList.add('open');
+      input.focus();
+      if (messages.children.length === 0) startConversation();
+    }
+
+    function closeChat() {
+      isOpen = false;
+      modal.classList.remove('open');
+    }
+
+    function scrollToBottom() {
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function parseMarkdown(text) {
+      text = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      text = text.replace(/^###\s+(.+)$/gm, '<strong style="display:block;font-size:12px;letter-spacing:0.07em;text-transform:uppercase;color:rgba(184,154,78,0.85);margin:10px 0 4px;">$1</strong>');
+      text = text.replace(/^##\s+(.+)$/gm, '<strong style="display:block;font-size:14px;color:#b89a4e;margin:10px 0 4px;">$1</strong>');
+      text = text.replace(/^#\s+(.+)$/gm, '<strong style="display:block;font-size:15px;color:#b89a4e;margin:10px 0 6px;">$1</strong>');
+      text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
+      text = text.replace(/^[\-\u2013\u2022]\s+(.+)$/gm, '<div style="display:flex;gap:8px;margin:3px 0;"><span style="color:#b89a4e;flex-shrink:0;">\u00b7</span><span>$1</span></div>');
+      text = text.replace(/^(\d+)\.\s+(.+)$/gm, '<div style="display:flex;gap:8px;margin:3px 0;"><span style="color:#b89a4e;flex-shrink:0;min-width:16px;">$1.</span><span>$2</span></div>');
+      text = text.replace(/\n\n/g, '<br><br>');
+      text = text.replace(/\n/g, '<br>');
+      return text;
+    }
+
+    function addMessage(text, role) {
+      var el = document.createElement('div');
+      el.className = 'vc-msg ' + role;
+      if (role === 'agent') {
+        el.innerHTML = parseMarkdown(text);
+      } else {
+        el.textContent = text;
+      }
+      messages.appendChild(el);
+      scrollToBottom();
+    }
+
+    function addChoices(buttons) {
+      var container = document.createElement('div');
+      container.className = 'vc-choices';
+      buttons.forEach(function (btn) {
+        var b = document.createElement('button');
+        b.className = 'vc-choice-btn';
+        b.textContent = btn.name;
+        b.addEventListener('click', function () {
+          container.querySelectorAll('.vc-choice-btn').forEach(function (el) { el.disabled = true; });
+          addMessage(btn.name, 'user');
+          handleSend(btn.request || { type: 'text', payload: btn.name });
+        });
+        container.appendChild(b);
+      });
+      messages.appendChild(container);
+      scrollToBottom();
+    }
+
+    function addCards(cards) {
+      var container = document.createElement('div');
+      container.className = 'vc-cards';
+      cards.forEach(function (card) {
+        var c = document.createElement('div');
+        c.className = 'vc-card';
+        if (card.imageUrl) {
+          var img = document.createElement('img');
+          img.className = 'vc-card-img';
+          img.src = card.imageUrl;
+          img.alt = card.title || '';
+          c.appendChild(img);
+        } else {
+          var ph = document.createElement('div');
+          ph.className = 'vc-card-img-placeholder';
+          ph.textContent = '✦';
+          c.appendChild(ph);
+        }
+        var body = document.createElement('div');
+        body.className = 'vc-card-body';
+        if (card.title) {
+          var t = document.createElement('div');
+          t.className = 'vc-card-title';
+          t.textContent = card.title;
+          body.appendChild(t);
+        }
+        if (card.description) {
+          var d = document.createElement('div');
+          d.className = 'vc-card-desc';
+          d.textContent = card.description;
+          body.appendChild(d);
+        }
+        if (card.buttons && card.buttons.length > 0) {
+          card.buttons.forEach(function (btn) {
+            var b = document.createElement('button');
+            b.className = 'vc-card-btn';
+            b.textContent = btn.name;
+            b.addEventListener('click', function () {
+              addMessage(btn.name, 'user');
+              handleSend(btn.request || { type: 'text', payload: btn.name });
+            });
+            body.appendChild(b);
+          });
+        }
+        c.appendChild(body);
+        container.appendChild(c);
+      });
+      messages.appendChild(container);
+      scrollToBottom();
+    }
+
+    function addImage(url) {
+      var wrap = document.createElement('div');
+      wrap.className = 'vc-image';
+      var img = document.createElement('img');
+      img.src = url;
+      img.alt = '';
+      wrap.appendChild(img);
+      messages.appendChild(wrap);
+      scrollToBottom();
+    }
+
+    function showTyping() {
+      var el = document.createElement('div');
+      el.className = 'vc-typing';
+      el.id = 'vc-typing';
+      el.innerHTML = '<span></span><span></span><span></span>';
+      messages.appendChild(el);
+      scrollToBottom();
+    }
+
+    function hideTyping() {
+      var el = document.getElementById('vc-typing');
+      if (el) el.remove();
+    }
+
+    function processTraces(traces) {
+      var hasContent = false;
+      traces.forEach(function (trace) {
+        if (trace.type === 'text' && trace.payload && trace.payload.message) {
+          addMessage(trace.payload.message, 'agent'); hasContent = true;
+        }
+        if (trace.type === 'speak' && trace.payload && trace.payload.message) {
+          addMessage(trace.payload.message, 'agent'); hasContent = true;
+        }
+        if (trace.type === 'choice' && trace.payload && trace.payload.buttons) {
+          addChoices(trace.payload.buttons); hasContent = true;
+        }
+        if (trace.type === 'carousel' && trace.payload && trace.payload.cards) {
+          addCards(trace.payload.cards); hasContent = true;
+        }
+        if (trace.type === 'card' && trace.payload) {
+          addCards([trace.payload]); hasContent = true;
+        }
+        if (trace.type === 'visual' && trace.payload && trace.payload.image) {
+          addImage(trace.payload.image); hasContent = true;
+        }
+      });
+      if (!hasContent) {
+        addMessage("I'm here to help. What would you like to know about your health?", 'agent');
+      }
+    }
+
+    async function callVoiceflow(action) {
+      try {
+        var res = await fetch(API_BASE + "/state/user/" + SESSION_ID + "/interact", {
+          method: "POST",
+          headers: {
+            "Authorization": VF_API_KEY,
+            "Content-Type": "application/json",
+            "versionID": VF_VERSION_ID
+          },
+          body: JSON.stringify({ action: action, config: { tts: false, stripSSML: true } })
+        });
+        if (!res.ok) { addMessage("Sorry, I'm having trouble connecting right now. Please try again.", "agent"); return; }
+        var traces = await res.json();
+        processTraces(traces);
+      } catch (e) {
+        addMessage("Connection error. Please check your internet and try again.", "agent");
+      }
+    }
+
+    async function startConversation() {
+      isWaiting = true; sendBtn.disabled = true; showTyping();
+      await callVoiceflow({ type: "launch" });
+      hideTyping(); isWaiting = false; sendBtn.disabled = false;
+    }
+
+    async function handleSend(action) {
+      isWaiting = true; sendBtn.disabled = true; showTyping();
+      await callVoiceflow(action);
+      hideTyping(); isWaiting = false; sendBtn.disabled = false; input.focus();
+    }
+
+    async function sendMessage() {
+      var text = input.value.trim();
+      if (!text || isWaiting) return;
+      input.value = '';
+      addMessage(text, 'user');
+      await handleSend({ type: 'text', payload: text });
+    }
+
+    tab.addEventListener('click', openChat);
+    tab.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openChat(); }
+    });
+    closeBtn.addEventListener('click', closeChat);
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeChat(); });
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && isOpen) closeChat(); });
+
+    setTimeout(function () {
+      tab.style.transition = 'box-shadow 0.4s ease';
+      tab.style.boxShadow = '6px 0 36px rgba(184,154,78,0.5)';
+      setTimeout(function () { tab.style.boxShadow = '3px 0 20px rgba(184,154,78,0.12)'; }, 1800);
+    }, 1500);
+
+  })();
+</script>
+
   </body>
 </html>
