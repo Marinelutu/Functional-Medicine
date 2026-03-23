@@ -118,7 +118,7 @@ const ProblemSection = () => {
 
           {/* Body */}
           <p className="eligibility-body">
-            Not everyone who reaches out is the right fit — and we mean that respectfully. Our protocols require commitment, openness, and a willingness to go beyond surface-level answers. The right patient gets extraordinary results. The wrong fit wastes both our time.
+            Our protocols require real commitment and openness to go beyond surface-level answers. The right patient gets extraordinary results.
           </p>
 
           {/* Gold divider */}

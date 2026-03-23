@@ -6,6 +6,7 @@ import CartDrawer from "./CartDrawer";
 import ConsultationModal from "./ConsultationModal";
 
 const navLinks = [
+  { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Shop", href: "/shop" },
   { label: "About", href: "/about" },

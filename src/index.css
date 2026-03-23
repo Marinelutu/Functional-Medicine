@@ -790,14 +790,13 @@
 
   .eligibility-body {
     font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.7;
     color: #F5F0E8;
     opacity: 0.85;
-    margin: 0 0 40px;
-    max-width: 620px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
+    max-width: 480px;
+    text-align: center;
   }
 
   .eligibility-divider {
@@ -2500,6 +2499,15 @@
     margin: 0;
   }
 
+  .hero-goals-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
   .hero-goals-grid {
     display: grid;
     grid-template-columns: repeat(3, auto);
@@ -2511,12 +2519,12 @@
   .hero-goal-pill {
     font-family: 'DM Sans', sans-serif;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 13px;
     color: #ffffff;
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.30);
     border-radius: 9999px;
-    padding: 10px 16px;
+    padding: 8px 18px;
     cursor: pointer;
     transition: background 0.15s ease;
   }
@@ -2633,7 +2641,7 @@
 
     .hero-goal-pill {
       font-size: 13px;
-      padding: 8px 16px;
+      padding: 8px 18px;
     }
   }
 

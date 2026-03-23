@@ -25,15 +25,15 @@ const Index = () => {
       <ProblemSection />
       <StatTriplet />
       <VelaraProtocol />
-      <HealthCalculator />
-      <ServicesGrid />
+      <FAQ />
       <Testimonials />
+      <HealthCalculator />
       <ReframeHeadline />
-      <ShopPreview />
+      <ServicesGrid />
       <MeetTeam />
+      <ShopPreview />
       <BlogPreview />
       <AssessmentCTA />
-      <FAQ />
       <DreamLifeClose />
       <Footer />
     </div>

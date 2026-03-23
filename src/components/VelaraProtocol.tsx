@@ -40,7 +40,7 @@ const VelaraProtocol = () => {
         </div>
         <div className="pt-[48px] text-center">
           <Link to="/book" className="inline-flex items-center px-8 py-4 rounded-full bg-[#C9A84C] text-[#2D4A3E] font-semibold text-lg hover:opacity-90 transition-opacity">
-            Check If You Qualify →
+            Start now →
           </Link>
           <p className="text-sm text-muted-foreground mt-4 text-center">Your assessment is the first step.</p>
         </div>

@@ -85,6 +85,7 @@ const Hero = () => {
           {/* Pills + CTA + Social Proof wrapper */}
           <div className={`hero-actions ${animReady ? "hero-anim-active" : ""}`}>
             {/* Goal pills */}
+            <p className="hero-goals-label">What brings you here?</p>
             <div className="hero-goals-grid">
               {goals.map((g) => (
                 <button

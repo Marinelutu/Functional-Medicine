@@ -26,6 +26,7 @@ function animateCountUp(
   requestAnimationFrame(update);
 }
 
+
 /* ── Reverse-count (falling) animation for "0" ── */
 function animateReverseCount(el: HTMLElement, duration: number) {
   const start = performance.now();
@@ -74,7 +75,7 @@ const StatTriplet = () => {
             animateCountUp(stat1Ref.current, 30, 1000, "");
           }
           if (stat2Ref.current) {
-            animateReverseCount(stat2Ref.current, 800);
+            animateCountUp(stat2Ref.current, 80, 1000, "+");
           }
           if (stat3Ref.current) {
             animateTypewriter(stat3Ref.current, "24/7", 150);
@@ -105,12 +106,11 @@ const StatTriplet = () => {
           <span className="stat-triplet-label">Days to First Results</span>
         </div>
 
-        {/* Stat 2: 0 Wasted Consultations */}
+        {/* Stat 2: 80+ Biomarkers Tested */}
         <div className="stat-triplet-item">
           <span ref={stat2Ref} className="stat-triplet-number">0</span>
-          <span className="stat-triplet-label">Wasted Consultations</span>
+          <span className="stat-triplet-label">Biomarkers Tested</span>
         </div>
-
         {/* Stat 3: 24/7 Ongoing Support */}
         <div className="stat-triplet-item">
           <span ref={stat3Ref} className="stat-triplet-number">&nbsp;</span>

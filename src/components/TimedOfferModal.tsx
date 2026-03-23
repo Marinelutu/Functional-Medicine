@@ -16,11 +16,8 @@ const TimedOfferModal = () => {
 
   useEffect(() => {
     const hasSeenReset = sessionStorage.getItem("velara_reset_shown");
-    const isBookPage =
-      document.body.dataset.page === "book" || location.pathname === "/book";
-    const isMobile = window.innerWidth < 768;
 
-    if (!hasSeenReset && !isBookPage) {
+    if (!hasSeenReset) {
       let blocked = false;
 
       // Track if quiz modal opened
@@ -30,6 +27,14 @@ const TimedOfferModal = () => {
           clearInterval(checkQuizOpen);
         }
       }, 100);
+
+      let openTime = parseInt(sessionStorage.getItem("velara_site_open_time") || "0");
+      if (!openTime) {
+        openTime = Date.now();
+        sessionStorage.setItem("velara_site_open_time", openTime.toString());
+      }
+      
+      const timeRemaining = Math.max(0, 20000 - (Date.now() - openTime));
 
       const timer = setTimeout(() => {
         clearInterval(checkQuizOpen);
@@ -41,7 +46,7 @@ const TimedOfferModal = () => {
           setIsOpen(true);
           sessionStorage.setItem("velara_reset_shown", "true");
         }
-      }, 10000);
+      }, timeRemaining);
 
       return () => {
         clearTimeout(timer);

@@ -52,6 +52,7 @@ const faqData = [
 ];
 
 const FAQ = () => {
+  const [activeTab, setActiveTab] = useState(faqData[0].category);
   const [openItems, setOpenItems] = useState<string[]>([]);
 
   const toggle = (key: string) => {
@@ -70,10 +71,36 @@ const FAQ = () => {
           </h2>
         </div>
 
-        <div className="max-w-3xl mx-auto space-y-10">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-12 max-w-4xl mx-auto">
           {faqData.map((cat) => (
-            <div key={cat.category}>
-              <h3 className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-4">{cat.category}</h3>
+            <button
+              key={cat.category}
+              onClick={() => setActiveTab(cat.category)}
+              className={`px-4 py-2 rounded-full text-xs tracking-wider transition-all duration-300 border ${activeTab === cat.category
+                ? "bg-foreground text-card border-foreground"
+                : "bg-transparent text-foreground/70 border-foreground/20 hover:border-foreground/40"
+                }`}
+              style={{
+                border: activeTab === cat.category ? '1px solid #2c3e2d' : '1px solid rgba(184,154,78,0.35)',
+                borderRadius: '20px',
+                padding: '7px 16px',
+                fontSize: '12px',
+                letterSpacing: '0.04em',
+                color: activeTab === cat.category ? '#e8dfc4' : '#2c3e2d',
+                background: activeTab === cat.category ? '#2c3e2d' : 'transparent',
+                cursor: 'pointer'
+              }}
+            >
+              {cat.category}
+            </button>
+          ))}
+        </div>
+
+        <div className="max-w-3xl mx-auto space-y-4">
+          {faqData
+            .filter((cat) => cat.category === activeTab)
+            .map((cat) => (
+              <div key={cat.category} className="space-y-4">
               <div className="space-y-2">
                 {cat.questions.map((item) => {
                   const key = `${cat.category}-${item.q}`;
