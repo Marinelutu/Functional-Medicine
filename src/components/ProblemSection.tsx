@@ -9,9 +9,6 @@ const symptoms = [
   "Labs come back normal but you know something's wrong",
   "Hormonal chaos ruling your mood and body",
   "Gut issues that control your entire day",
-  "Anxiety that never fully switches off",
-  "A doctor who has 8 minutes for you",
-  "Skin and hair that stopped feeling like yours",
 ];
 
 const qualifiers = [
@@ -98,14 +95,13 @@ const ProblemSection = () => {
                 <span className="problem-tile-text">
                   {symptom}
                 </span>
-                <span className="problem-tile-qmark">?</span>
               </div>
             ))}
           </div>
         </div>
         
-        <p className="narrative-connector">
-          "There's a reason conventional medicine keeps missing it."
+        <p className="narrative-connector" style={{ fontSize: '20px', marginTop: '40px' }}>
+          There's a reason conventional medicine keeps missing it.
         </p>
       </section>
 

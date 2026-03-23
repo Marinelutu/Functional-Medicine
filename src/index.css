@@ -646,12 +646,9 @@
     border: 1px solid rgba(201, 168, 76, 0.25);
     border-radius: 12px;
     padding: 28px 24px;
-    display: flex;
-    align-items: baseline;
-    gap: 2px;
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    transition: opacity 0.5s ease, transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .problem-tile--visible {
@@ -662,6 +659,8 @@
   .problem-tile:hover {
     border-color: rgba(201, 168, 76, 0.7);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transform: scale(1.03);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .problem-tile-text {
@@ -672,13 +671,7 @@
     line-height: 1.4;
   }
 
-  .problem-tile-qmark {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 26px;
-    color: #C9A84C;
-    flex-shrink: 0;
-  }
+
 
   /* Closing statement */
   .problem-closing {
@@ -725,9 +718,7 @@
       font-size: 19px;
     }
 
-    .problem-tile-qmark {
-      font-size: 23px;
-    }
+
   }
 
   /* ── Problem Section CTA Button ── */
@@ -2387,6 +2378,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 60px;
   }
 
   /* ── Overline ── */
@@ -2483,7 +2475,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 28px;
+    gap: 16px;
   }
 
   .hero-actions.hero-anim-active {
@@ -2509,11 +2501,10 @@
   }
 
   .hero-goals-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
     justify-content: center;
-    max-width: 420px;
+    gap: 10px;
     margin: 0 auto;
   }
 
@@ -2525,7 +2516,7 @@
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.30);
     border-radius: 9999px;
-    padding: 10px 20px;
+    padding: 10px 16px;
     cursor: pointer;
     transition: background 0.15s ease;
   }
@@ -2589,7 +2580,7 @@
     font-style: italic;
     font-size: 14px;
     color: #ffffff;
-    margin: 24px 0 0;
+    margin: 0;
     opacity: 0;
     transition: opacity 0.4s ease;
     transition-delay: 1.9s;

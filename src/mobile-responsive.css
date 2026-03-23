@@ -305,10 +305,6 @@ body {
     }
 
     .hero-cta-primary {
-        display: none !important;
-    }
-
-    .hero-cta-secondary {
         width: 100%;
         justify-content: center;
     }
@@ -338,21 +334,12 @@ body {
         font-size: clamp(28px, 6.8vw, 48px) !important;
     }
 
-    .hero-gold-line {
-        font-size: 20px;
-    }
-
-    .hero-subline {
-        font-size: 15px;
-        max-width: 100%;
-    }
-
     .hero-goals-grid {
-        display: flex !important;
-        flex-wrap: wrap !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, auto) !important;
         justify-content: center !important;
-        gap: 8px !important;
-        width: 100% !important;
+        gap: 10px !important;
+        margin: 0 auto !important;
     }
 
     .hero-goal-pill {
@@ -388,7 +375,7 @@ body {
     .hero-social-proof {
         font-size: 13px;
         text-align: center;
-        margin-top: 24px;
+        margin-top: 0;
     }
 
 

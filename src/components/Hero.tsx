@@ -82,50 +82,31 @@ const Hero = () => {
             </span>
           </h1>
 
-          {/* Gold italic line */}
-          <p className={`hero-gold-line ${animReady ? "hero-anim-active" : ""}`}>
-            That changes here.
-          </p>
-
-          {/* Subline */}
-          <p className={`hero-subline ${animReady ? "hero-anim-active" : ""}`}>
-            Imagine waking up with real energy. Thinking clearly. Feeling like
-            the version of yourself you've been trying to get back to.
-          </p>
-
-          {/* Pills + CTAs wrapper */}
+          {/* Pills + CTA + Social Proof wrapper */}
           <div className={`hero-actions ${animReady ? "hero-anim-active" : ""}`}>
             {/* Goal pills */}
-            <div className="hero-goals">
-              <p className="hero-goals-label">What Brings You Here?</p>
-              <div className="hero-goals-grid">
-                {goals.map((g) => (
-                  <button
-                    key={g.label}
-                    onClick={() => handleGoalClick(g.label)}
-                    className={`hero-goal-pill ${clickedPill === g.label ? "hero-goal-pill--clicked" : ""}`}
-                  >
-                    <span className="hero-goal-pill-text">{g.label}</span>
-                  </button>
-                ))}
-              </div>
+            <div className="hero-goals-grid">
+              {goals.map((g) => (
+                <button
+                  key={g.label}
+                  onClick={() => handleGoalClick(g.label)}
+                  className={`hero-goal-pill ${clickedPill === g.label ? "hero-goal-pill--clicked" : ""}`}
+                >
+                  <span className="hero-goal-pill-text">{g.label}</span>
+                </button>
+              ))}
             </div>
 
-            {/* CTAs */}
-            <div className="hero-ctas">
-              <button onClick={handleOpenModal} className="hero-cta-primary hidden md:flex">
-                Check If You Qualify →
-              </button>
-              <a href="/services" className="hero-cta-secondary">
-                Explore Services
-              </a>
-            </div>
+            {/* CTA */}
+            <button onClick={handleOpenModal} className="hero-cta-primary">
+              Check If You Qualify →
+            </button>
+
+            {/* Social proof */}
+            <p className={`hero-social-proof ${animReady ? "hero-anim-active" : ""}`}>
+              Join 4,200+ people who chose to understand their body.
+            </p>
           </div>
-
-          {/* Social proof */}
-          <p className={`hero-social-proof ${animReady ? "hero-anim-active" : ""}`}>
-            Join 4,200+ people who chose to understand their body.
-          </p>
         </div>
       </section>
 
