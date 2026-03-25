@@ -107,6 +107,7 @@ const ProblemSection = () => {
 
       {/* ── ELIGIBILITY GATE ── */}
       <section className="eligibility-gate" ref={gateRef} data-theme="dark">
+        <div className="eligibility-overlay"></div>
         <div className={`eligibility-gate-inner ${gateVisible ? "eligibility-gate-inner--visible" : ""}`}>
           {/* Overline */}
           <p className="eligibility-overline">Not For Everyone</p>

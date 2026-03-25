@@ -63,7 +63,7 @@ const Hero = () => {
           playsInline
           webkit-playsinline="true"
         >
-          <source src="/images/44969-441206537_medium.mp4" type="video/mp4" />
+          <source src="/images/services/24540-343454476.mp4" type="video/mp4" />
         </video>
 
         {/* Dark Overlay */}
@@ -75,17 +75,17 @@ const Hero = () => {
           {/* Headline */}
           <h1 className="hero-headline">
             <span className={`hero-headline-line1 ${animReady ? "hero-anim-active" : ""}`}>
-              You still don't feel
+              Renew your health today
             </span>
             <span className={`hero-headline-line2 ${animReady ? "hero-anim-active" : ""}`}>
-              like yourself.
+              with our natural approach
             </span>
           </h1>
 
           {/* Pills + CTA + Social Proof wrapper */}
           <div className={`hero-actions ${animReady ? "hero-anim-active" : ""}`}>
             {/* Goal pills */}
-            <p className="hero-goals-label">What brings you here?</p>
+            <p className="hero-goals-label">What's your purpose?</p>
             <div className="hero-goals-grid">
               {goals.map((g) => (
                 <button
