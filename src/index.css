@@ -3623,11 +3623,39 @@
     color: rgba(28, 28, 28, 0.4);
   }
 
+  .narrative-connector--lg {
+    font-size: 20px;
+    margin-top: 40px;
+  }
+
   @media (max-width: 640px) {
     .narrative-connector {
       font-size: 18px;
       margin-top: 24px;
     }
+  }
+
+  /* ── FAQ Tab Buttons ── */
+  .faq-tab-btn {
+    border: 1px solid rgba(184, 154, 78, 0.35);
+    border-radius: 20px;
+    padding: 7px 16px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: #2c3e2d;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .faq-tab-btn:hover {
+    border-color: rgba(184, 154, 78, 0.6);
+  }
+
+  .faq-tab-btn--active {
+    border: 1px solid #2c3e2d;
+    color: #e8dfc4;
+    background: #2c3e2d;
   }
 
   /* ── Footer Trust Anchors ── */

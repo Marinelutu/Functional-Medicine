@@ -112,7 +112,13 @@ const CartDrawer = () => {
                                 ${subtotal.toFixed(2)}
                             </span>
                         </div>
-                        <button className="cart-drawer-checkout">
+                        <button
+                            className="cart-drawer-checkout"
+                            onClick={() => {
+                                closeDrawer();
+                                window.location.href = "/checkout.html";
+                            }}
+                        >
                             Proceed to Checkout
                         </button>
                     </div>

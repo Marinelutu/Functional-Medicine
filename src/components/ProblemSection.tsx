@@ -100,7 +100,7 @@ const ProblemSection = () => {
           </div>
         </div>
         
-        <p className="narrative-connector" style={{ fontSize: '20px', marginTop: '40px' }}>
+        <p className="narrative-connector narrative-connector--lg">
           There's a reason conventional medicine keeps missing it.
         </p>
       </section>

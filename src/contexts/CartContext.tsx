@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from "react";
 
 interface CartItem {
   name: string;
@@ -37,10 +37,38 @@ export const useCart = () => useContext(CartContext);
 
 const parsePrice = (p: string) => parseFloat(p.replace("$", ""));
 
+const CART_STORAGE_KEY = "velara_cart";
+
+function loadCartFromStorage(): CartItem[] {
+  try {
+    const stored = localStorage.getItem(CART_STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) return parsed;
+    }
+  } catch {
+    // Ignore parse errors, start with empty cart
+  }
+  return [];
+}
+
+function saveCartToStorage(items: CartItem[]) {
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+  } catch {
+    // Ignore storage errors (e.g. quota exceeded)
+  }
+}
+
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(loadCartFromStorage);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [badgeBounce, setBadgeBounce] = useState(false);
+
+  // Persist cart to localStorage whenever it changes
+  useEffect(() => {
+    saveCartToStorage(items);
+  }, [items]);
 
   const triggerBounce = useCallback(() => {
     setBadgeBounce(true);

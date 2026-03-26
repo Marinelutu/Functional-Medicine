@@ -76,20 +76,7 @@ const FAQ = () => {
             <button
               key={cat.category}
               onClick={() => setActiveTab(cat.category)}
-              className={`px-4 py-2 rounded-full text-xs tracking-wider transition-all duration-300 border ${activeTab === cat.category
-                ? "bg-foreground text-card border-foreground"
-                : "bg-transparent text-foreground/70 border-foreground/20 hover:border-foreground/40"
-                }`}
-              style={{
-                border: activeTab === cat.category ? '1px solid #2c3e2d' : '1px solid rgba(184,154,78,0.35)',
-                borderRadius: '20px',
-                padding: '7px 16px',
-                fontSize: '12px',
-                letterSpacing: '0.04em',
-                color: activeTab === cat.category ? '#e8dfc4' : '#2c3e2d',
-                background: activeTab === cat.category ? '#2c3e2d' : 'transparent',
-                cursor: 'pointer'
-              }}
+              className={`faq-tab-btn ${activeTab === cat.category ? "faq-tab-btn--active" : ""}`}
             >
               {cat.category}
             </button>
