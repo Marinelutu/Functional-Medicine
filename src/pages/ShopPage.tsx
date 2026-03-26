@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { ChevronDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { useCart } from "@/contexts/CartContext";
+import { useCart } from "@/hooks/useCart";
 
 const categories = ["All", "Energy", "Hormones", "Gut", "Clarity", "Longevity", "Bundles"];
 

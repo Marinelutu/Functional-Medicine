@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { X, Minus, Plus, Trash2 } from "lucide-react";
-import { useCart } from "@/contexts/CartContext";
+import { useCart } from "@/hooks/useCart";
 
 const CartDrawer = () => {
     const { items, subtotal, drawerOpen, closeDrawer, updateQty, removeFromCart } =

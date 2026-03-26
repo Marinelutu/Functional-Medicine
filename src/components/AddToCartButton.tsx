@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { useCart } from "@/contexts/CartContext";
+import { useCart } from "@/hooks/useCart";
 
 interface AddToCartButtonProps {
     productName: string;

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from "react";
+import { createContext, useState, useCallback, useEffect, ReactNode } from "react";
 
 interface CartItem {
   name: string;
@@ -33,7 +33,7 @@ const CartContext = createContext<CartContextType>({
   closeDrawer: () => { },
 });
 
-export const useCart = () => useContext(CartContext);
+export { CartContext };
 
 const parsePrice = (p: string) => parseFloat(p.replace("$", ""));
 
