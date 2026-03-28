@@ -339,7 +339,7 @@ for(var i=0;i<NODE_COUNT;i++){
 
   var target=getTreeTarget(type,i,NODE_COUNT);
   var dist=Math.sqrt(target.x*target.x+(target.y*0.3)*(target.y*0.3));
-  var speed=0.055+Math.random()*0.02;
+  var speed=0.08+Math.random()*0.02;
   nodes.push({
     mesh:mesh,type:type,seed:seed,
     target:target,
@@ -383,7 +383,7 @@ function animate(timestamp){
 
     // Noise-driven rotation
     var nFreq=n.converging?0.001:0.002;
-    if(t>=3200)nFreq=0.0005;
+    if(t>=2200)nFreq=0.0005;
 
     var rx=noise.noise2D(t*nFreq+st,0)*n.noiseAmp;
     var ry=noise.noise2D(t*nFreq*0.75+st+100,1)*n.noiseAmp;
@@ -392,31 +392,31 @@ function animate(timestamp){
     m.rotation.y+=(ry-m.rotation.y)*0.08;
     m.rotation.z+=(rz-m.rotation.z)*0.08;
 
-    if(t<3200){
+    if(t<2200){
       // MOVEMENT: Both groups converge toward center simultaneously
       if(!n.converging){
         m.position.x+=n.vx;
         m.position.y+=n.vy;
         n.targetNoiseAmp=0.4;
         // Per-node collision: switch to lerp when crossing center
-        var hit=(n.group==='left'&&m.position.x>=-0.3)||(n.group==='right'&&m.position.x<=0.3)||t>=2000;
+        var hit=(n.group==='left'&&m.position.x>=-0.3)||(n.group==='right'&&m.position.x<=0.3)||t>=1300;
         if(hit)n.converging=true;
       }
       // TREE FORMATION: lerp toward target, factor decreases with proximity
       if(n.converging){
         var distToTarget=m.position.distanceTo(n.target);
-        var lerpFactor=Math.max(0.038*Math.min(distToTarget/4,1),0.008);
+        var lerpFactor=Math.max(0.05*Math.min(distToTarget/4,1),0.01);
         m.position.lerp(n.target,lerpFactor);
         if(distToTarget<0.5)n.targetNoiseAmp=Math.max(n.targetNoiseAmp-0.003,0.07);
         if(distToTarget<0.01)n.arrived=true;
       }
-      // Final 0.3s: stillness
-      if(t>2900){
-        var rampT=Math.min((t-2900)/300,1);
+      // Final 0.2s: stillness
+      if(t>2000){
+        var rampT=Math.min((t-2000)/200,1);
         n.targetNoiseAmp=0.07*(1-rampT)+0.005*rampT;
       }
     }
-    // After 3200ms: dissolve hold
+    // After 2200ms: dissolve hold
     else{
       m.position.lerp(n.target,0.01);
       n.targetNoiseAmp=0.005;
@@ -425,26 +425,26 @@ function animate(timestamp){
     n.noiseAmp+=(n.targetNoiseAmp-n.noiseAmp)*0.05;
   }
 
-  // PHASE 4: Canvas fade + VELARA reveal (3200-4000ms)
-  if(t>=3200&&t<4000){
-    var fadeT=Math.min((t-3200)/500,1);
+  // PHASE 4: Canvas fade + VELARA reveal (2200-2900ms)
+  if(t>=2200&&t<2900){
+    var fadeT=Math.min((t-2200)/500,1);
     canvas.style.opacity=1-fadeT;
-    var titleT=Math.min((t-3200)/600,1);
+    var titleT=Math.min((t-2200)/500,1);
     titleEl.style.opacity=titleT;
-    var lsT=Math.min((t-3200)/800,1);
+    var lsT=Math.min((t-2200)/700,1);
     titleEl.style.letterSpacing=(0.2+0.4*lsT)+'em';
-    // Headline after 0.3s delay
-    if(t>3500){
-      var hlT=Math.min((t-3500)/500,1);
+    // Headline after 0.2s delay
+    if(t>2400){
+      var hlT=Math.min((t-2400)/400,1);
       headlineEl.style.opacity=hlT;
     }
     // Trigger audio
     if(!audioStarted){audioStarted=true;playAmbientSound();}
   }
 
-  // PHASE 5: Handoff (after VELARA visible 0.8s → 4600ms, fade 0.6s)
-  if(t>=4600){
-    var handoffT=Math.min((t-4600)/600,1);
+  // PHASE 5: Handoff (after VELARA visible ~1.2s → 3400ms, fade 0.6s)
+  if(t>=3400){
+    var handoffT=Math.min((t-3400)/600,1);
     introDiv.style.opacity=1-handoffT;
     // Fade audio
     if(gainNode){
