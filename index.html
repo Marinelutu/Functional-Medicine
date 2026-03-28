@@ -49,6 +49,26 @@
     padding-right: 18px;
     box-shadow: 4px 0 28px rgba(184,154,78,0.3);
   }
+  
+  /* Move to right side on booking page to avoid overlapping left panel */
+  @media (min-width: 769px) {
+    body[data-page="book"] #vc-tab {
+      top: 50%;
+      left: auto;
+      right: 0;
+      border-radius: 10px 0 0 10px;
+      border: 1px solid #b89a4e;
+      border-right: none;
+    }
+    body[data-page="book"] #vc-tab:hover {
+      padding-right: 12px;
+      padding-left: 18px;
+    }
+    body[data-page="book"] #vc-tab .vc-label {
+      transform: none;
+    }
+  }
+  
   #vc-tab .vc-dot {
     width: 7px;
     height: 7px;

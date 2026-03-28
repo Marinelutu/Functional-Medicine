@@ -32,6 +32,10 @@ const SparkleIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /></svg>
 );
 
+const HelpCircleIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+);
+
 /* ── Placeholder leaf portrait SVG ── */
 const PlaceholderPortraitSVG = () => (
   <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -77,6 +81,7 @@ const serviceOptions = [
   { name: "Sleep Restoration", icon: <MoonIcon />, category: "Mental Clarity" },
   { name: "Adrenal Recovery", icon: <ShieldIcon />, category: "Hormones" },
   { name: "Hair & Skin Renewal", icon: <SparkleIcon />, category: "Skin & Hair" },
+  { name: "I'm Not Sure", icon: <HelpCircleIcon />, category: "We'll find out on the call" },
 ];
 
 const practitioners = [
@@ -98,6 +103,7 @@ const BookPage = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [concern, setConcern] = useState("");
+  const [isFirstVisit, setIsFirstVisit] = useState<boolean | null>(null);
   const [confirmed, setConfirmed] = useState(false);
 
   const dateScrollRef = useRef<HTMLDivElement>(null);
@@ -191,7 +197,7 @@ const BookPage = () => {
       {/* ── Mobile summary bar ── */}
       <div className="book-mobile-bar">
         <span className="book-mobile-bar-text">
-          {selectedService || "No service"} {selectedDateObj ? `· ${formatSelectedDate()}` : ""}
+          {selectedService === "I'm Not Sure" ? "General Consultation" : (selectedService || "No service")} {selectedDateObj ? `· ${formatSelectedDate()}` : ""}
         </span>
       </div>
 
@@ -212,7 +218,7 @@ const BookPage = () => {
             <div className="book-summary-card">
               {/* Service */}
               <p className={`book-summary-service ${selectedService ? "book-summary--visible" : ""}`}>
-                {selectedService || "No service selected yet"}
+                {selectedService === "I'm Not Sure" ? "General Consultation" : (selectedService || "No service selected yet")}
               </p>
 
               <div className="book-summary-divider" />
@@ -327,7 +333,7 @@ const BookPage = () => {
                   <button
                     key={s.name}
                     onClick={() => handleSelectService(s.name)}
-                    className={`book-service-card ${selectedService === s.name ? "book-service-card--selected" : ""}`}
+                    className={`book-service-card ${selectedService === s.name ? "book-service-card--selected" : ""} ${s.name === "I'm Not Sure" ? "book-service-card--unsure" : ""}`}
                   >
                     {selectedService === s.name && (
                       <span className="book-service-check"><Check size={16} /></span>
@@ -425,7 +431,7 @@ const BookPage = () => {
 
               {/* Full booking summary card */}
               <div className="book-confirm-summary">
-                <p className="book-confirm-service">{selectedService}</p>
+                <p className="book-confirm-service">{selectedService === "I'm Not Sure" ? "General Consultation" : selectedService}</p>
                 <div className="book-confirm-doc-row">
                   {selectedPractitionerObj && (
                     <>
@@ -487,6 +493,24 @@ const BookPage = () => {
                     rows={3}
                     placeholder="What's your primary concern? (optional)"
                   />
+                </div>
+              </div>
+
+              <div className="book-first-visit-row">
+                <p className="book-first-visit-label">Is this your first time here?</p>
+                <div className="book-first-visit-toggles">
+                  <button
+                    onClick={() => setIsFirstVisit(true)}
+                    className={`book-visit-pill ${isFirstVisit === true ? "book-visit-pill--active" : ""}`}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    onClick={() => setIsFirstVisit(false)}
+                    className={`book-visit-pill ${isFirstVisit === false ? "book-visit-pill--active" : ""}`}
+                  >
+                    No
+                  </button>
                 </div>
               </div>
 
