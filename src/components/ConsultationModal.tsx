@@ -291,39 +291,27 @@ const ConsultationModal = ({ isOpen, onClose, preSelectedConcern }: Consultation
                     </div>
                 )}
 
-                {/* ── NOT QUALIFIED Result state ── */}
+                {/* ── PERSONALIZED ASSESSMENT Result state ── */}
                 {showResult && !qualified && (
                     <div className="cm-result cm-result--enter">
                         <div className="cm-result-icon">
-                            <div className="cm-result-icon-circle">
-                                <span className="cm-result-icon-neutral">—</span>
-                            </div>
+                            <LeafResult />
                         </div>
-                        <p className="cm-result-headline">VELARA may not be the right fit yet.</p>
+                        <p className="cm-result-headline">Your situation needs a personalized assessment.</p>
                         <p className="cm-result-body">
-                            Our protocols work best for patients who've already tried conventional approaches without success. If your situation changes, we'll be here — and our journal is full of insights you can use right now.
+                            Based on your answers, you'd benefit most from a one-on-one conversation
+                            with our team. We offer a <strong className="cm-text-dark">free consultation</strong> to
+                            understand your unique needs and recommend the right path forward.
                         </p>
-                        <a
-                            href="/blog"
-                            className="cm-result-journal-link"
-                            onClick={(e) => { e.preventDefault(); handleNavigate("/blog"); }}
-                        >
-                            Read Our Journal →
-                        </a>
                         <button
-                            className="cm-result-btn-secondary"
-                            onClick={() => {
-                                setConcern("");
-                                setSymptom("");
-                                setDuration("");
-                                setPriorTreatment("");
-                                setSuccess("");
-                                setShowResult(false);
-                                setStep(1);
-                            }}
+                            className="cm-result-btn-primary"
+                            onClick={() => handleNavigate("/book")}
                         >
-                            Retake Quiz
+                            Book Your Free Consultation →
                         </button>
+                        <p className="cm-result-disclaimer">
+                            No commitment required. Let's find what works for you.
+                        </p>
                     </div>
                 )}
 

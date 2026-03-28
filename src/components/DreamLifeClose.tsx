@@ -84,6 +84,11 @@ const DreamLifeClose = () => {
         />
       </div>
 
+      {/* Dark overlay for text contrast */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[5] bg-[rgba(20,35,10,0.55)]"
+      />
+
       {/* Layered Gradient Overlays */}
       <div
         className="absolute inset-0 pointer-events-none z-10 bg-[linear-gradient(to_top,rgba(28,28,28,0.75)_0%,rgba(28,28,28,0.2)_50%,transparent_100%)]"
@@ -119,15 +124,15 @@ const DreamLifeClose = () => {
 
         {/* Headline */}
         <h2
-          className={`font-display text-white text-[36px] md:text-[64px] leading-[1.2] max-w-[720px] mx-auto mb-6 ${getAnimClass('[transition-delay:200ms]')}`}
+          className={`font-display text-[#F5EFD6] text-[36px] md:text-[64px] leading-[1.2] max-w-[720px] mx-auto mb-6 ${getAnimClass('[transition-delay:200ms]')}`}
         >
           This is what's waiting<br />
-          <span className="italic">on the other side.</span>
+          <span className="italic text-[#F5EFD6]">on the other side.</span>
         </h2>
 
         {/* Subline */}
         <p
-          className={`font-sans text-white text-[17px] opacity-75 max-w-[480px] mx-auto leading-[1.7] mb-10 ${getAnimClass('[transition-delay:350ms]')}`}
+          className={`font-sans text-[rgba(245,239,214,0.90)] text-[17px] max-w-[480px] mx-auto leading-[1.7] mb-10 ${getAnimClass('[transition-delay:350ms]')}`}
         >
           A life where you wake up energized, think clearly, move freely, and feel like yourself again.
         </p>
@@ -152,7 +157,7 @@ const DreamLifeClose = () => {
 
         {/* Reassurance Line */}
         <p
-          className={`font-sans italic text-white opacity-45 text-[13px] m-0 mb-[100px] ${getAnimClass('[transition-delay:650ms]')}`}
+          className={`font-sans italic text-[rgba(245,239,214,0.90)] text-[13px] m-0 mb-[100px] ${getAnimClass('[transition-delay:650ms]')}`}
         >
           Join 4,200+ people who chose to understand their body.
         </p>

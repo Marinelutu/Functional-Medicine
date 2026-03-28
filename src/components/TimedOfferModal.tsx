@@ -14,6 +14,10 @@ const TimedOfferModal = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const isBlockedPage = ["/book", "/shop"].some(
+    (p) => location.pathname === p || location.pathname.startsWith(p + "/")
+  );
+
   useEffect(() => {
     const hasSeenReset = sessionStorage.getItem("velara_reset_shown");
 
@@ -109,6 +113,17 @@ const TimedOfferModal = () => {
     sessionStorage.setItem("velara_ghost_dismissed", "true");
   };
 
+  // Toggle body class so navbar + content shift down when ghost bar is visible
+  const ghostBarVisible = showGhostBar && !isOpen && !isClosing && !isBlockedPage;
+  useEffect(() => {
+    if (ghostBarVisible) {
+      document.body.classList.add("ghost-bar-active");
+    } else {
+      document.body.classList.remove("ghost-bar-active");
+    }
+    return () => document.body.classList.remove("ghost-bar-active");
+  }, [ghostBarVisible]);
+
   // If mobile and somehow triggers, don't render (safety net)
   // Removed mobile-only restriction to allow on mobile
   // if (window.innerWidth < 768) return null;
@@ -203,7 +218,7 @@ const TimedOfferModal = () => {
         </div>
       )}
 
-      {showGhostBar && !isOpen && !isClosing && (
+      {showGhostBar && !isOpen && !isClosing && !isBlockedPage && (
         <div className="tom-ghost-bar">
           <span className="tom-ghost-text">
             Your free 7-day reset is waiting — 
