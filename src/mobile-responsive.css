@@ -620,6 +620,22 @@ body {
 
 
     /* ============================================================
+     HERO COMPONENT
+     ============================================================ */
+
+    .hero-ctas {
+        flex-direction: column !important;
+        width: 100%;
+        padding: 0 24px;
+    }
+
+    .hero-cta-primary,
+    .hero-cta-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* ============================================================
      HOMEPAGE — Meet the Team
      ============================================================ */
 

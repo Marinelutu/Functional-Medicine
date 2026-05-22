@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Check, ChevronLeft, ChevronRight } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Lock, CreditCard } from "lucide-react";
 
 /* ── Botanical SVG icons (stroke-only, gold) ── */
 const LeafIcon = () => (
@@ -84,6 +84,15 @@ const serviceOptions = [
   { name: "I'm Not Sure", icon: <HelpCircleIcon />, category: "We'll find out on the call" },
 ];
 
+const premiumServices = [
+  { name: "Comprehensive Biomarker & Blood Panel Analysis", icon: <SparkleIcon />, category: "Deep Diagnostics", price: 299 },
+  { name: "Complete Longevity & Biological Age Assessment", icon: <LeafIcon />, category: "Anti-Aging", price: 499 },
+  { name: "Advanced Gut Microbiome Mapping", icon: <SproutIcon />, category: "Gut Health", price: 349 },
+  { name: "Hormone Optimization Fast-Track Protocol", icon: <CycleIcon />, category: "Hormones", price: 399 },
+  { name: "Neuro-Metabolic Deep Dive & Action Plan", icon: <BrainIcon />, category: "Cognitive", price: 450 },
+  { name: "VIP 1-on-1 Accelerated Healing Package", icon: <ShieldIcon />, category: "VIP Access", price: 899 },
+];
+
 const practitioners = [
   { name: "Dr. Elena Vasquez", specialty: "General & Thyroid", image: "/images/team_dr_elena_1772491726653.png" },
   { name: "Dr. Marcus Chen", specialty: "Hormones & Longevity", image: "/images/team_dr_marcus_1772491740108.png" },
@@ -95,6 +104,7 @@ const timeSlots = ["9:00 AM", "10:30 AM", "12:00 PM", "2:00 PM", "3:30 PM", "5:0
 const BookPage = () => {
   const [step, setStep] = useState(1);
   const [visitType, setVisitType] = useState<"virtual" | "in-person">("virtual");
+  const [serviceTab, setServiceTab] = useState<"free" | "premium">("free");
   const [selectedService, setSelectedService] = useState("");
   const [selectedPractitioner, setSelectedPractitioner] = useState("");
   const [selectedDateIndex, setSelectedDateIndex] = useState<number | null>(null);
@@ -105,8 +115,31 @@ const BookPage = () => {
   const [concern, setConcern] = useState("");
   const [isFirstVisit, setIsFirstVisit] = useState<boolean | null>(null);
   const [confirmed, setConfirmed] = useState(false);
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardExpiry, setCardExpiry] = useState("");
+  const [cardCvc, setCardCvc] = useState("");
+  const [cardZip, setCardZip] = useState("");
 
   const dateScrollRef = useRef<HTMLDivElement>(null);
+
+  const resetBooking = () => {
+    setStep(1);
+    setServiceTab("free");
+    setSelectedService("");
+    setSelectedPractitioner("");
+    setSelectedDateIndex(null);
+    setSelectedTime("");
+    setName("");
+    setEmail("");
+    setPhone("");
+    setConcern("");
+    setIsFirstVisit(null);
+    setConfirmed(false);
+    setCardNumber("");
+    setCardExpiry("");
+    setCardCvc("");
+    setCardZip("");
+  };
 
   /* ── Set data-page="book" on body to exclude visual effects ── */
   useEffect(() => {
@@ -161,13 +194,20 @@ const BookPage = () => {
     return `${selectedDateObj.month} ${selectedDateObj.dateNum}, ${selectedDateObj.year}`;
   };
 
+  const isPremium = premiumServices.some(s => s.name === selectedService);
+  const selectedServicePrice = premiumServices.find(s => s.name === selectedService)?.price || 0;
   const canConfirm = name.trim() !== "" && email.trim() !== "";
 
-  const stepLabels = ["Select Service", "Choose Time", "Confirm"];
+  const stepLabels = ["Select Service", "Choose Time", isPremium ? "Details & Payment" : "Confirm"];
 
   const handleSelectService = (serviceName: string) => {
     setSelectedService(serviceName);
     setTimeout(() => setStep(2), 400);
+  };
+
+  const handleTabSwitch = (tab: "free" | "premium") => {
+    setServiceTab(tab);
+    setSelectedService("");
   };
 
   const handleSelectTime = (time: string) => {
@@ -199,6 +239,7 @@ const BookPage = () => {
         <span className="book-mobile-bar-text">
           {selectedService === "I'm Not Sure" ? "General Consultation" : (selectedService || "No service")} {selectedDateObj ? `· ${formatSelectedDate()}` : ""}
         </span>
+        {isPremium && <span className="book-mobile-bar-price">${selectedServicePrice}</span>}
       </div>
 
       <div className="book-layout">
@@ -261,6 +302,16 @@ const BookPage = () => {
               <div className="book-summary-type-badge">
                 <span className="book-summary-type-dot" />
                 {visitType.toUpperCase()}
+              </div>
+
+              <div className="book-summary-divider" />
+
+              {/* Price */}
+              <div className="book-summary-price-row">
+                <span className="book-summary-price-label">Total</span>
+                <span className={`book-summary-price-value ${isPremium ? 'book-summary-price-value--premium' : ''}`}>
+                  {isPremium ? `$${selectedServicePrice}.00` : '$0.00'}
+                </span>
               </div>
             </div>
 
@@ -327,20 +378,43 @@ const BookPage = () => {
                 ))}
               </div>
 
+              {/* Service Tab Toggle */}
+              <div className="book-service-tabs">
+                <button
+                  onClick={() => handleTabSwitch("free")}
+                  className={`book-service-tab ${serviceTab === "free" ? "book-service-tab--active" : ""}`}
+                >
+                  Free Consultations
+                </button>
+                <button
+                  onClick={() => handleTabSwitch("premium")}
+                  className={`book-service-tab ${serviceTab === "premium" ? "book-service-tab--active" : ""}`}
+                >
+                  Premium Packages
+                </button>
+              </div>
+
               {/* Service cards grid */}
               <div className="book-service-grid">
-                {serviceOptions.map((s) => (
+                {(serviceTab === "free" ? serviceOptions : premiumServices).map((s) => (
                   <button
                     key={s.name}
                     onClick={() => handleSelectService(s.name)}
-                    className={`book-service-card ${selectedService === s.name ? "book-service-card--selected" : ""} ${s.name === "I'm Not Sure" ? "book-service-card--unsure" : ""}`}
+                    className={`book-service-card ${selectedService === s.name ? "book-service-card--selected" : ""} ${s.name === "I'm Not Sure" ? "book-service-card--unsure" : ""} ${serviceTab === "premium" ? "book-service-card--premium" : ""}`}
                   >
                     {selectedService === s.name && (
                       <span className="book-service-check"><Check size={16} /></span>
                     )}
                     <span className="book-service-icon">{s.icon}</span>
                     <span className="book-service-name">{s.name}</span>
-                    <span className="book-service-category">{s.category}</span>
+                    {serviceTab === "premium" ? (
+                      <div className="book-service-meta">
+                        <span className="book-service-category">{s.category}</span>
+                        <span className="book-service-price">${'price' in s ? s.price : 0}</span>
+                      </div>
+                    ) : (
+                      <span className="book-service-category">{s.category}</span>
+                    )}
                   </button>
                 ))}
               </div>
@@ -453,80 +527,154 @@ const BookPage = () => {
                 <div className="book-summary-divider book-summary-divider--spaced" />
               </div>
 
-              {/* Form fields */}
-              <div className="book-form-fields">
-                <div className="book-field">
-                  <label className="book-field-label">Full Name</label>
-                  <input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="book-field-input"
-                    placeholder="Your full name"
-                  />
+              <div className={`book-checkout-layout ${isPremium ? 'book-checkout-layout--dual' : ''}`}>
+                <div className="book-checkout-left">
+                  {/* Form fields */}
+                  <div className="book-form-fields">
+                    <div className="book-field">
+                      <label className="book-field-label">Full Name</label>
+                      <input
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="book-field-input"
+                        placeholder="Your full name"
+                      />
+                    </div>
+                    <div className="book-field">
+                      <label className="book-field-label">Email Address</label>
+                      <input
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        type="email"
+                        className="book-field-input"
+                        placeholder="you@example.com"
+                      />
+                    </div>
+                    <div className="book-field">
+                      <label className="book-field-label">Phone Number</label>
+                      <input
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        type="tel"
+                        className="book-field-input"
+                        placeholder="+1 (555) 000-0000"
+                      />
+                    </div>
+                    <div className="book-field">
+                      <label className="book-field-label">Brief Health Concern (optional)</label>
+                      <textarea
+                        value={concern}
+                        onChange={(e) => setConcern(e.target.value)}
+                        className="book-field-textarea"
+                        rows={3}
+                        placeholder="What's your primary concern? (optional)"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="book-first-visit-row">
+                    <p className="book-first-visit-label">Is this your first time here?</p>
+                    <div className="book-first-visit-toggles">
+                      <button
+                        onClick={() => setIsFirstVisit(true)}
+                        className={`book-visit-pill ${isFirstVisit === true ? "book-visit-pill--active" : ""}`}
+                      >
+                        Yes
+                      </button>
+                      <button
+                        onClick={() => setIsFirstVisit(false)}
+                        className={`book-visit-pill ${isFirstVisit === false ? "book-visit-pill--active" : ""}`}
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="book-field">
-                  <label className="book-field-label">Email Address</label>
-                  <input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    type="email"
-                    className="book-field-input"
-                    placeholder="you@example.com"
-                  />
-                </div>
-                <div className="book-field">
-                  <label className="book-field-label">Phone Number</label>
-                  <input
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    type="tel"
-                    className="book-field-input"
-                    placeholder="+1 (555) 000-0000"
-                  />
-                </div>
-                <div className="book-field">
-                  <label className="book-field-label">Brief Health Concern (optional)</label>
-                  <textarea
-                    value={concern}
-                    onChange={(e) => setConcern(e.target.value)}
-                    className="book-field-textarea"
-                    rows={3}
-                    placeholder="What's your primary concern? (optional)"
-                  />
-                </div>
+
+                {isPremium && (
+                  <div className="book-checkout-right">
+                    <div className="book-payment-box">
+                      <p className="book-payment-title">Payment Method</p>
+                      
+                      <div className="book-payment-quick">
+                        <button className="book-pay-btn book-pay-btn--apple">
+                          <svg viewBox="0 0 384 512" width="14" height="18" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                          Pay
+                        </button>
+                        <button className="book-pay-btn book-pay-btn--google">
+                          <svg viewBox="0 0 488 512" width="16" height="16" fill="currentColor"><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg>
+                          Pay
+                        </button>
+                      </div>
+
+                      <div className="book-payment-divider">
+                        <span>Or pay with card</span>
+                      </div>
+
+                      <div className="book-card-form">
+                        <div className="book-field">
+                          <div className="book-field-input-icon">
+                            <CreditCard size={18} color="#9CA3AF" />
+                            <input
+                              value={cardNumber}
+                              onChange={(e) => setCardNumber(e.target.value)}
+                              className="book-field-input book-field-input--with-icon"
+                              placeholder="Card number"
+                            />
+                          </div>
+                        </div>
+                        <div className="book-card-form-row">
+                          <div className="book-field">
+                            <input
+                              value={cardExpiry}
+                              onChange={(e) => setCardExpiry(e.target.value)}
+                              className="book-field-input"
+                              placeholder="MM / YY"
+                            />
+                          </div>
+                          <div className="book-field">
+                            <input
+                              value={cardCvc}
+                              onChange={(e) => setCardCvc(e.target.value)}
+                              className="book-field-input"
+                              placeholder="CVC"
+                            />
+                          </div>
+                        </div>
+                        <div className="book-field">
+                          <input
+                            value={cardZip}
+                            onChange={(e) => setCardZip(e.target.value)}
+                            className="book-field-input"
+                            placeholder="ZIP / Postal Code"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="book-secure-note">
+                        <Lock size={14} />
+                        Payments are secure and encrypted.
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
-              <div className="book-first-visit-row">
-                <p className="book-first-visit-label">Is this your first time here?</p>
-                <div className="book-first-visit-toggles">
-                  <button
-                    onClick={() => setIsFirstVisit(true)}
-                    className={`book-visit-pill ${isFirstVisit === true ? "book-visit-pill--active" : ""}`}
-                  >
-                    Yes
-                  </button>
-                  <button
-                    onClick={() => setIsFirstVisit(false)}
-                    className={`book-visit-pill ${isFirstVisit === false ? "book-visit-pill--active" : ""}`}
-                  >
-                    No
-                  </button>
+              <div className="book-checkout-actions">
+                <button
+                  disabled={!canConfirm}
+                  onClick={() => setConfirmed(true)}
+                  className="book-confirm-btn"
+                >
+                  {isPremium ? `Pay $${selectedServicePrice} & Confirm →` : 'Confirm My Appointment →'}
+                </button>
+                <p className="book-confirm-note">
+                  You'll receive a confirmation email within 5 minutes. Free cancellation up to 24 hours before.
+                </p>
+
+                <div className="book-step-nav book-step-nav--mt-sm">
+                  <button onClick={() => setStep(2)} className="book-back-btn">← Back</button>
                 </div>
-              </div>
-
-              <button
-                disabled={!canConfirm}
-                onClick={() => setConfirmed(true)}
-                className="book-confirm-btn"
-              >
-                Confirm My Appointment →
-              </button>
-              <p className="book-confirm-note">
-                You'll receive a confirmation email within 5 minutes. Free cancellation up to 24 hours before.
-              </p>
-
-              <div className="book-step-nav book-step-nav--mt-sm">
-                <button onClick={() => setStep(2)} className="book-back-btn">← Back</button>
               </div>
             </div>
           )}
@@ -539,6 +687,13 @@ const BookPage = () => {
               <p className="book-success-subtitle">
                 Check your inbox for your confirmation and pre-appointment guide.
               </p>
+              <button
+                onClick={resetBooking}
+                className="book-confirm-btn"
+                style={{ maxWidth: '300px', marginTop: '24px' }}
+              >
+                Book Another Consultation
+              </button>
             </div>
           )}
         </main>

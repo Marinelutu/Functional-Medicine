@@ -245,12 +245,25 @@
 }
 
 /* ── Recommended Protocol Box ── */
+.cm-result-paths {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
 .cm-result-protocol-box {
     background: rgba(201, 168, 76, 0.08);
     border: 1px solid rgba(201, 168, 76, 0.25);
     border-radius: 12px;
     padding: 16px 20px;
-    margin-bottom: 24px;
+}
+
+.cm-result-paths .cm-result-protocol-box {
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .cm-result-protocol-label {
@@ -443,6 +456,11 @@
         max-width: 100%;
     }
     
+    .cm-result-paths {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
     .cm-result-protocol-box {
         width: 100%;
     }

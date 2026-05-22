@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ConsultationModal from "./ConsultationModal";
 
 /* ── Goal → Concern mapping for pre-selecting Step 1 ── */
@@ -21,6 +22,7 @@ const goals = [
 ];
 
 const Hero = () => {
+  const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [preSelectedConcern, setPreSelectedConcern] = useState<string | undefined>(undefined);
   const [animReady, setAnimReady] = useState(false);
@@ -99,9 +101,14 @@ const Hero = () => {
             </div>
 
             {/* CTA */}
-            <button onClick={handleOpenModal} className="hero-cta-primary">
-              Check If You Qualify →
-            </button>
+            <div className="hero-ctas">
+              <button onClick={handleOpenModal} className="hero-cta-primary">
+                Check If You Qualify →
+              </button>
+              <button onClick={() => navigate('/book')} className="hero-cta-secondary" style={{borderColor: 'rgba(201, 168, 76, 0.4)', color: '#C9A84C'}}>
+                Explore Premium Protocols
+              </button>
+            </div>
 
             {/* Social proof */}
             <p className={`hero-social-proof ${animReady ? "hero-anim-active" : ""}`}>

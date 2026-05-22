@@ -275,17 +275,52 @@ const ConsultationModal = ({ isOpen, onClose, preSelectedConcern }: Consultation
                             <strong className="cm-text-dark">{concern}</strong>{" "}
                             program is your strongest starting point. You've clearly been dealing with this long enough — it's time to get real answers.
                         </p>
-                        <div className="cm-result-protocol-box">
-                            <p className="cm-result-protocol-label">Recommended Protocol</p>
-                            <p className="cm-result-protocol-name">{concern}</p>
-                        </div>
-                        <button className="cm-result-btn-primary" onClick={() => handleNavigate("/book")}>
-                            Book Your Assessment →
-                        </button>
-                        <button className="cm-result-btn-secondary" onClick={() => handleNavigate("/services")}>
-                            Explore All Services
-                        </button>
-                        <p className="cm-result-disclaimer">
+                        
+                        {(() => {
+                            const premiumMap: Record<string, string> = {
+                                "Energy & Fatigue": "Comprehensive Biomarker & Blood Panel Analysis",
+                                "Weight & Metabolism": "Hormone Optimization Fast-Track Protocol",
+                                "Hormones & Mood": "Hormone Optimization Fast-Track Protocol",
+                                "Brain Fog & Focus": "Neuro-Metabolic Deep Dive & Action Plan",
+                                "Gut Health": "Advanced Gut Microbiome Mapping",
+                                "Longevity & Aging": "Complete Longevity & Biological Age Assessment"
+                            };
+                            const recommendedPremium = premiumMap[concern];
+                            
+                            return recommendedPremium ? (
+                                <div className="cm-result-paths">
+                                    <div className="cm-result-protocol-box">
+                                        <p className="cm-result-protocol-label">Standard Path</p>
+                                        <p className="cm-result-protocol-name">Free Initial Assessment</p>
+                                        <button className="cm-result-btn-secondary" style={{marginTop: '16px', marginBottom: '0'}} onClick={() => handleNavigate("/book")}>
+                                            Book Assessment
+                                        </button>
+                                    </div>
+                                    <div className="cm-result-protocol-box" style={{borderColor: '#C9A84C', background: 'rgba(201, 168, 76, 0.12)'}}>
+                                        <p className="cm-result-protocol-label" style={{color: '#1C1C1C'}}>Fast-Track Path</p>
+                                        <p className="cm-result-protocol-name" style={{fontSize: '16px'}}>{recommendedPremium}</p>
+                                        <button className="cm-result-btn-primary" style={{marginTop: '16px', marginBottom: '0'}} onClick={() => handleNavigate("/book")}>
+                                            Upgrade & Book Now →
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <>
+                                    <div className="cm-result-protocol-box">
+                                        <p className="cm-result-protocol-label">Recommended Protocol</p>
+                                        <p className="cm-result-protocol-name">{concern}</p>
+                                    </div>
+                                    <button className="cm-result-btn-primary" onClick={() => handleNavigate("/book")}>
+                                        Book Your Assessment →
+                                    </button>
+                                    <button className="cm-result-btn-secondary" onClick={() => handleNavigate("/services")}>
+                                        Explore All Services
+                                    </button>
+                                </>
+                            );
+                        })()}
+                        
+                        <p className="cm-result-disclaimer" style={{marginTop: '16px'}}>
                             Serious inquiries only. Your assessment confirms fit before we begin.
                         </p>
                     </div>
